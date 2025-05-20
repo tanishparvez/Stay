@@ -1,0 +1,2039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KrishnaChura - Stay Stories Santiniketan</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#006400',secondary:'#F4A460'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            color: #333;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        .dropdown {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+        }
+        .dropdown-trigger:hover .dropdown,
+        .dropdown-trigger:focus-within .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: #006400;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        .mobile-menu-item {
+            border-bottom: 1px solid rgba(244, 164, 96, 0.2);
+        }
+        .mobile-dropdown {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .mobile-dropdown.active {
+            max-height: 500px;
+        }
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+        }
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        .carousel-slide.active {
+            opacity: 1;
+        }
+        .date-picker-container {
+            position: relative;
+        }
+        .date-picker-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 10;
+            width: 100%;
+        }
+        .date-picker-dropdown.active {
+            display: block;
+        }
+        .calendar-day {
+            cursor: pointer;
+        }
+        .calendar-day.selected {
+            background-color: #006400;
+            color: white;
+        }
+        .calendar-day.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        .amenity-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 100, 0, 0.1);
+            border-radius: 50%;
+            margin-bottom: 0.5rem;
+        }
+        .custom-checkbox {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #006400;
+            border-radius: 4px;
+            position: relative;
+        }
+        .custom-checkbox.checked::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 6px;
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .custom-checkbox.checked {
+            background-color: #006400;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 200px;
+            gap: 16px;
+        }
+        .gallery-item:nth-child(3n+1) {
+            grid-row: span 2;
+        }
+        .gallery-item:nth-child(4n) {
+            grid-column: span 2;
+        }
+        .sticky-info-bar {
+            position: sticky;
+            top: 80px;
+            z-index: 20;
+        }
+        .custom-range {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #e5e7eb;
+            outline: none;
+        }
+        .custom-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #006400;
+            cursor: pointer;
+        }
+        .custom-range::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #006400;
+            cursor: pointer;
+            border: none;
+        }
+        .custom-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        .custom-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .switch-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #e5e7eb;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        .switch-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .switch-slider {
+            background-color: #006400;
+        }
+        input:checked + .switch-slider:before {
+            transform: translateX(26px);
+        }
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .gallery-item:nth-child(3n+1) {
+                grid-row: span 1;
+            }
+            .gallery-item:nth-child(4n) {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-white">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 bg-white bg-opacity-95 shadow-sm z-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Mobile Menu Button -->
+                <div class="block md:hidden">
+                    <button id="mobile-menu-button" class="w-10 h-10 flex items-center justify-center text-primary">
+                        <i class="ri-menu-line ri-lg"></i>
+                    </button>
+                </div>
+
+                <!-- Left Navigation (Desktop) -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <!-- Contact Button -->
+                    <div class="dropdown-trigger relative">
+                        <button class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Contact</button>
+                        <div class="dropdown absolute top-full left-0 mt-2 bg-white shadow-md rounded p-4 min-w-[200px] z-10">
+                            <p class="text-gray-600 mb-1 text-sm">Call us at:</p>
+                            <p class="text-primary font-medium">+91 98765 43210</p>
+                        </div>
+                    </div>
+
+                    <!-- Prologue -->
+                    <a href="./Prologue.html" class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Prologue</a>
+
+                    <!-- Chapters Dropdown -->
+                    <div class="dropdown-trigger relative">
+                        <button class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Chapters</button>
+                        <div class="dropdown absolute top-full left-0 mt-2 bg-white shadow-md rounded p-4 min-w-[300px] z-10">
+                            <a href="https://readdy.ai/home/35de9430-fe92-4179-a384-0e7c06d2339f/e830f702-db53-4bb5-9585-1630bfae8667" data-readdy="true" class="block py-2 text-primary font-medium hover:text-primary transition-colors">Chapter 1: Stay Stories Santiniketan — KrishnaChura</a>
+                            <a href="#" class="block py-2 text-gray-800 hover:text-primary transition-colors">Chapter 2: Stay Stories Baranti — Lake Hill Villa</a>
+                            <a href="#" class="block py-2 text-gray-500 italic hover:text-primary transition-colors">Chapter 3: Stay Stories Up On The Hill <span class="text-xs ml-2 text-secondary">Being Scripted</span></a>
+                            <a href="#" class="block py-2 text-gray-500 italic hover:text-primary transition-colors">Chapter 4: Stay Stories By The Sea Shore <span class="text-xs ml-2 text-secondary">Being Scripted</span></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Logo -->
+                <div>
+                    <a href="./index.html">
+                        <img src="./Image/Main Logo.png" alt="Logo" class="h-20 object-contain">
+                    </a>
+                </div>
+                <!-- Right Navigation (Desktop) -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <!-- FYI Dropdown -->
+                    <div class="dropdown-trigger relative">
+                        <button class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">FYI</button>
+                        <div class="dropdown absolute top-full right-0 mt-2 bg-white shadow-md rounded p-4 min-w-[200px] z-10">
+                            <a href="#" class="block py-2 text-gray-800 hover:text-primary transition-colors">Terms & Conditions</a>
+                            <a href="#" class="block py-2 text-gray-800 hover:text-primary transition-colors">Cancellation Policy</a>
+                        </div>
+                    </div>
+
+                    <!-- Travel Advisory -->
+                    <a href="#" class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Travel Advisory</a>
+
+                    <!-- Book Now Button -->
+                    <a href="#booking-section" class="whitespace-nowrap !rounded-button px-6 py-2 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 font-medium">Book Now</a>
+                </div>
+
+                <!-- Mobile Right Side -->
+                <div class="flex md:hidden items-center">
+                    <a href="#booking-section" class="whitespace-nowrap !rounded-button px-4 py-1.5 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 text-sm font-medium">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed top-0 left-0 h-full w-4/5 max-w-xs bg-white shadow-lg z-50 mobile-menu overflow-y-auto pt-20 pb-8">
+        <div class="px-6">
+            <!-- Back to Home -->
+            <div class="mobile-menu-item py-4">
+                <a href="https://readdy.ai/home/35de9430-fe92-4179-a384-0e7c06d2339f/e830f702-db53-4bb5-9585-1630bfae8667" data-readdy="true" class="flex items-center text-primary">
+                    <i class="ri-arrow-left-line ri-lg mr-2"></i>
+                    <span class="text-lg font-medium">Back to Home</span>
+                </a>
+            </div>
+            
+            <!-- Contact -->
+            <div class="mobile-menu-item py-4">
+                <button id="mobile-contact-button" class="flex items-center justify-between w-full text-left">
+                    <span class="text-lg font-medium">Contact</span>
+                    <i class="ri-arrow-down-s-line ri-lg"></i>
+                </button>
+                <div id="mobile-contact-dropdown" class="mobile-dropdown pt-2 pl-4">
+                    <p class="text-gray-600 mb-1">Call us at:</p>
+                    <p class="text-primary font-medium">+91 98765 43210</p>
+                </div>
+            </div>
+
+            <!-- Prologue -->
+            <div class="mobile-menu-item py-4">
+                <a href="./Prologue.html" class="block text-lg font-medium">Prologue</a>
+            </div>
+
+            <!-- Chapters Column -->
+            <div>
+                <h3 class="text-xl font-medium text-gray-900 mb-4">Our Chapters</h3>
+                <ul class="space-y-3">
+                    <li><a href="./Chapter-1.html" class="text-gray-600 hover:text-primary transition-colors">KrishnaChura,
+                            Santiniketan</a></li>
+                    <li><a href="./Chapter-2.html" class="text-gray-600 hover:text-primary transition-colors">Lake Hill Villa,
+                            Baranti</a></li>
+                    <li><a href="./Chapter-3.html" class="text-gray-500 italic hover:text-primary transition-colors">Up On The Hill
+                            (Coming Soon)</a></li>
+                    <li><a href="./Chapter-4.html" class="text-gray-500 italic hover:text-primary transition-colors">By The Sea
+                            Shore (Coming Soon)</a></li>
+                </ul>
+            </div>
+            <!-- Information Column -->
+            <div>
+                <h3 class="text-xl font-medium text-gray-900 mb-4">Information</h3>
+                <ul class="space-y-3">
+                    <li><a href="./Prologue.html" class="text-gray-600 hover:text-primary transition-colors">Prologue</a></li>
+                    <li><a href="./Terms.html"
+                            data-readdy="true" class="text-gray-600 hover:text-primary transition-colors">Terms &
+                            Conditions</a></li>
+                    <li><a href="./Cancellation-policy.html" class="text-gray-600 hover:text-primary transition-colors">Cancellation
+                            Policy</a></li>
+                    <li><a href="./travel-advisory.html" class="text-gray-600 hover:text-primary transition-colors">Travel Advisory</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Travel Advisory -->
+            <div class="mobile-menu-item py-4">
+                <a href="#" class="block text-lg font-medium">Travel Advisory</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section with Carousel -->
+    <section class="pt-20 relative h-[80vh] md:h-[90vh]">
+        <div class="carousel-container h-full">
+            <div class="carousel-slide active">
+                <div class="h-full w-full bg-cover bg-center" style="background-image: url('https://readdy.ai/api/search-image?query=A%2520beautiful%2520traditional%2520Bengali-style%2520villa%2520with%2520terracotta%2520roof%2520and%2520white%2520walls%2520surrounded%2520by%2520lush%2520greenery%2520and%2520manicured%2520gardens.%2520The%2520architecture%2520shows%2520intricate%2520details%2520with%2520wooden%2520elements.%2520The%2520scene%2520has%2520warm%2520lighting%2520with%2520soft%2520shadows%252C%2520creating%2520a%2520serene%2520and%2520inviting%2520atmosphere.%2520Professional%2520high-end%2520photography%2520with%2520perfect%2520lighting.&width=1600&height=900&seq=2001&orientation=landscape')"></div>
+            </div>
+            <div class="carousel-slide">
+                <div class="h-full w-full bg-cover bg-center" style="background-image: url('https://readdy.ai/api/search-image?query=Interior%2520of%2520a%2520luxurious%2520Bengali-style%2520villa%2520with%2520elegant%2520furnishings%252C%2520showing%2520a%2520spacious%2520living%2520room%2520with%2520traditional%2520elements%2520like%2520wooden%2520furniture%252C%2520handloom%2520textiles%252C%2520and%2520local%2520artwork.%2520Large%2520windows%2520allow%2520natural%2520light%2520to%2520stream%2520in%252C%2520illuminating%2520the%2520warm%2520earthy%2520tones%2520of%2520the%2520decor.%2520Professional%2520high-end%2520interior%2520photography%2520with%2520perfect%2520lighting.&width=1600&height=900&seq=2002&orientation=landscape')"></div>
+            </div>
+            <div class="carousel-slide">
+                <div class="h-full w-full bg-cover bg-center" style="background-image: url('https://readdy.ai/api/search-image?query=A%2520beautiful%2520outdoor%2520dining%2520area%2520of%2520a%2520Bengali-style%2520villa%2520with%2520a%2520covered%2520terrace%2520overlooking%2520lush%2520gardens.%2520The%2520table%2520is%2520set%2520with%2520traditional%2520pottery%2520and%2520textiles%252C%2520surrounded%2520by%2520comfortable%2520seating.%2520Soft%2520ambient%2520lighting%2520creates%2520a%2520warm%2520and%2520inviting%2520atmosphere%2520for%2520evening%2520dining.%2520Professional%2520high-end%2520photography%2520with%2520perfect%2520lighting.&width=1600&height=900&seq=2003&orientation=landscape')"></div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-0 left-0 right-0 flex justify-center mb-6 z-10">
+            <div class="flex space-x-2">
+                <button class="carousel-dot active w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100 transition-opacity"></button>
+                <button class="carousel-dot w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100 transition-opacity"></button>
+                <button class="carousel-dot w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100 transition-opacity"></button>
+            </div>
+        </div>
+        
+        <button class="carousel-prev absolute top-1/2 left-4 transform -translate-y-1/2 w-10 h-10 rounded-full bg-white bg-opacity-50 flex items-center justify-center hover:bg-opacity-80 transition-all z-10">
+            <i class="ri-arrow-left-s-line ri-lg text-gray-800"></i>
+        </button>
+        
+        <button class="carousel-next absolute top-1/2 right-4 transform -translate-y-1/2 w-10 h-10 rounded-full bg-white bg-opacity-50 flex items-center justify-center hover:bg-opacity-80 transition-all z-10">
+            <i class="ri-arrow-right-s-line ri-lg text-gray-800"></i>
+        </button>
+        
+        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent h-32 opacity-70"></div>
+        
+        <div class="absolute bottom-0 left-0 right-0 p-8 text-white z-10">
+            <div class="container mx-auto">
+                <h1 class="text-4xl md:text-5xl font-semibold mb-2">KrishnaChura</h1>
+                <p class="text-xl opacity-90">A tranquil Bengali retreat in the heart of Santiniketan</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Info Bar -->
+    <section class="bg-white shadow-md sticky-info-bar">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex flex-wrap md:flex-nowrap items-center justify-between py-4">
+                <div class="flex items-center space-x-6">
+                    <div>
+                        <p class="text-gray-600 text-sm">Starting from</p>
+                        <p class="text-2xl font-semibold text-primary">₹8,500<span class="text-sm text-gray-600 font-normal">/night</span></p>
+                    </div>
+                    
+                    <div class="hidden md:block h-12 w-px bg-gray-200"></div>
+                    
+                    <div>
+                        <div class="flex items-center">
+                            <div class="flex text-secondary">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                            </div>
+                            <span class="ml-2 text-gray-700">4.9 (128 reviews)</span>
+                        </div>
+                        <p class="text-gray-600 text-sm">Exceptional hospitality</p>
+                    </div>
+                    
+                    <div class="hidden md:block h-12 w-px bg-gray-200"></div>
+                    
+                    <div>
+                        <div class="flex items-center">
+                            <div class="w-5 h-5 flex items-center justify-center text-primary">
+                                <i class="ri-map-pin-line"></i>
+                            </div>
+                            <span class="ml-1 text-gray-700">Santiniketan, West Bengal</span>
+                        </div>
+                        <p class="text-gray-600 text-sm">3 km from Visva-Bharati University</p>
+                    </div>
+                </div>
+                
+                <a href="#booking-section" class="whitespace-nowrap !rounded-button px-6 py-3 bg-primary text-white hover:bg-opacity-90 transition-colors duration-300 font-medium mt-4 md:mt-0 w-full md:w-auto text-center">Book Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Property Overview -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex flex-col lg:flex-row gap-12">
+                <!-- Left Column - Description -->
+                <div class="lg:w-2/3">
+                    <div class="mb-10">
+                        <h2 class="text-3xl font-semibold text-gray-900 mb-6">About KrishnaChura</h2>
+                        <p class="text-lg text-gray-600 mb-4">Nestled in the cultural heart of Santiniketan, KrishnaChura is a lovingly restored Bengali-style villa that offers an authentic experience of rural Bengal with all modern comforts. Named after the vibrant Krishnachura (Gulmohar) trees that dot the property, this retreat is a celebration of Bengali heritage, art, and hospitality.</p>
+                        <p class="text-lg text-gray-600 mb-4">The architecture reflects traditional Bengali design elements with red oxide floors, terracotta tiles, and handcrafted wooden furniture. Each corner of KrishnaChura tells a story – from the carefully curated local artwork to the handloom textiles that adorn the spaces.</p>
+                        <p class="text-lg text-gray-600">Surrounded by 2 acres of lush gardens with indigenous plants, fruit trees, and flowering shrubs, KrishnaChura provides a serene escape where you can reconnect with nature while immersing yourself in the rich cultural tapestry of Rabindranath Tagore's Santiniketan.</p>
+                    </div>
+                    
+                    <div class="mb-10">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-4">Key Highlights</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 flex items-center justify-center text-primary mr-4 mt-1">
+                                    <i class="ri-home-4-line ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900 mb-1">Authentic Bengali Architecture</h4>
+                                    <p class="text-gray-600">Traditional design with modern amenities</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 flex items-center justify-center text-primary mr-4 mt-1">
+                                    <i class="ri-plant-line ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900 mb-1">Lush Gardens</h4>
+                                    <p class="text-gray-600">2 acres of manicured gardens and fruit orchards</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 flex items-center justify-center text-primary mr-4 mt-1">
+                                    <i class="ri-restaurant-line ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900 mb-1">Farm-to-Table Dining</h4>
+                                    <p class="text-gray-600">Authentic Bengali cuisine using organic ingredients</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 flex items-center justify-center text-primary mr-4 mt-1">
+                                    <i class="ri-palette-line ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900 mb-1">Cultural Experiences</h4>
+                                    <p class="text-gray-600">Baul music performances and art workshops</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-10">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-4">Property Policies</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-medium text-gray-900 mb-2">Check-in & Check-out</h4>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li class="flex items-center">
+                                        <div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
+                                            <i class="ri-time-line"></i>
+                                        </div>
+                                        <span>Check-in: 2:00 PM - 8:00 PM</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
+                                            <i class="ri-time-line"></i>
+                                        </div>
+                                        <span>Check-out: 11:00 AM</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
+                                            <i class="ri-information-line"></i>
+                                        </div>
+                                        <span>Early check-in available upon request</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h4 class="font-medium text-gray-900 mb-2">House Rules</h4>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li class="flex items-center">
+                                        <div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
+                                            <i class="ri-checkbox-circle-line"></i>
+                                        </div>
+                                        <span>No smoking inside the rooms</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
+                                            <i class="ri-checkbox-circle-line"></i>
+                                        </div>
+                                        <span>Pets allowed with prior notice</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
+                                            <i class="ri-checkbox-circle-line"></i>
+                                        </div>
+                                        <span>Quiet hours: 10:00 PM - 7:00 AM</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column - Host Info -->
+                <div class="lg:w-1/3">
+                    <div class="bg-gray-50 rounded-lg p-6 md:p-8">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 rounded-full overflow-hidden mr-4">
+                                <img src="https://readdy.ai/api/search-image?query=Portrait%2520of%2520a%2520professional%2520middle-aged%2520Indian%2520woman%2520with%2520a%2520warm%2520smile%252C%2520wearing%2520elegant%2520traditional%2520clothing.%2520She%2520has%2520a%2520confident%2520and%2520welcoming%2520expression%252C%2520with%2520minimal%2520makeup%2520and%2520simple%2520jewelry.%2520The%2520background%2520is%2520neutral%2520and%2520soft.%2520Professional%2520portrait%2520photography%2520with%2520perfect%2520lighting.&width=200&height=200&seq=2004&orientation=squarish" alt="Anjali Chatterjee" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-900">Anjali Chatterjee</h3>
+                                <p class="text-gray-600">Host since 2019</p>
+                            </div>
+                        </div>
+                        
+                        <p class="text-gray-600 mb-6">Welcome to KrishnaChura! I'm Anjali, a former art curator who fell in love with Santiniketan's cultural heritage. After 15 years in Kolkata's art scene, I decided to create a space where guests can experience the true essence of Bengali hospitality and Tagore's vision.</p>
+                        
+                        <div class="space-y-4 mb-6">
+                            <div class="flex items-center">
+                                <div class="w-5 h-5 flex items-center justify-center text-primary mr-3">
+                                    <i class="ri-message-2-line"></i>
+                                </div>
+                                <span class="text-gray-600">Languages: English, Bengali, Hindi</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-5 h-5 flex items-center justify-center text-primary mr-3">
+                                    <i class="ri-time-line"></i>
+                                </div>
+                                <span class="text-gray-600">Response rate: 98%</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-5 h-5 flex items-center justify-center text-primary mr-3">
+                                    <i class="ri-shield-check-line"></i>
+                                </div>
+                                <span class="text-gray-600">Identity verified</span>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full !rounded-button py-3 border border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 font-medium whitespace-nowrap">Contact Host</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Room Types & Pricing -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <h2 class="text-3xl font-semibold text-gray-900 mb-10 text-center">Accommodations</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Room Type 1 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-sm">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=A%2520luxurious%2520bedroom%2520in%2520a%2520Bengali-style%2520villa%2520with%2520a%2520four-poster%2520bed%2520adorned%2520with%2520handloom%2520textiles.%2520The%2520room%2520features%2520traditional%2520wooden%2520furniture%252C%2520terracotta%2520floors%252C%2520and%2520large%2520windows%2520overlooking%2520a%2520garden.%2520The%2520decor%2520includes%2520local%2520artwork%2520and%2520handicrafts%252C%2520creating%2520an%2520elegant%2520yet%2520authentic%2520atmosphere.%2520Professional%2520high-end%2520interior%2520photography%2520with%2520perfect%2520lighting.&width=600&height=400&seq=2005&orientation=landscape" alt="Garden Suite" class="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-2xl font-semibold text-gray-900">Garden Suite</h3>
+                                <p class="text-gray-600">Spacious suite with garden views</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xl font-semibold text-primary">₹12,500<span class="text-sm text-gray-600 font-normal">/night</span></p>
+                                <p class="text-sm text-green-600">Available</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">1 King Bed</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">650 sq ft</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Garden View</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Private Veranda</span>
+                            </div>
+                            
+                            <p class="text-gray-600">Our premium suite featuring traditional Bengali decor with handcrafted wooden furniture, handloom textiles, and a spacious private veranda overlooking the lush gardens.</p>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-4 items-center">
+                            <a href="#booking-section" class="whitespace-nowrap !rounded-button px-5 py-2 bg-primary text-white hover:bg-opacity-90 transition-colors duration-300 font-medium">Book Now</a>
+                            <button class="whitespace-nowrap !rounded-button px-5 py-2 border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors duration-300 font-medium">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Room Type 2 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-sm">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=A%2520charming%2520bedroom%2520in%2520a%2520Bengali-style%2520villa%2520with%2520twin%2520beds%2520covered%2520in%2520colorful%2520handloom%2520bedspreads.%2520The%2520room%2520features%2520traditional%2520wooden%2520furniture%252C%2520terracotta%2520floors%252C%2520and%2520windows%2520with%2520views%2520of%2520trees.%2520The%2520walls%2520are%2520adorned%2520with%2520local%2520artwork%2520and%2520the%2520space%2520has%2520a%2520warm%252C%2520inviting%2520atmosphere.%2520Professional%2520high-end%2520interior%2520photography%2520with%2520perfect%2520lighting.&width=600&height=400&seq=2006&orientation=landscape" alt="Courtyard Room" class="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-2xl font-semibold text-gray-900">Courtyard Room</h3>
+                                <p class="text-gray-600">Cozy room with courtyard access</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xl font-semibold text-primary">₹8,500<span class="text-sm text-gray-600 font-normal">/night</span></p>
+                                <p class="text-sm text-green-600">Available</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Twin Beds</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">450 sq ft</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Courtyard Access</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Sitting Area</span>
+                            </div>
+                            
+                            <p class="text-gray-600">A charming room with direct access to our central courtyard, featuring twin beds with colorful handloom bedspreads, traditional wooden furniture, and local artwork.</p>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-4 items-center">
+                            <a href="#booking-section" class="whitespace-nowrap !rounded-button px-5 py-2 bg-primary text-white hover:bg-opacity-90 transition-colors duration-300 font-medium">Book Now</a>
+                            <button class="whitespace-nowrap !rounded-button px-5 py-2 border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors duration-300 font-medium">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Room Type 3 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-sm">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=A%2520beautiful%2520terrace%2520room%2520in%2520a%2520Bengali-style%2520villa%2520with%2520a%2520queen%2520bed%2520and%2520elegant%2520furnishings.%2520The%2520room%2520features%2520a%2520private%2520balcony%2520with%2520views%2520of%2520treetops%2520and%2520the%2520sky.%2520The%2520interior%2520has%2520wooden%2520elements%252C%2520handloom%2520textiles%252C%2520and%2520tasteful%2520local%2520art.%2520The%2520space%2520is%2520bright%2520with%2520natural%2520light%2520and%2520has%2520a%2520serene%2520atmosphere.%2520Professional%2520high-end%2520interior%2520photography%2520with%2520perfect%2520lighting.&width=600&height=400&seq=2007&orientation=landscape" alt="Terrace Room" class="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-2xl font-semibold text-gray-900">Terrace Room</h3>
+                                <p class="text-gray-600">Upper floor room with private balcony</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xl font-semibold text-primary">₹10,800<span class="text-sm text-gray-600 font-normal">/night</span></p>
+                                <p class="text-sm text-yellow-600">Limited Availability</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Queen Bed</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">500 sq ft</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Private Balcony</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Treetop Views</span>
+                            </div>
+                            
+                            <p class="text-gray-600">Located on the upper floor, this elegant room features a queen bed, traditional decor, and a private balcony offering serene views of the surrounding treetops.</p>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-4 items-center">
+                            <a href="#booking-section" class="whitespace-nowrap !rounded-button px-5 py-2 bg-primary text-white hover:bg-opacity-90 transition-colors duration-300 font-medium">Book Now</a>
+                            <button class="whitespace-nowrap !rounded-button px-5 py-2 border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors duration-300 font-medium">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Room Type 4 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-sm">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=A%2520family%2520cottage%2520in%2520a%2520Bengali-style%2520villa%2520compound%2520with%2520a%2520spacious%2520interior%2520featuring%2520multiple%2520beds%2520and%2520a%2520living%2520area.%2520The%2520cottage%2520has%2520traditional%2520architecture%2520with%2520modern%2520comforts%252C%2520wooden%2520furniture%252C%2520and%2520colorful%2520textiles.%2520Large%2520windows%2520offer%2520views%2520of%2520the%2520surrounding%2520gardens.%2520The%2520space%2520has%2520a%2520warm%252C%2520homely%2520atmosphere%2520perfect%2520for%2520families.%2520Professional%2520high-end%2520interior%2520photography%2520with%2520perfect%2520lighting.&width=600&height=400&seq=2008&orientation=landscape" alt="Family Cottage" class="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-2xl font-semibold text-gray-900">Family Cottage</h3>
+                                <p class="text-gray-600">Standalone cottage for families</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xl font-semibold text-primary">₹18,200<span class="text-sm text-gray-600 font-normal">/night</span></p>
+                                <p class="text-sm text-red-600">Only 1 Left</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">1 King + 2 Twin Beds</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">850 sq ft</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Private Garden</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Living Area</span>
+                            </div>
+                            
+                            <p class="text-gray-600">A spacious standalone cottage perfect for families, featuring a master bedroom with king bed, a second bedroom with twin beds, a living area, and a private garden space.</p>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-4 items-center">
+                            <a href="#booking-section" class="whitespace-nowrap !rounded-button px-5 py-2 bg-primary text-white hover:bg-opacity-90 transition-colors duration-300 font-medium">Book Now</a>
+                            <button class="whitespace-nowrap !rounded-button px-5 py-2 border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors duration-300 font-medium">View Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Amenities Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 md:px-8">
+            <h2 class="text-3xl font-semibold text-gray-900 mb-10 text-center">Amenities & Services</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <!-- Property Amenities -->
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-6">Property Amenities</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <div class="amenity-icon mr-4">
+                                <i class="ri-wifi-line ri-lg text-primary"></i>
+                            </div>
+                            <span class="text-gray-700">Free Wi-Fi</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="amenity-icon mr-4">
+                                <i class="ri-parking-box-line ri-lg text-primary"></i>
+                            </div>
+                            <span class="text-gray-700">Free Parking</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="amenity-icon mr-4">
+                                <i class="ri-restaurant-line ri-lg text-primary"></i>
+                            </div>
+                            <span class="text-gray-700">On-site Dining</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="amenity-icon mr-4">
+                                <i class="ri-garden-line ri-lg text-primary"></i>
+                            </div>
+                            <span class="text-gray-700">Gardens & Orchards</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="amenity-icon mr-4">
+                                <i class="ri-24-hours-line ri-lg text-primary"></i>
+                            </div>
+                            <span class="text-gray-700">24/7 Security</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Room Amenities -->
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-6">Room Amenities</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <div class="amenity-icon mr-4">
+                                <i class="ri-air-conditioner-line ri-lg text-primary"></i>
+                            </div>
+                            <span class="text-gray-700">Air Conditioning</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="amenity-icon mr-4">
+                                <i class="ri-tv-line ri-lg text-primary"></i>
+                            </div>
+                            <span class="text-gray-700">Smart TV</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="amenity-icon mr-4">
+                                <i class="ri-refrigerator-line ri-lg text-primary"></i>
+                            </div>
+                            <span class="text-gray-700">Mini Refrigerator</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="amenity-icon mr-4">
+                                <i class="ri-cup-line ri-lg text-primary"></i>
+                            </div>
+                            <span class="text-gray-700">Tea/Coffee Maker</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="amenity-icon mr-4">
+                                <i class="ri-safe-line ri-lg text-primary"></i>
+                            </div>
+                            <span class="text-gray-700">In-room Safe</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Special Features -->
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-6">Special Features</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <div class="amenity-icon mr-4">
+                                <i class="ri-book-open-line ri-lg text-primary"></i>
+                            </div>
+                            <span class="text-gray-700">Library</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="amenity-icon mr-4">
+                                <i class="ri-music-line ri-lg text-primary"></i>
+                            </div>
+                            <span class="text-gray-700">Evening Cultural Shows</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="amenity-icon mr-4">
+                                <i class="ri-bike-line ri-lg text-primary"></i>
+                            </div>
+                            <span class="text-gray-700">Bicycle Rentals</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="amenity-icon mr-4">
+                                <i class="ri-palette-line ri-lg text-primary"></i>
+                            </div>
+                            <span class="text-gray-700">Art Workshops</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="amenity-icon mr-4">
+                                <i class="ri-plant-line ri-lg text-primary"></i>
+                            </div>
+                            <span class="text-gray-700">Organic Farm Tour</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Additional Services -->
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-6">Additional Services</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <div class="amenity-icon mr-4">
+                                <i class="ri-car-line ri-lg text-primary"></i>
+                            </div>
+                            <span class="text-gray-700">Airport/Station Transfer</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="amenity-icon mr-4">
+                                <i class="ri-guide-line ri-lg text-primary"></i>
+                            </div>
+                            <span class="text-gray-700">Local Guide</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="amenity-icon mr-4">
+                                <i class="ri-massage-line ri-lg text-primary"></i>
+                            </div>
+                            <span class="text-gray-700">Ayurvedic Massage</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="amenity-icon mr-4">
+                                <i class="ri-calendar-event-line ri-lg text-primary"></i>
+                            </div>
+                            <span class="text-gray-700">Event Planning</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="amenity-icon mr-4">
+                                <i class="ri-group-line ri-lg text-primary"></i>
+                            </div>
+                            <span class="text-gray-700">Cooking Classes</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Surroundings -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <h2 class="text-3xl font-semibold text-gray-900 mb-10 text-center">Location & Surroundings</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Map -->
+                <div class="rounded-lg overflow-hidden h-[400px] relative">
+                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://public.readdy.ai/gen_page/map_placeholder_1280x720.png')"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-12 h-12 flex items-center justify-center text-primary bg-white rounded-full shadow-md">
+                            <i class="ri-map-pin-fill ri-xl"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Location Info -->
+                <div>
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-6">About the Area</h3>
+                    <p class="text-lg text-gray-600 mb-6">KrishnaChura is nestled in the cultural heart of Santiniketan, just 3 kilometers from Visva-Bharati University established by Rabindranath Tagore. The property offers a perfect blend of tranquility and accessibility, surrounded by rural Bengal's natural beauty while remaining close to key attractions.</p>
+                    
+                    <div class="mb-8">
+                        <h4 class="font-medium text-gray-900 mb-3">Distances from Key Locations:</h4>
+                        <ul class="space-y-2">
+                            <li class="flex items-center">
+                                <div class="w-5 h-5 flex items-center justify-center text-primary mr-3">
+                                    <i class="ri-school-line"></i>
+                                </div>
+                                <span class="text-gray-600">Visva-Bharati University: 3 km (10 min drive)</span>
+                            </li>
+                            <li class="flex items-center">
+                                <div class="w-5 h-5 flex items-center justify-center text-primary mr-3">
+                                    <i class="ri-store-2-line"></i>
+                                </div>
+                                <span class="text-gray-600">Sonajhuri Haat (Craft Market): 2.5 km (8 min drive)</span>
+                            </li>
+                            <li class="flex items-center">
+                                <div class="w-5 h-5 flex items-center justify-center text-primary mr-3">
+                                    <i class="ri-train-line"></i>
+                                </div>
+                                <span class="text-gray-600">Bolpur Railway Station: 7 km (20 min drive)</span>
+                            </li>
+                            <li class="flex items-center">
+                                <div class="w-5 h-5 flex items-center justify-center text-primary mr-3">
+                                    <i class="ri-flight-takeoff-line"></i>
+                                </div>
+                                <span class="text-gray-600">Kolkata Airport: 180 km (3.5 hours drive)</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h4 class="font-medium text-gray-900 mb-3">Nearby Attractions:</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded-lg shadow-sm">
+                                <h5 class="font-medium text-gray-900 mb-2">Tagore's Ashram</h5>
+                                <p class="text-gray-600 text-sm">Explore the heritage buildings and museum of Rabindranath Tagore's vision.</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm">
+                                <h5 class="font-medium text-gray-900 mb-2">Sonajhuri Forest</h5>
+                                <p class="text-gray-600 text-sm">Walk among golden Sonajhuri trees and visit the weekly tribal craft market.</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm">
+                                <h5 class="font-medium text-gray-900 mb-2">Kala Bhavan</h5>
+                                <p class="text-gray-600 text-sm">Visit the renowned art school founded by Nandalal Bose.</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm">
+                                <h5 class="font-medium text-gray-900 mb-2">Kopai River</h5>
+                                <p class="text-gray-600 text-sm">Enjoy the serene riverside made famous in Tagore's writings.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-medium text-gray-900 mb-3">Transportation Options:</h4>
+                        <ul class="space-y-2">
+                            <li class="flex items-center">
+                                <div class="w-5 h-5 flex items-center justify-center text-primary mr-3">
+                                    <i class="ri-taxi-line"></i>
+                                </div>
+                                <span class="text-gray-600">Private car service available (additional charges apply)</span>
+                            </li>
+                            <li class="flex items-center">
+                                <div class="w-5 h-5 flex items-center justify-center text-primary mr-3">
+                                    <i class="ri-bike-line"></i>
+                                </div>
+                                <span class="text-gray-600">Complimentary bicycle rentals for guests</span>
+                            </li>
+                            <li class="flex items-center">
+                                <div class="w-5 h-5 flex items-center justify-center text-primary mr-3">
+                                    <i class="ri-e-bike-line"></i>
+                                </div>
+                                <span class="text-gray-600">Electric tuk-tuks available for local transportation</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 md:px-8">
+            <h2 class="text-3xl font-semibold text-gray-900 mb-10 text-center">Photo Gallery</h2>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item rounded-lg overflow-hidden">
+                    <img src="https://readdy.ai/api/search-image?query=Exterior%2520of%2520a%2520beautiful%2520Bengali-style%2520villa%2520with%2520terracotta%2520roof%2520and%2520white%2520walls%2520surrounded%2520by%2520flowering%2520gardens.%2520The%2520architecture%2520shows%2520traditional%2520elements%2520with%2520a%2520veranda%2520and%2520wooden%2520details.%2520The%2520scene%2520is%2520captured%2520in%2520warm%2520morning%2520light%2520creating%2520a%2520peaceful%2520atmosphere.%2520Professional%2520high-end%2520photography%2520with%2520perfect%2520lighting.&width=600&height=800&seq=2009&orientation=portrait" alt="Property Exterior" class="w-full h-full object-cover object-top">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden">
+                    <img src="https://readdy.ai/api/search-image?query=A%2520traditional%2520Bengali%2520dining%2520experience%2520with%2520a%2520table%2520set%2520with%2520authentic%2520dishes%2520served%2520in%2520terracotta%2520and%2520brass%2520utensils.%2520The%2520setting%2520shows%2520colorful%2520textiles%2520and%2520traditional%2520decor%2520elements.%2520The%2520food%2520includes%2520various%2520curries%252C%2520rice%252C%2520and%2520vegetable%2520dishes%2520arranged%2520beautifully.%2520Professional%2520high-end%2520food%2520photography%2520with%2520perfect%2520lighting.&width=400&height=400&seq=2010&orientation=squarish" alt="Bengali Cuisine" class="w-full h-full object-cover object-top">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden">
+                    <img src="https://readdy.ai/api/search-image?query=A%2520luxurious%2520bathroom%2520in%2520a%2520Bengali-style%2520villa%2520featuring%2520modern%2520amenities%2520with%2520traditional%2520touches.%2520The%2520bathroom%2520has%2520a%2520walk-in%2520shower%252C%2520elegant%2520fixtures%252C%2520and%2520natural%2520stone%2520elements.%2520Decorative%2520tiles%2520and%2520handcrafted%2520accessories%2520add%2520cultural%2520character%2520to%2520the%2520space.%2520Professional%2520high-end%2520interior%2520photography%2520with%2520perfect%2520lighting.&width=400&height=400&seq=2011&orientation=squarish" alt="Luxury Bathroom" class="w-full h-full object-cover object-top">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden">
+                    <img src="https://readdy.ai/api/search-image?query=A%2520lush%2520garden%2520in%2520a%2520Bengali-style%2520property%2520with%2520flowering%2520trees%252C%2520including%2520vibrant%2520red%2520Krishnachura%2520%28Gulmohar%29%2520blossoms.%2520The%2520garden%2520features%2520manicured%2520paths%252C%2520seating%2520areas%252C%2520and%2520a%2520variety%2520of%2520tropical%2520plants.%2520The%2520scene%2520is%2520captured%2520in%2520golden%2520hour%2520light%2520creating%2520a%2520magical%2520atmosphere.%2520Professional%2520high-end%2520landscape%2520photography%2520with%2520perfect%2520lighting.&width=800&height=400&seq=2012&orientation=landscape" alt="Property Gardens" class="w-full h-full object-cover object-top">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden">
+                    <img src="https://readdy.ai/api/search-image?query=A%2520cozy%2520reading%2520nook%2520in%2520a%2520Bengali-style%2520villa%2520with%2520a%2520comfortable%2520window%2520seat%2520overlooking%2520gardens.%2520The%2520space%2520features%2520bookshelves%2520with%2520classic%2520and%2520contemporary%2520literature%252C%2520soft%2520cushions%2520with%2520handloom%2520textiles%252C%2520and%2520warm%2520lighting.%2520The%2520atmosphere%2520is%2520peaceful%2520and%2520inviting.%2520Professional%2520high-end%2520interior%2520photography%2520with%2520perfect%2520lighting.&width=400&height=400&seq=2013&orientation=squarish" alt="Reading Nook" class="w-full h-full object-cover object-top">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden">
+                    <img src="https://readdy.ai/api/search-image?query=A%2520traditional%2520Bengali%2520cultural%2520performance%2520taking%2520place%2520in%2520the%2520courtyard%2520of%2520a%2520villa.%2520Musicians%2520playing%2520traditional%2520instruments%2520and%2520performers%2520in%2520colorful%2520attire%2520entertain%2520guests%2520seated%2520in%2520a%2520semicircle.%2520The%2520scene%2520is%2520illuminated%2520by%2520warm%2520lantern%2520light%2520creating%2520a%2520magical%2520atmosphere.%2520Professional%2520high-end%2520event%2520photography%2520with%2520perfect%2520lighting.&width=800&height=400&seq=2014&orientation=landscape" alt="Cultural Performance" class="w-full h-full object-cover object-top">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden">
+                    <img src="https://readdy.ai/api/search-image?query=A%2520serene%2520meditation%2520space%2520in%2520a%2520Bengali-style%2520villa%2520with%2520floor%2520cushions%252C%2520natural%2520materials%252C%2520and%2520minimalist%2520decor.%2520The%2520room%2520has%2520large%2520windows%2520overlooking%2520nature%252C%2520soft%2520natural%2520light%252C%2520and%2520a%2520peaceful%2520atmosphere.%2520Small%2520elements%2520like%2520incense%2520holders%2520and%2520singing%2520bowls%2520add%2520to%2520the%2520tranquil%2520environment.%2520Professional%2520high-end%2520interior%2520photography%2520with%2520perfect%2520lighting.&width=400&height=400&seq=2015&orientation=squarish" alt="Meditation Space" class="w-full h-full object-cover object-top">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden">
+                    <img src="https://readdy.ai/api/search-image?query=An%2520elegant%2520outdoor%2520dining%2520setup%2520in%2520a%2520Bengali-style%2520villa%2520garden%2520with%2520a%2520table%2520arranged%2520under%2520flowering%2520trees.%2520The%2520table%2520is%2520set%2520with%2520fine%2520dinnerware%252C%2520candles%252C%2520and%2520fresh%2520flowers.%2520String%2520lights%2520hang%2520overhead%2520creating%2520a%2520magical%2520atmosphere%2520for%2520evening%2520dining.%2520Professional%2520high-end%2520photography%2520with%2520perfect%2520lighting.&width=600&height=800&seq=2016&orientation=portrait" alt="Outdoor Dining" class="w-full h-full object-cover object-top">
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <button class="whitespace-nowrap !rounded-button px-6 py-3 border border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 font-medium">View All Photos</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guest Reviews -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <h2 class="text-3xl font-semibold text-gray-900 mb-4 text-center">Guest Reviews</h2>
+            <div class="flex items-center justify-center mb-10">
+                <div class="flex text-secondary mr-2">
+                    <i class="ri-star-fill"></i>
+                    <i class="ri-star-fill"></i>
+                    <i class="ri-star-fill"></i>
+                    <i class="ri-star-fill"></i>
+                    <i class="ri-star-fill"></i>
+                </div>
+                <span class="text-xl font-medium">4.9 out of 5</span>
+                <span class="text-gray-600 ml-2">(128 reviews)</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <!-- Rating Categories -->
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-6">Rating Categories</h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-gray-700">Cleanliness</span>
+                                <span class="text-gray-900 font-medium">5.0</span>
+                            </div>
+                            <div class="h-2 bg-gray-200 rounded-full">
+                                <div class="h-2 bg-secondary rounded-full" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-gray-700">Comfort</span>
+                                <span class="text-gray-900 font-medium">4.9</span>
+                            </div>
+                            <div class="h-2 bg-gray-200 rounded-full">
+                                <div class="h-2 bg-secondary rounded-full" style="width: 98%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-gray-700">Location</span>
+                                <span class="text-gray-900 font-medium">4.8</span>
+                            </div>
+                            <div class="h-2 bg-gray-200 rounded-full">
+                                <div class="h-2 bg-secondary rounded-full" style="width: 96%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-gray-700">Facilities</span>
+                                <span class="text-gray-900 font-medium">4.7</span>
+                            </div>
+                            <div class="h-2 bg-gray-200 rounded-full">
+                                <div class="h-2 bg-secondary rounded-full" style="width: 94%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-gray-700">Staff</span>
+                                <span class="text-gray-900 font-medium">5.0</span>
+                            </div>
+                            <div class="h-2 bg-gray-200 rounded-full">
+                                <div class="h-2 bg-secondary rounded-full" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-gray-700">Value for money</span>
+                                <span class="text-gray-900 font-medium">4.8</span>
+                            </div>
+                            <div class="h-2 bg-gray-200 rounded-full">
+                                <div class="h-2 bg-secondary rounded-full" style="width: 96%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Review Highlights -->
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-6">What Guests Love</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 flex items-center justify-center text-secondary mr-4 mt-1">
+                                <i class="ri-double-quotes-l ri-lg"></i>
+                            </div>
+                            <p class="text-gray-600 italic">"The authentic Bengali cuisine was the highlight of our stay. Every meal was a culinary journey through regional flavors."</p>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 flex items-center justify-center text-secondary mr-4 mt-1">
+                                <i class="ri-double-quotes-l ri-lg"></i>
+                            </div>
+                            <p class="text-gray-600 italic">"Anjali and her staff went above and beyond to arrange local experiences that we wouldn't have discovered on our own."</p>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 flex items-center justify-center text-secondary mr-4 mt-1">
+                                <i class="ri-double-quotes-l ri-lg"></i>
+                            </div>
+                            <p class="text-gray-600 italic">"The gardens are absolutely magical, especially in the early morning. So peaceful and beautifully maintained."</p>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 flex items-center justify-center text-secondary mr-4 mt-1">
+                                <i class="ri-double-quotes-l ri-lg"></i>
+                            </div>
+                            <p class="text-gray-600 italic">"The evening Baul music performances under the stars created memories we'll cherish forever."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Detailed Reviews -->
+            <div class="space-y-8">
+                <!-- Review 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                <img src="https://readdy.ai/api/search-image?query=Portrait%2520of%2520a%2520professional%2520Indian%2520man%2520in%2520his%252040s%2520with%2520a%2520friendly%2520smile%2520and%2520glasses.%2520He%2520is%2520wearing%2520a%2520casual%2520button-up%2520shirt%2520and%2520has%2520a%2520well-groomed%2520appearance.%2520The%2520background%2520is%2520neutral%2520and%2520soft.%2520Professional%2520portrait%2520photography%2520with%2520perfect%2520lighting.&width=200&height=200&seq=2017&orientation=squarish" alt="Rajiv Mehta" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-900">Rajiv Mehta</h4>
+                                <p class="text-gray-500 text-sm">Visited April 2025</p>
+                            </div>
+                        </div>
+                        <div class="flex text-secondary">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-600 mb-4">"Our family of four spent three magical days at KrishnaChura, and it exceeded all expectations. The Family Cottage was spacious, beautifully decorated, and perfect for our needs. What truly sets this place apart is the genuine warmth of Anjali and her team. From arranging a private Baul music performance to organizing a pottery workshop for our children, every detail was thoughtfully curated.</p>
+                    
+                    <p class="text-gray-600 mb-4">The food deserves special mention - authentic Bengali cuisine prepared with fresh ingredients from their organic garden. The fish curry and mishti doi were particular favorites!</p>
+                    
+                    <p class="text-gray-600">We've already booked our return visit for the Poush Mela festival in December. KrishnaChura isn't just accommodation; it's an immersive cultural experience."</p>
+                    
+                    <div class="flex gap-2 mt-4">
+                        <div class="w-20 h-20 rounded overflow-hidden">
+                            <img src="https://readdy.ai/api/search-image?query=A%2520family%2520enjoying%2520a%2520traditional%2520Bengali%2520meal%2520served%2520on%2520banana%2520leaves%2520in%2520a%2520beautiful%2520garden%2520setting.%2520The%2520image%2520shows%2520adults%2520and%2520children%2520sitting%2520together%2520with%2520various%2520dishes%2520spread%2520out%2520before%2520them.%2520The%2520atmosphere%2520is%2520warm%2520and%2520joyful.%2520Professional%2520candid%2520photography%2520with%2520perfect%2520lighting.&width=200&height=200&seq=2018&orientation=squarish" alt="Review Photo" class="w-full h-full object-cover">
+                        </div>
+                        <div class="w-20 h-20 rounded overflow-hidden">
+                            <img src="https://readdy.ai/api/search-image?query=Children%2520participating%2520in%2520a%2520pottery%2520workshop%2520in%2520a%2520traditional%2520setting%252C%2520learning%2520to%2520make%2520clay%2520items%2520with%2520an%2520instructor.%2520The%2520children%2520are%2520focused%2520on%2520their%2520work%2520with%2520expressions%2520of%2520concentration%2520and%2520joy.%2520The%2520scene%2520is%2520bright%2520and%2520cheerful.%2520Professional%2520candid%2520photography%2520with%2520perfect%2520lighting.&width=200&height=200&seq=2019&orientation=squarish" alt="Review Photo" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Review 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                <img src="https://readdy.ai/api/search-image?query=Portrait%2520of%2520a%2520professional%2520Indian%2520woman%2520in%2520her%252030s%2520with%2520a%2520confident%2520smile.%2520She%2520has%2520shoulder-length%2520dark%2520hair%2520and%2520is%2520wearing%2520a%2520simple%2520elegant%2520outfit.%2520The%2520background%2520is%2520neutral%2520and%2520soft.%2520Professional%2520portrait%2520photography%2520with%2520perfect%2520lighting.&width=200&height=200&seq=2020&orientation=squarish" alt="Priya Sharma" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-900">Priya Sharma</h4>
+                                <p class="text-gray-500 text-sm">Visited March 2025</p>
+                            </div>
+                        </div>
+                        <div class="flex text-secondary">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-600 mb-4">"As a writer seeking inspiration, KrishnaChura provided the perfect retreat. I stayed in the Terrace Room for a week, and the peaceful environment was exactly what I needed to complete my manuscript. The private balcony became my favorite spot for morning writing sessions, with birds singing in the background and the scent of jasmine in the air.</p>
+                    
+                    <p class="text-gray-600 mb-4">The library was a wonderful surprise - well-stocked with works by Tagore and other Bengali authors. Anjali's knowledge of local literature and culture added depth to my understanding of Santiniketan's significance.</p>
+                    
+                    <p class="text-gray-600">The evening walks through the property's gardens, followed by dinner under the stars, created a rhythm to my days that was both productive and rejuvenating. KrishnaChura isn't just a place to stay; it's a place to connect with Bengali culture and yourself."</p>
+                </div>
+                
+                <!-- Review 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                <img src="https://readdy.ai/api/search-image?query=Portrait%2520of%2520a%2520professional%2520middle-aged%2520couple%2520with%2520friendly%2520smiles.%2520They%2520are%2520well-dressed%2520in%2520casual%2520elegant%2520clothing%2520and%2520appear%2520to%2520be%2520in%2520their%252050s.%2520The%2520background%2520is%2520neutral%2520and%2520soft.%2520Professional%2520portrait%2520photography%2520with%2520perfect%2520lighting.&width=200&height=200&seq=2021&orientation=squarish" alt="Anil and Sunita Kapoor" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-900">Anil and Sunita Kapoor</h4>
+                                <p class="text-gray-500 text-sm">Visited February 2025</p>
+                            </div>
+                        </div>
+                        <div class="flex text-secondary">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-600 mb-4">"We celebrated our 30th wedding anniversary at KrishnaChura, and it was the perfect choice for this special occasion. We stayed in the Garden Suite, which was luxurious yet authentically Bengali in its aesthetics. The four-poster bed with handloom canopy and the private veranda overlooking flowering gardens created a romantic atmosphere.</p>
+                    
+                    <p class="text-gray-600 mb-4">Anjali arranged a surprise anniversary dinner for us in a secluded corner of the garden, complete with traditional musicians and the most exquisite Bengali feast. Her attention to detail made our celebration truly memorable.</p>
+                    
+                    <p class="text-gray-600">The guided tour of Santiniketan's cultural landmarks with a knowledgeable local guide was another highlight. We left with beautiful memories and a deeper appreciation for Bengali heritage and Tagore's vision."</p>
+                    
+                    <div class="flex gap-2 mt-4">
+                        <div class="w-20 h-20 rounded overflow-hidden">
+                            <img src="https://readdy.ai/api/search-image?query=A%2520romantic%2520dinner%2520setup%2520in%2520a%2520garden%2520with%2520candles%252C%2520flowers%252C%2520and%2520elegant%2520table%2520settings.%2520The%2520scene%2520is%2520captured%2520at%2520twilight%2520with%2520soft%2520lighting%2520creating%2520an%2520intimate%2520atmosphere.%2520Two%2520glasses%2520of%2520wine%2520and%2520beautifully%2520presented%2520food%2520are%2520visible%2520on%2520the%2520table.%2520Professional%2520photography%2520with%2520perfect%2520lighting.&width=200&height=200&seq=2022&orientation=squarish" alt="Review Photo" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <button class="whitespace-nowrap !rounded-button px-6 py-3 border border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 font-medium">Read All 128 Reviews</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <!-- <section id="booking-section" class="py-16">
+        <div class="container mx-auto px-4 md:px-8">
+            <h2 class="text-3xl font-semibold text-gray-900 mb-10 text-center">Book Your Stay</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8"> -->
+                <!-- Booking Form -->
+                <!-- <div class="lg:col-span-2">
+                    <div class="bg-white rounded-lg shadow-sm p-6 md:p-8">
+                        <form> -->
+                            <!-- Dates -->
+                            <!-- <div class="mb-6">
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4">Select Dates</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="date-picker-container">
+                                        <label class="block text-gray-700 mb-2">Check-in Date</label>
+                                        <div class="relative">
+                                            <input type="text" id="check-in-date" class="w-full px-4 py-3 border border-gray-300 rounded focus:border-primary focus:outline-none" placeholder="Select date" readonly>
+                                            <div class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+                                                <i class="ri-calendar-line"></i>
+                                            </div>
+                                        </div>
+                                        <div id="check-in-calendar" class="date-picker-dropdown bg-white border border-gray-200 rounded-lg shadow-lg p-4">
+                                            <div class="flex justify-between items-center mb-4">
+                                                <button type="button" class="text-gray-600 hover:text-primary">
+                                                    <i class="ri-arrow-left-s-line ri-lg"></i>
+                                                </button>
+                                                <h4 class="font-medium">April 2025</h4>
+                                                <button type="button" class="text-gray-600 hover:text-primary">
+                                                    <i class="ri-arrow-right-s-line ri-lg"></i>
+                                                </button>
+                                            </div>
+                                            <div class="grid grid-cols-7 gap-1">
+                                                <div class="text-center text-sm text-gray-600 py-1">Su</div>
+                                                <div class="text-center text-sm text-gray-600 py-1">Mo</div>
+                                                <div class="text-center text-sm text-gray-600 py-1">Tu</div>
+                                                <div class="text-center text-sm text-gray-600 py-1">We</div>
+                                                <div class="text-center text-sm text-gray-600 py-1">Th</div>
+                                                <div class="text-center text-sm text-gray-600 py-1">Fr</div>
+                                                <div class="text-center text-sm text-gray-600 py-1">Sa</div>
+                                                
+                                                <div class="calendar-day disabled text-center py-2 text-sm rounded-full">30</div>
+                                                <div class="calendar-day disabled text-center py-2 text-sm rounded-full">31</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">1</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">2</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">3</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">4</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">5</div>
+                                                
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">6</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">7</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">8</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">9</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">10</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">11</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">12</div>
+                                                
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">13</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">14</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">15</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">16</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">17</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">18</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">19</div>
+                                                
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">20</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">21</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">22</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">23</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">24</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">25</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">26</div>
+                                                
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">27</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">28</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">29</div>
+                                                <div class="calendar-day selected text-center py-2 text-sm rounded-full">30</div>
+                                                <div class="calendar-day disabled text-center py-2 text-sm rounded-full">1</div>
+                                                <div class="calendar-day disabled text-center py-2 text-sm rounded-full">2</div>
+                                                <div class="calendar-day disabled text-center py-2 text-sm rounded-full">3</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="date-picker-container">
+                                        <label class="block text-gray-700 mb-2">Check-out Date</label>
+                                        <div class="relative">
+                                            <input type="text" id="check-out-date" class="w-full px-4 py-3 border border-gray-300 rounded focus:border-primary focus:outline-none" placeholder="Select date" readonly>
+                                            <div class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+                                                <i class="ri-calendar-line"></i>
+                                            </div>
+                                        </div>
+                                        <div id="check-out-calendar" class="date-picker-dropdown bg-white border border-gray-200 rounded-lg shadow-lg p-4">
+                                            <div class="flex justify-between items-center mb-4">
+                                                <button type="button" class="text-gray-600 hover:text-primary">
+                                                    <i class="ri-arrow-left-s-line ri-lg"></i>
+                                                </button>
+                                                <h4 class="font-medium">May 2025</h4>
+                                                <button type="button" class="text-gray-600 hover:text-primary">
+                                                    <i class="ri-arrow-right-s-line ri-lg"></i>
+                                                </button>
+                                            </div>
+                                            <div class="grid grid-cols-7 gap-1">
+                                                <div class="text-center text-sm text-gray-600 py-1">Su</div>
+                                                <div class="text-center text-sm text-gray-600 py-1">Mo</div>
+                                                <div class="text-center text-sm text-gray-600 py-1">Tu</div>
+                                                <div class="text-center text-sm text-gray-600 py-1">We</div>
+                                                <div class="text-center text-sm text-gray-600 py-1">Th</div>
+                                                <div class="text-center text-sm text-gray-600 py-1">Fr</div>
+                                                <div class="text-center text-sm text-gray-600 py-1">Sa</div>
+                                                
+                                                <div class="calendar-day disabled text-center py-2 text-sm rounded-full">27</div>
+                                                <div class="calendar-day disabled text-center py-2 text-sm rounded-full">28</div>
+                                                <div class="calendar-day disabled text-center py-2 text-sm rounded-full">29</div>
+                                                <div class="calendar-day disabled text-center py-2 text-sm rounded-full">30</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">1</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">2</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">3</div>
+                                                
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">4</div>
+                                                <div class="calendar-day selected text-center py-2 text-sm rounded-full">5</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">6</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">7</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">8</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">9</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">10</div>
+                                                
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">11</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">12</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">13</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">14</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">15</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">16</div>
+                                                <div class="calendar-day text-center py-2 text-sm rounded-full hover:bg-gray-100">17</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            
+                            <!-- Room Selection -->
+                            <!-- <div class="mb-6">
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4">Select Room</h3>
+                                <div class="space-y-3">
+                                    <div class="flex items-center p-3 border border-gray-200 rounded hover:border-primary transition-colors">
+                                        <div class="mr-3">
+                                            <div id="room-checkbox-1" class="custom-checkbox"></div>
+                                        </div>
+                                        <div class="flex-grow">
+                                            <h4 class="font-medium text-gray-900">Garden Suite</h4>
+                                            <p class="text-sm text-gray-600">Spacious suite with garden views</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="font-medium text-primary">₹12,500<span class="text-sm text-gray-600 font-normal">/night</span></p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-center p-3 border border-gray-200 rounded hover:border-primary transition-colors">
+                                        <div class="mr-3">
+                                            <div id="room-checkbox-2" class="custom-checkbox checked"></div>
+                                        </div>
+                                        <div class="flex-grow">
+                                            <h4 class="font-medium text-gray-900">Courtyard Room</h4>
+                                            <p class="text-sm text-gray-600">Cozy room with courtyard access</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="font-medium text-primary">₹8,500<span class="text-sm text-gray-600 font-normal">/night</span></p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-center p-3 border border-gray-200 rounded hover:border-primary transition-colors">
+                                        <div class="mr-3">
+                                            <div id="room-checkbox-3" class="custom-checkbox"></div>
+                                        </div>
+                                        <div class="flex-grow">
+                                            <h4 class="font-medium text-gray-900">Terrace Room</h4>
+                                            <p class="text-sm text-gray-600">Upper floor room with private balcony</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="font-medium text-primary">₹10,800<span class="text-sm text-gray-600 font-normal">/night</span></p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-center p-3 border border-gray-200 rounded hover:border-primary transition-colors">
+                                        <div class="mr-3">
+                                            <div id="room-checkbox-4" class="custom-checkbox"></div>
+                                        </div>
+                                        <div class="flex-grow">
+                                            <h4 class="font-medium text-gray-900">Family Cottage</h4>
+                                            <p class="text-sm text-gray-600">Standalone cottage for families</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="font-medium text-primary">₹18,200<span class="text-sm text-gray-600 font-normal">/night</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            
+                            <!-- Guests -->
+                            <!-- <div class="mb-6">
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4">Guests</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-gray-700 mb-2">Adults</label>
+                                        <div class="flex items-center">
+                                            <button type="button" class="w-10 h-10 flex items-center justify-center border border-gray-300 rounded-l text-gray-600 hover:bg-gray-100">
+                                                <i class="ri-subtract-line"></i>
+                                            </button>
+                                            <input type="text" value="2" class="w-16 h-10 border-t border-b border-gray-300 text-center text-gray-700 focus:outline-none">
+                                            <button type="button" class="w-10 h-10 flex items-center justify-center border border-gray-300 rounded-r text-gray-600 hover:bg-gray-100">
+                                                <i class="ri-add-line"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-gray-700 mb-2">Children</label>
+                                        <div class="flex items-center">
+                                            <button type="button" class="w-10 h-10 flex items-center justify-center border border-gray-300 rounded-l text-gray-600 hover:bg-gray-100">
+                                                <i class="ri-subtract-line"></i>
+                                            </button>
+                                            <input type="text" value="0" class="w-16 h-10 border-t border-b border-gray-300 text-center text-gray-700 focus:outline-none">
+                                            <button type="button" class="w-10 h-10 flex items-center justify-center border border-gray-300 rounded-r text-gray-600 hover:bg-gray-100">
+                                                <i class="ri-add-line"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            
+                            <!-- Add-ons -->
+                            <!-- <div class="mb-6">
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4">Additional Services</h3>
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-between p-3 border border-gray-200 rounded hover:border-primary transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="mr-3">
+                                                <div id="addon-checkbox-1" class="custom-checkbox"></div>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-medium text-gray-900">Airport Transfer</h4>
+                                                <p class="text-sm text-gray-600">Private car from Kolkata Airport</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="font-medium text-gray-900">₹4,500</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between p-3 border border-gray-200 rounded hover:border-primary transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="mr-3">
+                                                <div id="addon-checkbox-2" class="custom-checkbox checked"></div>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-medium text-gray-900">Cultural Experience</h4>
+                                                <p class="text-sm text-gray-600">Private Baul music performance</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="font-medium text-gray-900">₹2,800</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between p-3 border border-gray-200 rounded hover:border-primary transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="mr-3">
+                                                <div id="addon-checkbox-3" class="custom-checkbox"></div>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-medium text-gray-900">Guided Tour</h4>
+                                                <p class="text-sm text-gray-600">Full-day tour of Santiniketan with local guide</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="font-medium text-gray-900">₹3,200</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            
+                            <!-- Special Requests -->
+                            <!-- <div class="mb-6">
+                                <label class="block text-gray-700 mb-2">Special Requests</label>
+                                <textarea class="w-full px-4 py-3 border border-gray-300 rounded focus:border-primary focus:outline-none h-32" placeholder="Please let us know if you have any special requests or dietary requirements..."></textarea>
+                            </div> -->
+                            
+                            <!-- Terms -->
+                            <!-- <div class="mb-6">
+                                <div class="flex items-start">
+                                    <div class="mr-3 mt-1">
+                                        <div id="terms-checkbox" class="custom-checkbox checked"></div>
+                                    </div>
+                                    <p class="text-gray-600 text-sm">I agree to the <a href="#" class="text-primary hover:underline">Terms & Conditions</a> and <a href="#" class="text-primary hover:underline">Cancellation Policy</a>. I understand that a 50% deposit is required to confirm my booking.</p>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="w-full !rounded-button py-4 bg-primary text-white hover:bg-opacity-90 transition-colors duration-300 font-medium text-lg whitespace-nowrap">Proceed to Payment</button>
+                        </form>
+                    </div>
+                </div> -->
+                
+                <!-- Booking Summary -->
+                <!-- <div>
+                    <div class="bg-white rounded-lg shadow-sm p-6 md:p-8 sticky top-32">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-6">Booking Summary</h3>
+                        
+                        <div class="space-y-4 mb-6">
+                            <div class="flex items-center">
+                                <div class="w-5 h-5 flex items-center justify-center text-primary mr-3">
+                                    <i class="ri-calendar-check-line"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-700 font-medium">April 30 - May 5, 2025</p>
+                                    <p class="text-gray-600 text-sm">5 nights</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="w-5 h-5 flex items-center justify-center text-primary mr-3">
+                                    <i class="ri-hotel-bed-line"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-700 font-medium">Courtyard Room</p>
+                                    <p class="text-gray-600 text-sm">2 adults</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="w-5 h-5 flex items-center justify-center text-primary mr-3">
+                                    <i class="ri-music-line"></i>
+                                </div>
+                                <p class="text-gray-700">Cultural Experience</p>
+                            </div>
+                        </div>
+                        
+                        <div class="border-t border-gray-200 pt-4 mb-6">
+                            <div class="space-y-2">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Room (5 nights × ₹8,500)</span>
+                                    <span class="text-gray-900">₹42,500</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Cultural Experience</span>
+                                    <span class="text-gray-900">₹2,800</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Taxes & Fees (18%)</span>
+                                    <span class="text-gray-900">₹8,154</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="border-t border-gray-200 pt-4 mb-6">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-900 font-semibold">Total</span>
+                                <span class="text-2xl text-primary font-semibold">₹53,454</span>
+                            </div>
+                            <p class="text-gray-500 text-sm mt-1">50% deposit required: ₹26,727</p>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="w-5 h-5 flex items-center justify-center text-green-600 mr-2">
+                                    <i class="ri-shield-check-line"></i>
+                                </div>
+                                <span class="text-gray-600 text-sm">Secure payment</span>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="w-5 h-5 flex items-center justify-center text-green-600 mr-2">
+                                    <i class="ri-refund-2-line"></i>
+                                </div>
+                                <span class="text-gray-600 text-sm">Free cancellation until April 15, 2025</span>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="w-5 h-5 flex items-center justify-center text-green-600 mr-2">
+                                    <i class="ri-customer-service-2-line"></i>
+                                </div>
+                                <span class="text-gray-600 text-sm">24/7 customer support</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Similar Properties -->
+    <!-- <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <h2 class="text-3xl font-semibold text-gray-900 mb-10 text-center">Similar Properties You May Like</h2>
+            
+            <div class="flex overflow-x-auto pb-6 -mx-4 px-4 space-x-6"> -->
+                <!-- Property 1 -->
+                <!-- <div class="min-w-[300px] md:min-w-[350px] bg-white rounded-lg shadow-sm overflow-hidden flex-shrink-0">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=A%2520stunning%2520lakeside%2520villa%2520with%2520panoramic%2520views%2520of%2520hills%2520and%2520water.%2520The%2520architecture%2520is%2520modern%2520yet%2520rustic%2520with%2520large%2520windows%2520reflecting%2520the%2520scenery.%2520The%2520property%2520has%2520a%2520private%2520deck%2520extending%2520toward%2520the%2520lake%2520with%2520comfortable%2520seating.%2520The%2520scene%2520has%2520warm%2520golden%2520hour%2520lighting%2520creating%2520a%2520peaceful%2520ambiance.%2520Professional%2520high-end%2520photography%2520with%2520perfect%2520lighting.&width=400&height=300&seq=2023&orientation=landscape" alt="Lake Hill Villa" class="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-1">Lake Hill Villa</h3>
+                        <p class="text-gray-600 text-sm mb-2">Baranti, West Bengal</p>
+                        <div class="flex items-center mb-3">
+                            <div class="flex text-secondary text-sm">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                            </div>
+                            <span class="text-xs text-gray-600 ml-1">(96 reviews)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-primary font-medium">From ₹12,200/night</span>
+                            <a href="#" class="whitespace-nowrap !rounded-button px-4 py-1.5 border border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 text-sm">View Details</a>
+                        </div>
+                    </div>
+                </div> -->
+                
+                <!-- Property 2 -->
+                <!-- <div class="min-w-[300px] md:min-w-[350px] bg-white rounded-lg shadow-sm overflow-hidden flex-shrink-0">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=A%2520charming%2520heritage%2520bungalow%2520in%2520a%2520tea%2520garden%2520setting%2520with%2520colonial%2520architecture.%2520The%2520building%2520has%2520a%2520wraparound%2520veranda%252C%2520sloped%2520roof%252C%2520and%2520is%2520surrounded%2520by%2520manicured%2520lawns%2520and%2520tea%2520bushes.%2520The%2520scene%2520has%2520misty%2520morning%2520light%2520creating%2520a%2520nostalgic%2520atmosphere.%2520Professional%2520high-end%2520photography%2520with%2520perfect%2520lighting.&width=400&height=300&seq=2024&orientation=landscape" alt="Tea Garden Bungalow" class="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-1">Tea Garden Bungalow</h3>
+                        <p class="text-gray-600 text-sm mb-2">Darjeeling, West Bengal</p>
+                        <div class="flex items-center mb-3">
+                            <div class="flex text-secondary text-sm">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-half-fill"></i>
+                            </div>
+                            <span class="text-xs text-gray-600 ml-1">(78 reviews)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-primary font-medium">From ₹15,800/night</span>
+                            <a href="#" class="whitespace-nowrap !rounded-button px-4 py-1.5 border border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 text-sm">View Details</a>
+                        </div>
+                    </div>
+                </div> -->
+                
+                <!-- Property 3 -->
+                <!-- <div class="min-w-[300px] md:min-w-[350px] bg-white rounded-lg shadow-sm overflow-hidden flex-shrink-0">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=A%2520beautiful%2520riverside%2520cottage%2520with%2520thatched%2520roof%2520and%2520natural%2520stone%2520walls.%2520The%2520cottage%2520has%2520a%2520wooden%2520deck%2520extending%2520over%2520a%2520gentle%2520flowing%2520river%2520with%2520comfortable%2520seating.%2520The%2520surrounding%2520area%2520has%2520lush%2520greenery%2520and%2520flowering%2520plants.%2520The%2520scene%2520has%2520late%2520afternoon%2520light%2520creating%2520a%2520peaceful%2520atmosphere.%2520Professional%2520high-end%2520photography%2520with%2520perfect%2520lighting.&width=400&height=300&seq=2025&orientation=landscape" alt="Riverside Retreat" class="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-1">Riverside Retreat</h3>
+                        <p class="text-gray-600 text-sm mb-2">Mandarmani, West Bengal</p>
+                        <div class="flex items-center mb-3">
+                            <div class="flex text-secondary text-sm">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-line"></i>
+                            </div>
+                            <span class="text-xs text-gray-600 ml-1">(62 reviews)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-primary font-medium">From ₹9,800/night</span>
+                            <a href="#" class="whitespace-nowrap !rounded-button px-4 py-1.5 border border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 text-sm">View Details</a>
+                        </div>
+                    </div>
+                </div> -->
+                
+                <!-- Property 4 -->
+                <!-- <div class="min-w-[300px] md:min-w-[350px] bg-white rounded-lg shadow-sm overflow-hidden flex-shrink-0">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=A%2520luxurious%2520beach%2520villa%2520with%2520contemporary%2520architecture%2520and%2520large%2520glass%2520windows%2520overlooking%2520the%2520sea.%2520The%2520property%2520has%2520a%2520private%2520infinity%2520pool%2520that%2520appears%2520to%2520merge%2520with%2520the%2520ocean%2520horizon.%2520Palm%2520trees%2520and%2520tropical%2520plants%2520surround%2520the%2520property.%2520The%2520scene%2520has%2520sunset%2520lighting%2520creating%2520a%2520romantic%2520atmosphere.%2520Professional%2520high-end%2520photography%2520with%2520perfect%2520lighting.&width=400&height=300&seq=2026&orientation=landscape" alt="Seaside Sanctuary" class="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-1">Seaside Sanctuary</h3>
+                        <p class="text-gray-600 text-sm mb-2">Digha, West Bengal</p>
+                        <div class="flex items-center mb-3">
+                            <div class="flex text-secondary text-sm">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-half-fill"></i>
+                            </div>
+                            <span class="text-xs text-gray-600 ml-1">(84 reviews)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-primary font-medium">From ₹14,500/night</span>
+                            <a href="#" class="whitespace-nowrap !rounded-button px-4 py-1.5 border border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 text-sm">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 pt-16 pb-8">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- Brand Column -->
+                <div>
+                    <a href="./index.html">
+                        <img src="./Image/Main Logo.png" alt="Logo" class="h-20 mb-6">
+                      </a>
+                    <p class="text-gray-600 mb-6">Crafting memorable stays that tell stories of places, people, and experiences.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 flex items-center justify-center text-primary hover:text-secondary transition-colors">
+                            <i class="ri-instagram-line ri-lg"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center text-primary hover:text-secondary transition-colors">
+                            <i class="ri-facebook-line ri-lg"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center text-primary hover:text-secondary transition-colors">
+                            <i class="ri-twitter-x-line ri-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Chapters Column -->
+                <div>
+                    <h3 class="text-xl font-medium text-gray-900 mb-4">Our Chapters</h3>
+                    <ul class="space-y-3">
+                        <li><a href="https://readdy.ai/home/35de9430-fe92-4179-a384-0e7c06d2339f/e830f702-db53-4bb5-9585-1630bfae8667" data-readdy="true" class="text-primary font-medium hover:text-primary transition-colors">KrishnaChura, Santiniketan</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">Lake Hill Villa, Baranti</a></li>
+                        <li><a href="#" class="text-gray-500 italic hover:text-primary transition-colors">Up On The Hill (Coming Soon)</a></li>
+                        <li><a href="#" class="text-gray-500 italic hover:text-primary transition-colors">By The Sea Shore (Coming Soon)</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Information Column -->
+                <div>
+                    <h3 class="text-xl font-medium text-gray-900 mb-4">Information</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">Prologue</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">Terms & Conditions</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">Cancellation Policy</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">Travel Advisory</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Column -->
+                <div>
+                    <h3 class="text-xl font-medium text-gray-900 mb-4">Contact Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center text-primary mr-3 mt-1">
+                                <i class="ri-map-pin-line"></i>
+                            </div>
+                            <span class="text-gray-600">42 Park Street, Kolkata, West Bengal, India - 700016</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center text-primary mr-3 mt-1">
+                                <i class="ri-phone-line"></i>
+                            </div>
+                            <span class="text-gray-600">+91 98765 43210</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center text-primary mr-3 mt-1">
+                                <i class="ri-mail-line"></i>
+                            </div>
+                            <span class="text-gray-600">hello@staystories.in</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 Stay Stories. All rights reserved.</p>
+                    <div class="flex items-center space-x-6">
+                        <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                            <i class="ri-visa-line ri-lg"></i>
+                        </div>
+                        <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                            <i class="ri-mastercard-line ri-lg"></i>
+                        </div>
+                        <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                            <i class="ri-paypal-line ri-lg"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile dropdown toggles
+            const mobileContactButton = document.getElementById('mobile-contact-button');
+            const mobileContactDropdown = document.getElementById('mobile-contact-dropdown');
+            
+            mobileContactButton.addEventListener('click', function() {
+                mobileContactDropdown.classList.toggle('active');
+                mobileContactButton.querySelector('i').classList.toggle('ri-arrow-down-s-line');
+                mobileContactButton.querySelector('i').classList.toggle('ri-arrow-up-s-line');
+            });
+            
+            const mobileChaptersButton = document.getElementById('mobile-chapters-button');
+            const mobileChaptersDropdown = document.getElementById('mobile-chapters-dropdown');
+            
+            mobileChaptersButton.addEventListener('click', function() {
+                mobileChaptersDropdown.classList.toggle('active');
+                mobileChaptersButton.querySelector('i').classList.toggle('ri-arrow-down-s-line');
+                mobileChaptersButton.querySelector('i').classList.toggle('ri-arrow-up-s-line');
+            });
+            
+            const mobileFyiButton = document.getElementById('mobile-fyi-button');
+            const mobileFyiDropdown = document.getElementById('mobile-fyi-dropdown');
+            
+            mobileFyiButton.addEventListener('click', function() {
+                mobileFyiDropdown.classList.toggle('active');
+                mobileFyiButton.querySelector('i').classList.toggle('ri-arrow-down-s-line');
+                mobileFyiButton.querySelector('i').classList.toggle('ri-arrow-up-s-line');
+            });
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Image carousel
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.carousel-dot');
+            const prevButton = document.querySelector('.carousel-prev');
+            const nextButton = document.querySelector('.carousel-next');
+            let currentSlide = 0;
+            
+            function showSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active', 'bg-white', 'opacity-100'));
+                dots.forEach(dot => dot.classList.add('bg-white', 'opacity-50'));
+                
+                slides[index].classList.add('active');
+                dots[index].classList.add('active', 'bg-white', 'opacity-100');
+                
+                currentSlide = index;
+            }
+            
+            function nextSlide() {
+                let next = currentSlide + 1;
+                if (next >= slides.length) next = 0;
+                showSlide(next);
+            }
+            
+            function prevSlide() {
+                let prev = currentSlide - 1;
+                if (prev < 0) prev = slides.length - 1;
+                showSlide(prev);
+            }
+            
+            // Set up dot click handlers
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => showSlide(index));
+            });
+            
+            // Set up arrow click handlers
+            if (prevButton) prevButton.addEventListener('click', prevSlide);
+            if (nextButton) nextButton.addEventListener('click', nextSlide);
+            
+            // Auto advance slides
+            setInterval(nextSlide, 5000);
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Date picker functionality
+            const checkInDateInput = document.getElementById('check-in-date');
+            const checkOutDateInput = document.getElementById('check-out-date');
+            const checkInCalendar = document.getElementById('check-in-calendar');
+            const checkOutCalendar = document.getElementById('check-out-calendar');
+            
+            // Initialize with sample dates
+            checkInDateInput.value = 'April 30, 2025';
+            checkOutDateInput.value = 'May 5, 2025';
+            
+            checkInDateInput.addEventListener('click', function(e) {
+                e.stopPropagation();
+                checkInCalendar.classList.toggle('active');
+                if (checkOutCalendar.classList.contains('active')) {
+                    checkOutCalendar.classList.remove('active');
+                }
+            });
+            
+            checkOutDateInput.addEventListener('click', function(e) {
+                e.stopPropagation();
+                checkOutCalendar.classList.toggle('active');
+                if (checkInCalendar.classList.contains('active')) {
+                    checkInCalendar.classList.remove('active');
+                }
+            });
+            
+            // Calendar day selection
+            const calendarDays = document.querySelectorAll('.calendar-day:not(.disabled)');
+            calendarDays.forEach(day => {
+                day.addEventListener('click', function() {
+                    const isCheckIn = this.closest('#check-in-calendar');
+                    const isCheckOut = this.closest('#check-out-calendar');
+                    
+                    if (isCheckIn) {
+                        checkInDateInput.value = `April ${this.textContent}, 2025`;
+                        checkInCalendar.classList.remove('active');
+                    } else if (isCheckOut) {
+                        checkOutDateInput.value = `May ${this.textContent}, 2025`;
+                        checkOutCalendar.classList.remove('active');
+                    }
+                    
+                    // Update selected day
+                    const calendar = this.closest('.date-picker-dropdown');
+                    const previousSelected = calendar.querySelector('.calendar-day.selected');
+                    if (previousSelected) {
+                        previousSelected.classList.remove('selected');
+                    }
+                    this.classList.add('selected');
+                });
+            });
+            
+            // Close calendars when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!checkInDateInput.contains(e.target) && !checkInCalendar.contains(e.target)) {
+                    checkInCalendar.classList.remove('active');
+                }
+                if (!checkOutDateInput.contains(e.target) && !checkOutCalendar.contains(e.target)) {
+                    checkOutCalendar.classList.remove('active');
+                }
+            });
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Custom checkbox functionality
+            const checkboxes = document.querySelectorAll('.custom-checkbox');
+            
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('click', function() {
+                    this.classList.toggle('checked');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon - Lake Hill Villa, Baranti</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#006400',
+                        secondary: '#F4A460'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            color: #333;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        .dropdown {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+        }
+        .dropdown-trigger:hover .dropdown,
+        .dropdown-trigger:focus-within .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: #006400;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        .mobile-menu-item {
+            border-bottom: 1px solid rgba(244, 164, 96, 0.2);
+        }
+        .mobile-dropdown {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .mobile-dropdown.active {
+            max-height: 500px;
+        }
+        /* Background and Animations */
+        .parallax-bg {
+            background: linear-gradient(rgba(0, 100, 0, 0.4), rgba(0, 100, 0, 0.4)), url('./Image/chapter2.jpg') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+            overflow: hidden;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .subscribe-form {
+            transition: transform 0.3s ease;
+        }
+        .subscribe-form:hover {
+            transform: translateY(-5px);
+        }
+        .social-icon {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        .social-icon:hover {
+            transform: scale(1.2);
+            color: #F4A460;
+        }
+        /* Carousel */
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            height: 400px;
+            border-radius: 16px;
+        }
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+            background-size: cover;
+            background-position: center;
+        }
+        .carousel-slide.active {
+            opacity: 1;
+        }
+        /* Particles */
+        #particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .particle {
+            position: absolute;
+            background: rgba(244, 164, 96, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        /* Feature Grid */
+        .feature-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        /* Logo Alignment */
+        header .flex.items-center.justify-between {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        header .flex.items-center.justify-center {
+            flex: 1;
+            max-width: 200px;
+        }
+        header img {
+            max-height: 80px;
+            width: auto;
+        }
+        @media (max-width: 768px) {
+            header .flex.items-center.justify-center {
+                flex: 0;
+                max-width: 150px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 bg-white bg-opacity-95 shadow-sm z-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Mobile Menu Button -->
+                <div class="block md:hidden">
+                    <button id="mobile-menu-button" class="w-10 h-10 flex items-center justify-center text-primary">
+                        <i class="ri-menu-line ri-lg"></i>
+                    </button>
+                </div>
+
+                <!-- Left Navigation (Desktop) -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <!-- Contact Button -->
+                    <div class="dropdown-trigger relative">
+                        <button class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Contact</button>
+                        <div class="dropdown absolute top-full left-0 mt-2 bg-white shadow-md rounded p-4 min-w-[200px] z-10">
+                            <p class="text-gray-600 mb-1 text-sm">Call us at:</p>
+                            <p class="text-primary font-medium">+91 98765 43210</p>
+                        </div>
+                    </div>
+
+                    <!-- Prologue -->
+                    <a href="./Prologue.html" class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Prologue</a>
+
+
+                    <!-- Chapters Dropdown -->
+                    <div class="dropdown-trigger relative">
+                        <button class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Chapters</button>
+                        <div class="dropdown absolute top-full left-0 mt-2 bg-white shadow-md rounded p-4 min-w-[300px] z-10">
+                            <a href="./Chapter-1.html" data-readdy="true" class="block py-2 text-gray-800 hover:text-primary transition-colors">Chapter 1: Stay Stories Santiniketan — KrishnaChura</a>
+                            <a href="./Chapter-2.html" class="block py-2 text-primary font-medium hover:text-primary transition-colors">Chapter 2: Stay Stories Baranti — Lake Hill Villa</a>
+                            <a href="./Chapter-3.html" class="block py-2 text-gray-500 italic hover:text-primary transition-colors">Chapter 3: Stay Stories Up On The Hill <span class="text-xs ml-2 text-secondary">Being Scripted</span></a>
+                            <a href="./Chapter-4.html" class="block py-2 text-gray-500 italic hover:text-primary transition-colors">Chapter 4: Stay Stories By The Sea Shore <span class="text-xs ml-2 text-secondary">Being Scripted</span></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Logo (Centered) -->
+                <div class="flex items-center justify-center">
+                    <a href="./index.html">
+                        <img src="./Image/Main Logo.png" alt="Stay Stories Logo" class="h-20 object-contain">
+                    </a>
+                </div>
+
+                <!-- Right Navigation (Desktop) -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <!-- FYI Dropdown -->
+                    <div class="dropdown-trigger relative">
+                        <button class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">FYI</button>
+                        <div class="dropdown absolute top-full right-0 mt-2 bg-white shadow-md rounded p-4 min-w-[200px] z-10">
+                            <a href="./Terms.html" class="block py-2 text-gray-800 hover:text-primary transition-colors">Terms & Conditions</a>
+                            <a href="./Cancellation-policy.html" class="block py-2 text-gray-800 hover:text-primary transition-colors">Cancellation Policy</a>
+                        </div>
+                    </div>
+
+                    <!-- Travel Advisory -->
+                    <a href="./travel-advisory.html" class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Travel Advisory</a>
+
+                    <!-- Book Now Button -->
+                    <a href="./book-now.html" class="whitespace-nowrap !rounded-button px-6 py-2 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 font-medium">Book Now</a>
+                </div>
+
+                <!-- Mobile Right Side -->
+                <div class="flex md:hidden items-center">
+                    <a href="./book-now.html" class="whitespace-nowrap !rounded-button px-4 py-1.5 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 text-sm font-medium">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed top-0 left-0 h-full w-4/5 max-w-xs bg-white shadow-lg z-50 mobile-menu overflow-y-auto pt-20 pb-8">
+        <div class="px-6">
+            <!-- Back to Home -->
+            <div class="mobile-menu-item py-4">
+                <a href="./index.html" data-readdy="true" class="flex items-center text-primary">
+                    <i class="ri-arrow-left-line ri-lg mr-2"></i>
+                    <span class="text-lg font-medium">Back to Home</span>
+                </a>
+            </div>
+            
+            <!-- Contact -->
+            <div class="mobile-menu-item py-4">
+                <button id="mobile-contact-button" class="flex items-center justify-between w-full text-left">
+                    <span class="text-lg font-medium">Contact</span>
+                    <i class="ri-arrow-down-s-line ri-lg"></i>
+                </button>
+                <div id="mobile-contact-dropdown" class="mobile-dropdown pt-2 pl-4">
+                    <p class="text-gray-600 mb-1">Call us at:</p>
+                    <p class="text-primary font-medium">+91 98765 43210</p>
+                </div>
+            </div>
+
+            <!-- Prologue -->
+            <div class="mobile-menu-item py-4">
+                <a href="./Prologue.html" class="block text-lg font-medium">Prologue</a>
+            </div>
+
+            <!-- Chapters Column -->
+            <div>
+                <h3 class="text-xl font-medium text-gray-900 mb-4">Our Chapters</h3>
+                <ul class="space-y-3">
+                    <li><a href="./Chapter-1.html" class="text-gray-600 hover:text-primary transition-colors">KrishnaChura, Santiniketan</a></li>
+                    <li><a href="./Chapter-2.html" class="text-primary font-medium hover:text-primary transition-colors">Lake Hill Villa, Baranti</a></li>
+                    <li><a href="./Chapter-3.html" class="text-gray-500 italic hover:text-primary transition-colors">Up On The Hill (Coming Soon)</a></li>
+                    <li><a href="./Chapter-4.html" class="text-gray-500 italic hover:text-primary transition-colors">By The Sea Shore (Coming Soon)</a></li>
+                </ul>
+            </div>
+            <!-- Information Column -->
+            <div>
+                <h3 class="text-xl font-medium text-gray-900 mb-4">Information</h3>
+                <ul class="space-y-3">
+                    <li><a href="./Prologue.html" class="text-gray-600 hover:text-primary transition-colors">Prologue</a></li>
+                    <li><a href="./Terms.html" data-readdy="true" class="text-gray-600 hover:text-primary transition-colors">Terms & Conditions</a></li>
+                    <li><a href="./Cancellation-policy.html" class="text-gray-600 hover:text-primary transition-colors">Cancellation Policy</a></li>
+                    <li><a href="./travel-advisory.html" class="text-gray-600 hover:text-primary transition-colors">Travel Advisory</a></li>
+                </ul>
+            </div>
+
+            <!-- Travel Advisory -->
+            <div class="mobile-menu-item py-4">
+                <a href="./travel-advisory.html" class="block text-lg font-medium">Travel Advisory</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="parallax-bg pt-20">
+        <!-- Hero Section -->
+        <section class="flex items-center min-h-screen relative">
+            <div id="particles"></div>
+            <div class="container mx-auto px-4 md:px-8 text-center text-white">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6 fade-in" style="animation-delay: 0.2s;">A New Chapter Awaits</h1>
+                <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8 fade-in" style="animation-delay: 0.4s;">Join us as we unveil the next story at Lake Hill Villa, Baranti. A serene escape by the lake awaits.</p>
+
+                <!-- Carousel -->
+                <!-- <div class="max-w-4xl mx-auto mb-10 fade-in carousel-container" style="animation-delay: 0.6s;">
+                    <div class="carousel-slide" style="background-image: url('./Image/lake-hill-villa.jpg');"></div>
+                    <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1519985176271-adb1088fa94c?q=80&w=2070&auto=format&fit=crop');"></div>
+                    <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1501785887-3a3544a4e2e2?q=80&w=2070&auto=format&fit=crop');"></div>
+                </div> -->
+
+                <!-- Subscription Form -->
+                <div class="max-w-md mx-auto fade-in subscribe-form" style="animation-delay: 0.8s;">
+                    <p class="text-lg mb-4">Be the first to know when we launch!</p>
+                    <form id="subscribe-form" class="flex">
+                        <input 
+                            type="email" 
+                            placeholder="Enter your email" 
+                            class="flex-1 p-3 rounded-l-md border-2 border-r-0 border-white bg-white bg-opacity-90 text-gray-800 focus:outline-none focus:ring-2 focus:ring-secondary" 
+                            required
+                        >
+                        <button 
+                            type="submit" 
+                            class="px-6 py-3 bg-primary text-white rounded-r-md hover:bg-secondary transition-colors"
+                        >
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Social Media Icons -->
+                <div class="flex justify-center space-x-6 mt-10 fade-in" style="animation-delay: 1s;">
+                    <a href="#" class="social-icon text-2xl"><i class="ri-instagram-line"></i></a>
+                    <a href="#" class="social-icon text-2xl"><i class="ri-facebook-line"></i></a>
+                    <a href="#" class="social-icon text-2xl"><i class="ri-twitter-x-line"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sneak Peek Section -->
+        <section class="bg-gray-100 py-16">
+            <div class="container mx-auto px-4 md:px-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary text-center mb-12 fade-in">Sneak Peek at Lake Hill Villa</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="feature-card bg-white rounded-lg p-6 text-center fade-in" style="animation-delay: 0.2s;">
+                        <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center bg-primary text-white rounded-full">
+                            <i class="ri-home-heart-line ri-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-medium mb-2">Lakeside Serenity</h3>
+                        <p class="text-gray-600">Relax in cozy villas with stunning views of Baranti’s tranquil lake.</p>
+                    </div>
+                    <div class="feature-card bg-white rounded-lg p-6 text-center fade-in" style="animation-delay: 0.4s;">
+                        <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center bg-primary text-white rounded-full">
+                            <i class="ri-leaf-line ri-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-medium mb-2">Hilltop Bliss</h3>
+                        <p class="text-gray-600">Embrace nature with breathtaking hillscapes and fresh mountain air.</p>
+                    </div>
+                    <div class="feature-card bg-white rounded-lg p-6 text-center fade-in" style="animation-delay: 0.6s;">
+                        <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center bg-primary text-white rounded-full">
+                            <i class="ri-walk-line ri-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-medium mb-2">Adventure Awaits</h3>
+                        <p class="text-gray-600">Explore Baranti’s trails, forests, and local culture at your pace.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 pt-16 pb-8">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- Brand Column -->
+                <div>
+                    <a href="./index.html">
+                        <img src="./Image/Main Logo.png" alt="Logo" class="h-20 mb-6">
+                    </a>
+                    <p class="text-gray-600 mb-6">Crafting memorable stays that tell stories of places, people, and experiences.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 flex items-center justify-center text-primary hover:text-secondary transition-colors">
+                            <i class="ri-instagram-line ri-lg"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center text-primary hover:text-secondary transition-colors">
+                            <i class="ri-facebook-line ri-lg"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center text-primary hover:text-secondary transition-colors">
+                            <i class="ri-twitter-x-line ri-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Chapters Column -->
+                <div>
+                    <h3 class="text-xl font-medium text-gray-900 mb-4">Our Chapters</h3>
+                    <ul class="space-y-3">
+                        <li><a href="./Chapter-1.html" data-readdy="true" class="text-gray-600 hover:text-primary transition-colors">KrishnaChura, Santiniketan</a></li>
+                        <li><a href="./Chapter-2.html" class="text-primary font-medium hover:text-primary transition-colors">Lake Hill Villa, Baranti (Coming Soon)</a></li>
+                        <li><a href="./Chapter-3.html" class="text-gray-500 italic hover:text-primary transition-colors">Up On The Hill (Coming Soon)</a></li>
+                        <li><a href="./Chapter-4.html" class="text-gray-500 italic hover:text-primary transition-colors">By The Sea Shore (Coming Soon)</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Information Column -->
+                <div>
+                    <h3 class="text-xl font-medium text-gray-900 mb-4">Information</h3>
+                    <ul class="space-y-3">
+                        <li><a href="./Prologue.html" class="text-gray-600 hover:text-primary transition-colors">Prologue</a></li>
+                        <li><a href="./Terms.html" data-readdy="true" class="text-gray-600 hover:text-primary transition-colors">Terms & Conditions</a></li>
+                        <li><a href="./Cancellation-policy.html" class="text-gray-600 hover:text-primary transition-colors">Cancellation Policy</a></li>
+                        <li><a href="./travel-advisory.html" class="text-gray-600 hover:text-primary transition-colors">Travel Advisory</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Column -->
+                <div>
+                    <h3 class="text-xl font-medium text-gray-900 mb-4">Contact Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center text-primary mr-3 mt-1">
+                                <i class="ri-map-pin-line"></i>
+                            </div>
+                            <span class="text-gray-600">42 Park Street, Kolkata, West Bengal, India - 700016</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center text-primary mr-3 mt-1">
+                                <i class="ri-phone-line"></i>
+                            </div>
+                            <span class="text-gray-600">+91 98765 43210</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center text-primary mr-3 mt-1">
+                                <i class="ri-mail-line"></i>
+                            </div>
+                            <span class="text-gray-600">hello@staystories.in</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 Stay Stories. All rights reserved.</p>
+                    <div class="flex items-center space-x-6">
+                        <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                            <i class="ri-visa-line ri-lg"></i>
+                        </div>
+                        <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                            <i class="ri-mastercard-line ri-lg"></i>
+                        </div>
+                        <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                            <i class="ri-paypal-line ri-lg"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Menu, Carousel, Particles, Parallax, and Form -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Mobile Contact Dropdown
+        const mobileContactButton = document.getElementById('mobile-contact-button');
+        const mobileContactDropdown = document.getElementById('mobile-contact-dropdown');
+        mobileContactButton.addEventListener('click', () => {
+            mobileContactDropdown.classList.toggle('active');
+        });
+
+        // Carousel
+        const slides = document.querySelectorAll('.carousel-slide');
+        let currentSlide = 0;
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+        }
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+        showSlide(currentSlide);
+        setInterval(nextSlide, 5000);
+
+        // Particles Animation
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.width = `${Math.random() * 10 + 5}px`;
+                particle.style.height = particle.style.width;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 10}s`;
+                particlesContainer.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Parallax Effect
+        window.addEventListener('scroll', () => {
+            const parallax = document.querySelector('.parallax-bg');
+            let scrollPosition = window.pageYOffset;
+            parallax.style.backgroundPositionY = `${scrollPosition * 0.5}px`;
+        });
+
+        // Subscription Form Handler
+        const subscribeForm = document.getElementById('subscribe-form');
+        subscribeForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = subscribeForm.querySelector('input[type="email"]').value;
+            alert(`Thank you for subscribing with ${email}! We’ll notify you soon.`);
+            subscribeForm.reset();
+        });
+    </script>
+</body>
+</html>

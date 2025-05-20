@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions - Stay Stories</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { primary: '#006400', secondary: '#F4A460' }, borderRadius: { 'none': '0px', 'sm': '4px', DEFAULT: '8px', 'md': '12px', 'lg': '16px', 'xl': '20px', '2xl': '24px', '3xl': '32px', 'full': '9999px', 'button': '8px' } } } }</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            color: #333;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .dropdown {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+        }
+
+        .dropdown-trigger:hover .dropdown,
+        .dropdown-trigger:focus-within .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: #006400;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu-item {
+            border-bottom: 1px solid rgba(244, 164, 96, 0.2);
+        }
+
+        .mobile-dropdown {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .mobile-dropdown.active {
+            max-height: 500px;
+        }
+
+        .terms-section {
+            transition: all 0.3s ease;
+        }
+
+        .terms-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .terms-section-header {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .terms-section-header:hover {
+            color: #006400;
+        }
+
+        .terms-section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .terms-section-content.active {
+            max-height: 2000px;
+        }
+
+        .terms-section-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .terms-section-icon.active {
+            transform: rotate(180deg);
+        }
+
+        .back-to-top {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-white">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 bg-white bg-opacity-95 shadow-sm z-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Mobile Menu Button -->
+                <div class="block md:hidden">
+                    <button id="mobile-menu-button" class="w-10 h-10 flex items-center justify-center text-primary">
+                        <i class="ri-menu-line ri-lg"></i>
+                    </button>
+                </div>
+                <!-- Left Navigation (Desktop) -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <!-- Contact Button -->
+                    <div class="dropdown-trigger relative">
+                        <button
+                            class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Contact</button>
+                        <div
+                            class="dropdown absolute top-full left-0 mt-2 bg-white shadow-md rounded p-4 min-w-[200px] z-10">
+                            <p class="text-gray-600 mb-1 text-sm">Call us at:</p>
+                            <p class="text-primary font-medium">+91 98765 43210</p>
+                        </div>
+                    </div>
+                    <!-- Prologue -->
+                    <a href="./Prologue.html" data-readdy="true"
+                        class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Prologue</a>
+                    <!-- Chapters Dropdown -->
+                    <div class="dropdown-trigger relative">
+                        <button
+                            class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Chapters</button>
+                        <div
+                            class="dropdown absolute top-full left-0 mt-2 bg-white shadow-md rounded p-4 min-w-[300px] z-10">
+                            <a href="https://readdy.ai/home/35de9430-fe92-4179-a384-0e7c06d2339f/4c92bb9e-c682-4e86-80a9-04d6c7795ec6"
+                                data-readdy="true"
+                                class="block py-2 text-gray-800 hover:text-primary transition-colors">Chapter 1: Stay
+                                Stories Santiniketan — KrishnaChura</a>
+                            <a href="#" class="block py-2 text-gray-800 hover:text-primary transition-colors">Chapter 2:
+                                Stay Stories Baranti — Lake Hill Villa</a>
+                            <a href="#"
+                                class="block py-2 text-gray-500 italic hover:text-primary transition-colors">Chapter 3:
+                                Stay Stories Up On The Hill <span class="text-xs ml-2 text-secondary">Being
+                                    Scripted</span></a>
+                            <a href="#"
+                                class="block py-2 text-gray-500 italic hover:text-primary transition-colors">Chapter 4:
+                                Stay Stories By The Sea Shore <span class="text-xs ml-2 text-secondary">Being
+                                    Scripted</span></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Logo -->
+                <div>
+                    <a href="./index.html">
+                        <img src="./Image/Main Logo.png" alt="Logo" class="h-20 object-contain">
+                    </a>
+                </div>
+                <!-- Right Navigation (Desktop) -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <!-- FYI Dropdown -->
+                    <div class="dropdown-trigger relative">
+                        <button class="nav-link text-lg font-medium text-primary transition-colors">FYI</button>
+                        <div
+                            class="dropdown absolute top-full right-0 mt-2 bg-white shadow-md rounded p-4 min-w-[200px] z-10">
+                            <a href="#" class="block py-2 text-primary hover:text-primary transition-colors">Terms &
+                                Conditions</a>
+                            <a href="#"
+                                class="block py-2 text-gray-800 hover:text-primary transition-colors">Cancellation
+                                Policy</a>
+                        </div>
+                    </div>
+                    <!-- Travel Advisory -->
+                    <a href="#"
+                        class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Travel
+                        Advisory</a>
+                    <!-- Book Now Button -->
+                    <a href="#"
+                        class="whitespace-nowrap !rounded-button px-6 py-2 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 font-medium">Book
+                        Now</a>
+                </div>
+                <!-- Mobile Right Side -->
+                <div class="flex md:hidden items-center">
+                    <a href="#"
+                        class="whitespace-nowrap !rounded-button px-4 py-1.5 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 text-sm font-medium">Book
+                        Now</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu"
+        class="fixed top-0 left-0 h-full w-4/5 max-w-xs bg-white shadow-lg z-50 mobile-menu overflow-y-auto pt-20 pb-8">
+        <div class="px-6">
+            <!-- Contact -->
+            <div class="mobile-menu-item py-4">
+                <button id="mobile-contact-button" class="flex items-center justify-between w-full text-left">
+                    <span class="text-lg font-medium">Contact</span>
+                    <i class="ri-arrow-down-s-line ri-lg"></i>
+                </button>
+                <div id="mobile-contact-dropdown" class="mobile-dropdown pt-2 pl-4">
+                    <p class="text-gray-600 mb-1">Call us at:</p>
+                    <p class="text-primary font-medium">+91 98765 43210</p>
+                </div>
+            </div>
+            <!-- Prologue -->
+            <div class="mobile-menu-item py-4">
+                <a href="./Prologue.html" data-readdy="true"
+                    class="block text-lg font-medium text-gray-800">Prologue</a>
+            </div>
+            <!-- Chapters -->
+            <div class="mobile-menu-item py-4">
+                <button id="mobile-chapters-button" class="flex items-center justify-between w-full text-left">
+                    <span class="text-lg font-medium">Chapters</span>
+                    <i class="ri-arrow-down-s-line ri-lg"></i>
+                </button>
+                <div id="mobile-chapters-dropdown" class="mobile-dropdown pt-2 pl-4">
+                    <a href="https://readdy.ai/home/35de9430-fe92-4179-a384-0e7c06d2339f/4c92bb9e-c682-4e86-80a9-04d6c7795ec6"
+                        data-readdy="true" class="block py-2 text-gray-800">Chapter 1: Stay Stories Santiniketan —
+                        KrishnaChura</a>
+                    <a href="#" class="block py-2 text-gray-800">Chapter 2: Stay Stories Baranti — Lake Hill Villa</a>
+                    <a href="#" class="block py-2 text-gray-500 italic">Chapter 3: Stay Stories Up On The Hill <span
+                            class="text-xs ml-2 text-secondary">Being Scripted</span></a>
+                    <a href="#" class="block py-2 text-gray-500 italic">Chapter 4: Stay Stories By The Sea Shore <span
+                            class="text-xs ml-2 text-secondary">Being Scripted</span></a>
+                </div>
+            </div>
+            <!-- FYI -->
+            <div class="mobile-menu-item py-4">
+                <button id="mobile-fyi-button" class="flex items-center justify-between w-full text-left">
+                    <span class="text-lg font-medium">FYI</span>
+                    <i class="ri-arrow-down-s-line ri-lg"></i>
+                </button>
+                <div id="mobile-fyi-dropdown" class="mobile-dropdown pt-2 pl-4 active">
+                    <a href="./Terms.html" class="block py-2 text-primary">Terms & Conditions</a>
+                    <a href="./Cancellation-policy.html" class="block py-2 text-gray-800">Cancellation Policy</a>
+                </div>
+            </div>
+            <!-- Travel Advisory -->
+            <div class="mobile-menu-item py-4">
+                <a href="#" class="block text-lg font-medium">Travel Advisory</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms & Conditions Hero Section -->
+    <section class="pt-32 pb-16 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex items-center text-sm text-gray-500 mb-6">
+                    <a href="https://readdy.ai/home/35de9430-fe92-4179-a384-0e7c06d2339f/1c0a27f4-19b5-459d-a69c-5f09d1ea841c"
+                        data-readdy="true" class="hover:text-primary transition-colors flex items-center">
+                        <i class="ri-arrow-left-line mr-2"></i>
+                        <span>Back to Previous Page</span>
+                    </a>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-semibold text-primary mb-6 leading-tight">Terms & Conditions</h1>
+                <p class="text-xl text-gray-700 mb-8">This document outlines the terms and conditions that govern your
+                    use of Stay Stories' services and properties. By making a reservation with us, you acknowledge that
+                    you have read, understood, and agree to be bound by these terms.</p>
+                <p class="text-xl text-gray-700 mb-8">Last updated: April 29, 2025</p>
+                <div class="flex flex-wrap gap-4 mb-10">
+                    <a href="#booking-policies"
+                        class="whitespace-nowrap !rounded-button px-4 py-2 bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors text-sm">Booking
+                        Policies</a>
+                    <a href="#payment-terms"
+                        class="whitespace-nowrap !rounded-button px-4 py-2 bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors text-sm">Payment
+                        Terms</a>
+                    <a href="#cancellation-rules"
+                        class="whitespace-nowrap !rounded-button px-4 py-2 bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors text-sm">Cancellation
+                        Rules</a>
+                    <a href="#property-usage"
+                        class="whitespace-nowrap !rounded-button px-4 py-2 bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors text-sm">Property
+                        Usage</a>
+                    <a href="#liability"
+                        class="whitespace-nowrap !rounded-button px-4 py-2 bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors text-sm">Liability
+                        Limitations</a>
+                    <a href="#privacy"
+                        class="whitespace-nowrap !rounded-button px-4 py-2 bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors text-sm">Privacy
+                        Practices</a>
+                    <a href="#intellectual-property"
+                        class="whitespace-nowrap !rounded-button px-4 py-2 bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors text-sm">Intellectual
+                        Property</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terms & Conditions Content Section -->
+    <section class="py-12">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="max-w-4xl mx-auto">
+                <!-- Booking Policies Section -->
+                <div id="booking-policies" class="terms-section mb-12 bg-white rounded-lg shadow-sm p-6 md:p-8">
+                    <div class="terms-section-header flex items-center justify-between cursor-pointer">
+                        <h2 class="text-2xl md:text-3xl font-semibold text-gray-900">Booking Policies</h2>
+                        <div class="w-8 h-8 flex items-center justify-center text-primary terms-section-icon">
+                            <i class="ri-arrow-down-s-line ri-lg"></i>
+                        </div>
+                    </div>
+                    <div class="terms-section-content active mt-6">
+                        <h3 class="text-xl font-medium text-primary mb-4">1.1 Reservation Process</h3>
+                        <p class="text-lg text-gray-700 mb-4">Reservations at Stay Stories properties can be made
+                            through our official website, authorized travel partners, or by contacting our reservation
+                            team directly. All reservations are subject to availability and confirmation.</p>
+                        <p class="text-lg text-gray-700 mb-6">Upon confirmation of your reservation, you will receive a
+                            booking confirmation via email containing all relevant details of your stay. Please review
+                            this information carefully and contact us immediately if any corrections are needed.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">1.2 Age Requirements</h3>
+                        <p class="text-lg text-gray-700 mb-6">Guests making a reservation must be at least 18 years of
+                            age. Stay Stories reserves the right to request proof of age upon check-in.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">1.3 Guest Information</h3>
+                        <p class="text-lg text-gray-700 mb-4">When making a reservation, guests are required to provide
+                            accurate and complete information, including:</p>
+                        <ul class="list-disc pl-8 mb-6 text-lg text-gray-700 space-y-2">
+                            <li>Full name as it appears on government-issued identification</li>
+                            <li>Valid contact information (phone number and email address)</li>
+                            <li>Arrival and departure dates</li>
+                            <li>Number of guests</li>
+                            <li>Special requests or requirements</li>
+                        </ul>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">1.4 Check-in and Check-out Times</h3>
+                        <p class="text-lg text-gray-700 mb-4">Standard check-in time is 2:00 PM, and check-out time is
+                            11:00 AM local time. Early check-in or late check-out may be available upon request, subject
+                            to availability and additional charges.</p>
+                        <p class="text-lg text-gray-700 mb-6">Guests are required to inform the property in advance if
+                            they anticipate arriving outside of standard check-in hours.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">1.5 Maximum Occupancy</h3>
+                        <p class="text-lg text-gray-700 mb-4">Each Stay Stories property has a maximum occupancy limit
+                            for safety and comfort reasons. This limit is strictly enforced and varies by property and
+                            room type. Exceeding the maximum occupancy may result in additional charges or termination
+                            of your stay without refund.</p>
+                        <p class="text-lg text-gray-700">Children under 5 years of age may stay free of charge when
+                            using existing bedding. Please inform us at the time of booking if you will be traveling
+                            with children.</p>
+                    </div>
+                </div>
+
+                <!-- Payment Terms Section -->
+                <div id="payment-terms" class="terms-section mb-12 bg-white rounded-lg shadow-sm p-6 md:p-8">
+                    <div class="terms-section-header flex items-center justify-between cursor-pointer">
+                        <h2 class="text-2xl md:text-3xl font-semibold text-gray-900">Payment Terms</h2>
+                        <div class="w-8 h-8 flex items-center justify-center text-primary terms-section-icon">
+                            <i class="ri-arrow-down-s-line ri-lg"></i>
+                        </div>
+                    </div>
+                    <div class="terms-section-content mt-6">
+                        <h3 class="text-xl font-medium text-primary mb-4">2.1 Deposit and Payment Schedule</h3>
+                        <p class="text-lg text-gray-700 mb-4">To secure your reservation, a deposit of 50% of the total
+                            booking amount is required at the time of booking. The remaining balance must be paid at
+                            least 14 days prior to your arrival date.</p>
+                        <p class="text-lg text-gray-700 mb-6">For bookings made within 14 days of arrival, full payment
+                            is required at the time of booking.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">2.2 Accepted Payment Methods</h3>
+                        <p class="text-lg text-gray-700 mb-4">Stay Stories accepts the following payment methods:</p>
+                        <ul class="list-disc pl-8 mb-6 text-lg text-gray-700 space-y-2">
+                            <li>Major credit cards (Visa, MasterCard, American Express)</li>
+                            <li>Bank transfers</li>
+                            <li>Online payment platforms (PayPal, Razorpay)</li>
+                            <li>Cash (accepted only for incidental charges during your stay, not for reservation
+                                payments)</li>
+                        </ul>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">2.3 Currency</h3>
+                        <p class="text-lg text-gray-700 mb-6">All rates are quoted and charged in Indian Rupees (INR).
+                            Conversions to other currencies are approximate and subject to exchange rate fluctuations.
+                        </p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">2.4 Taxes and Fees</h3>
+                        <p class="text-lg text-gray-700 mb-4">All rates are subject to applicable government taxes and
+                            service charges, which will be clearly indicated during the booking process. These may
+                            include, but are not limited to:</p>
+                        <ul class="list-disc pl-8 mb-6 text-lg text-gray-700 space-y-2">
+                            <li>Goods and Services Tax (GST)</li>
+                            <li>Service charge</li>
+                            <li>Tourism/bed tax where applicable</li>
+                        </ul>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">2.5 Security Deposit</h3>
+                        <p class="text-lg text-gray-700 mb-4">A refundable security deposit may be required upon
+                            check-in to cover potential damages or incidental charges. This deposit will be refunded
+                            within 7 business days after check-out, subject to a satisfactory property inspection.</p>
+                        <p class="text-lg text-gray-700">The amount of the security deposit varies by property and
+                            length of stay, and will be communicated to you prior to your arrival.</p>
+                    </div>
+                </div>
+
+                <!-- Cancellation Rules Section -->
+                <!-- <div id="cancellation-rules" class="terms-section mb-12 bg-white rounded-lg shadow-sm p-6 md:p-8">
+                    <div class="terms-section-header flex items-center justify-between cursor-pointer">
+                        <h2 class="text-2xl md:text-3xl font-semibold text-gray-900">Cancellation Rules</h2>
+                        <div class="w-8 h-8 flex items-center justify-center text-primary terms-section-icon">
+                            <i class="ri-arrow-down-s-line ri-lg"></i>
+                        </div>
+                    </div>
+                    <div class="terms-section-content mt-6">
+                        <h3 class="text-xl font-medium text-primary mb-4">3.1 Standard Cancellation Policy</h3>
+                        <p class="text-lg text-gray-700 mb-4">Our standard cancellation policy is as follows:</p>
+                        <ul class="list-disc pl-8 mb-6 text-lg text-gray-700 space-y-2">
+                            <li>Cancellations made 30 days or more prior to arrival: Full refund of deposit</li>
+                            <li>Cancellations made 15-29 days prior to arrival: 50% refund of deposit</li>
+                            <li>Cancellations made 14 days or less prior to arrival: No refund</li>
+                        </ul>
+                        <p class="text-lg text-gray-700 mb-6">All cancellations must be made in writing via email to
+                            reservations@staystories.in.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">3.2 Seasonal and Special Event Periods</h3>
+                        <p class="text-lg text-gray-700 mb-6">During peak seasons, holidays, and special event periods,
+                            a more restrictive cancellation policy may apply. These specific terms will be clearly
+                            communicated during the booking process.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">3.3 Modifications to Reservations</h3>
+                        <p class="text-lg text-gray-700 mb-6">Requests to modify existing reservations (such as changes
+                            in dates or room type) are subject to availability and may result in rate adjustments.
+                            Modification requests should be submitted as early as possible and are not guaranteed.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">3.4 No-Shows</h3>
+                        <p class="text-lg text-gray-700 mb-6">Guests who fail to arrive on their scheduled check-in date
+                            without prior notification will be considered "no-shows" and will forfeit their entire
+                            payment. The reservation will be cancelled, and the accommodation may be released for
+                            rebooking.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">3.5 Early Departure</h3>
+                        <p class="text-lg text-gray-700 mb-4">No refunds will be provided for early departures or unused
+                            nights resulting from a guest's decision to shorten their stay after arrival.</p>
+                        <p class="text-lg text-gray-700">In case of emergency situations requiring early departure,
+                            management may consider partial refunds on a case-by-case basis.</p>
+                    </div>
+                </div> -->
+
+                <!-- Property Usage Guidelines Section -->
+                <div id="property-usage" class="terms-section mb-12 bg-white rounded-lg shadow-sm p-6 md:p-8">
+                    <div class="terms-section-header flex items-center justify-between cursor-pointer">
+                        <h2 class="text-2xl md:text-3xl font-semibold text-gray-900">Property Usage Guidelines</h2>
+                        <div class="w-8 h-8 flex items-center justify-center text-primary terms-section-icon">
+                            <i class="ri-arrow-down-s-line ri-lg"></i>
+                        </div>
+                    </div>
+                    <div class="terms-section-content mt-6">
+                        <h3 class="text-xl font-medium text-primary mb-4">4.1 Responsible Use</h3>
+                        <p class="text-lg text-gray-700 mb-6">Guests are expected to use the property and its amenities
+                            responsibly and with respect for other guests, staff, and the local community. Excessive
+                            noise, disruptive behavior, or any activities that interfere with the comfort and enjoyment
+                            of others are prohibited.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">4.2 Smoking Policy</h3>
+                        <p class="text-lg text-gray-700 mb-6">All Stay Stories properties maintain a strict no-smoking
+                            policy inside all rooms, common areas, and enclosed spaces. Designated smoking areas may be
+                            available outdoors. Violation of this policy will result in a deep cleaning fee of INR
+                            10,000.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">4.3 Pet Policy</h3>
+                        <p class="text-lg text-gray-700 mb-6">Pet policies vary by property. Some Stay Stories locations
+                            are pet-friendly, while others do not allow pets. Please inquire about the specific policy
+                            at your chosen property before booking. Where pets are permitted, additional fees and
+                            restrictions may apply.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">4.4 Property Damage</h3>
+                        <p class="text-lg text-gray-700 mb-6">Guests will be held financially responsible for any damage
+                            to the property, furnishings, or amenities beyond normal wear and tear. This includes
+                            stains, breakage, theft, or vandalism. The cost of repair or replacement will be charged to
+                            the guest's account or security deposit.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">4.5 Prohibited Activities</h3>
+                        <p class="text-lg text-gray-700 mb-4">The following activities are strictly prohibited at all
+                            Stay Stories properties:</p>
+                        <ul class="list-disc pl-8 mb-6 text-lg text-gray-700 space-y-2">
+                            <li>Parties or events without prior written approval</li>
+                            <li>Illegal activities of any kind</li>
+                            <li>Use of fireworks, candles, or other open flames</li>
+                            <li>Exceeding the maximum occupancy limit</li>
+                            <li>Commercial photography or filming without prior permission</li>
+                            <li>Removal of any property items, including towels, robes, or décor</li>
+                        </ul>
+                        <p class="text-lg text-gray-700">Violation of these prohibitions may result in immediate
+                            termination of stay without refund and potential legal action.</p>
+                    </div>
+                </div>
+
+                <!-- Liability Limitations Section -->
+                <div id="liability" class="terms-section mb-12 bg-white rounded-lg shadow-sm p-6 md:p-8">
+                    <div class="terms-section-header flex items-center justify-between cursor-pointer">
+                        <h2 class="text-2xl md:text-3xl font-semibold text-gray-900">Liability Limitations</h2>
+                        <div class="w-8 h-8 flex items-center justify-center text-primary terms-section-icon">
+                            <i class="ri-arrow-down-s-line ri-lg"></i>
+                        </div>
+                    </div>
+                    <div class="terms-section-content mt-6">
+                        <h3 class="text-xl font-medium text-primary mb-4">5.1 Personal Property</h3>
+                        <p class="text-lg text-gray-700 mb-6">Stay Stories is not responsible for any loss, theft, or
+                            damage to guests' personal belongings during their stay. Guests are encouraged to use
+                            in-room safes where available and to maintain appropriate insurance coverage for their
+                            personal property.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">5.2 Personal Safety</h3>
+                        <p class="text-lg text-gray-700 mb-6">While Stay Stories implements reasonable security
+                            measures, guests are responsible for their personal safety and the safety of their
+                            belongings. We recommend that guests familiarize themselves with emergency exits, safety
+                            procedures, and take normal precautions as they would in any accommodation.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">5.3 Activities and Excursions</h3>
+                        <p class="text-lg text-gray-700 mb-6">Stay Stories may assist in arranging local activities,
+                            excursions, or transportation services as a courtesy to guests. However, these services are
+                            provided by third parties, and Stay Stories assumes no liability for any injuries, damages,
+                            losses, accidents, or inconveniences that may occur during such activities.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">5.4 Force Majeure</h3>
+                        <p class="text-lg text-gray-700 mb-6">Stay Stories shall not be liable for any failure or delay
+                            in performing its obligations under these terms if such failure or delay results from
+                            circumstances beyond its reasonable control, including but not limited to natural disasters,
+                            acts of government, civil unrest, terrorism, utility failures, or pandemic situations.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">5.5 Limitation of Damages</h3>
+                        <p class="text-lg text-gray-700 mb-4">In no event shall Stay Stories be liable for any indirect,
+                            special, incidental, or consequential damages arising out of or in connection with your
+                            stay, whether based on breach of contract, tort, or any other legal theory.</p>
+                        <p class="text-lg text-gray-700">The maximum liability of Stay Stories for any claim arising
+                            from your stay shall not exceed the total amount paid by you for your reservation.</p>
+                    </div>
+                </div>
+
+                <!-- Privacy Practices Section -->
+                <div id="privacy" class="terms-section mb-12 bg-white rounded-lg shadow-sm p-6 md:p-8">
+                    <div class="terms-section-header flex items-center justify-between cursor-pointer">
+                        <h2 class="text-2xl md:text-3xl font-semibold text-gray-900">Privacy Practices</h2>
+                        <div class="w-8 h-8 flex items-center justify-center text-primary terms-section-icon">
+                            <i class="ri-arrow-down-s-line ri-lg"></i>
+                        </div>
+                    </div>
+                    <div class="terms-section-content mt-6">
+                        <h3 class="text-xl font-medium text-primary mb-4">6.1 Data Collection</h3>
+                        <p class="text-lg text-gray-700 mb-6">Stay Stories collects personal information necessary for
+                            processing reservations, providing services, and meeting legal requirements. This
+                            information may include names, contact details, payment information, identification
+                            documents, and preferences related to your stay.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">6.2 Use of Personal Information</h3>
+                        <p class="text-lg text-gray-700 mb-4">We use your personal information for the following
+                            purposes:</p>
+                        <ul class="list-disc pl-8 mb-6 text-lg text-gray-700 space-y-2">
+                            <li>Processing and confirming reservations</li>
+                            <li>Providing and personalizing our services</li>
+                            <li>Communication regarding your stay</li>
+                            <li>Processing payments</li>
+                            <li>Compliance with legal obligations</li>
+                            <li>Improving our services and conducting market research</li>
+                            <li>Marketing communications (with your consent)</li>
+                        </ul>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">6.3 Data Security</h3>
+                        <p class="text-lg text-gray-700 mb-6">Stay Stories implements appropriate technical and
+                            organizational measures to protect your personal information against unauthorized access,
+                            loss, or alteration. However, no method of transmission over the internet or electronic
+                            storage is 100% secure, and we cannot guarantee absolute security.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">6.4 Data Sharing</h3>
+                        <p class="text-lg text-gray-700 mb-4">We may share your personal information with:</p>
+                        <ul class="list-disc pl-8 mb-6 text-lg text-gray-700 space-y-2">
+                            <li>Staff members involved in providing services during your stay</li>
+                            <li>Service providers who perform functions on our behalf (payment processors, IT services)
+                            </li>
+                            <li>Government authorities when required by law</li>
+                            <li>Business partners with your explicit consent</li>
+                        </ul>
+                        <p class="text-lg text-gray-700 mb-6">We do not sell your personal information to third parties.
+                        </p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">6.5 Your Rights</h3>
+                        <p class="text-lg text-gray-700 mb-4">Depending on your location, you may have certain rights
+                            regarding your personal information, including:</p>
+                        <ul class="list-disc pl-8 mb-6 text-lg text-gray-700 space-y-2">
+                            <li>Access to your personal information</li>
+                            <li>Correction of inaccurate information</li>
+                            <li>Deletion of your information</li>
+                            <li>Restriction of processing</li>
+                            <li>Data portability</li>
+                            <li>Objection to processing</li>
+                        </ul>
+                        <p class="text-lg text-gray-700">To exercise these rights, please contact us at
+                            privacy@staystories.in.</p>
+                    </div>
+                </div>
+
+                <!-- Intellectual Property Rights Section -->
+                <div id="intellectual-property" class="terms-section mb-12 bg-white rounded-lg shadow-sm p-6 md:p-8">
+                    <div class="terms-section-header flex items-center justify-between cursor-pointer">
+                        <h2 class="text-2xl md:text-3xl font-semibold text-gray-900">Intellectual Property Rights</h2>
+                        <div class="w-8 h-8 flex items-center justify-center text-primary terms-section-icon">
+                            <i class="ri-arrow-down-s-line ri-lg"></i>
+                        </div>
+                    </div>
+                    <div class="terms-section-content mt-6">
+                        <h3 class="text-xl font-medium text-primary mb-4">7.1 Ownership</h3>
+                        <p class="text-lg text-gray-700 mb-6">All content on the Stay Stories website, marketing
+                            materials, and property documentation, including text, graphics, logos, images, audio clips,
+                            digital downloads, and software, is the property of Stay Stories or its content suppliers
+                            and is protected by international copyright laws.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">7.2 Limited License</h3>
+                        <p class="text-lg text-gray-700 mb-6">Stay Stories grants you a limited, non-exclusive,
+                            non-transferable license to access and use our website and materials for personal,
+                            non-commercial purposes related to booking or inquiring about our accommodations.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">7.3 Restrictions</h3>
+                        <p class="text-lg text-gray-700 mb-4">You may not:</p>
+                        <ul class="list-disc pl-8 mb-6 text-lg text-gray-700 space-y-2">
+                            <li>Modify, copy, distribute, transmit, display, perform, reproduce, publish, license,
+                                create derivative works from, transfer, or sell any information or content obtained from
+                                our website or properties</li>
+                            <li>Use our trademarks, service marks, or trade dress without prior written consent</li>
+                            <li>Frame or utilize framing techniques to enclose any trademark, logo, or other proprietary
+                                information</li>
+                            <li>Use meta tags or any other "hidden text" utilizing our name or trademarks</li>
+                        </ul>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">7.4 User-Generated Content</h3>
+                        <p class="text-lg text-gray-700 mb-6">By submitting reviews, comments, photos, or other content
+                            to Stay Stories through our website, social media channels, or during your stay, you grant
+                            Stay Stories a non-exclusive, royalty-free, perpetual, irrevocable right to use, reproduce,
+                            modify, adapt, publish, translate, create derivative works from, distribute, and display
+                            such content worldwide in any media.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">7.5 Photography and Filming</h3>
+                        <p class="text-lg text-gray-700 mb-4">Professional photography or filming at Stay Stories
+                            properties for commercial purposes requires prior written permission. Personal photography
+                            for non-commercial use is permitted, provided it does not disturb other guests or staff.</p>
+                        <p class="text-lg text-gray-700">Stay Stories occasionally conducts its own photography or
+                            filming at our properties for promotional purposes. By staying with us, you consent to
+                            potentially being included in such materials, though we make reasonable efforts to respect
+                            guest privacy.</p>
+                    </div>
+                </div>
+
+                <!-- Final Provisions Section -->
+                <div class="terms-section mb-12 bg-white rounded-lg shadow-sm p-6 md:p-8">
+                    <div class="terms-section-header flex items-center justify-between cursor-pointer">
+                        <h2 class="text-2xl md:text-3xl font-semibold text-gray-900">Final Provisions</h2>
+                        <div class="w-8 h-8 flex items-center justify-center text-primary terms-section-icon">
+                            <i class="ri-arrow-down-s-line ri-lg"></i>
+                        </div>
+                    </div>
+                    <div class="terms-section-content mt-6">
+                        <h3 class="text-xl font-medium text-primary mb-4">8.1 Governing Law</h3>
+                        <p class="text-lg text-gray-700 mb-6">These Terms and Conditions shall be governed by and
+                            construed in accordance with the laws of India. Any disputes arising under these terms shall
+                            be subject to the exclusive jurisdiction of the courts in Kolkata, West Bengal, India.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">8.2 Severability</h3>
+                        <p class="text-lg text-gray-700 mb-6">If any provision of these Terms and Conditions is found to
+                            be invalid or unenforceable, the remaining provisions shall remain in full force and effect.
+                        </p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">8.3 Amendments</h3>
+                        <p class="text-lg text-gray-700 mb-6">Stay Stories reserves the right to modify these Terms and
+                            Conditions at any time without prior notice. The current version will always be available on
+                            our website, and the terms in effect at the time of your booking will apply to your
+                            reservation.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">8.4 Entire Agreement</h3>
+                        <p class="text-lg text-gray-700 mb-6">These Terms and Conditions, together with the booking
+                            confirmation, constitute the entire agreement between you and Stay Stories regarding your
+                            reservation and stay at our properties.</p>
+
+                        <h3 class="text-xl font-medium text-primary mb-4">8.5 Contact Information</h3>
+                        <p class="text-lg text-gray-700 mb-4">For questions or concerns regarding these Terms and
+                            Conditions, please contact us at:</p>
+                        <p class="text-lg text-gray-700 mb-1">Email: legal@staystories.in</p>
+                        <p class="text-lg text-gray-700 mb-1">Phone: +91 98765 43210</p>
+                        <p class="text-lg text-gray-700">Address: 42 Park Street, Kolkata, West Bengal, India - 700016
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Acknowledgment Section -->
+                <div class="bg-gray-50 rounded-lg p-6 md:p-8 mb-12">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Acknowledgment</h2>
+                    <p class="text-lg text-gray-700 mb-6">By making a reservation with Stay Stories, you acknowledge
+                        that you have read, understood, and agree to be bound by these Terms and Conditions.</p>
+                    <p class="text-lg text-gray-700">We thank you for choosing Stay Stories and look forward to
+                        providing you with a memorable and authentic experience.</p>
+                </div>
+
+                <!-- Back to Top Button -->
+                <div class="text-center mb-12">
+                    <a href="#"
+                        class="whitespace-nowrap !rounded-button px-6 py-3 bg-primary text-white hover:bg-opacity-90 transition-colors duration-300 font-medium inline-flex items-center back-to-top">
+                        <i class="ri-arrow-up-line mr-2"></i>
+                        <span>Back to Top</span>
+                    </a>
+                </div>
+
+                <!-- Related Links -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                    <a href="./Cancellation-policy.html"
+                        class="bg-white rounded-lg shadow-sm p-6 flex items-center hover:shadow-md transition-shadow">
+                        <div
+                            class="w-12 h-12 flex items-center justify-center text-primary mr-4 bg-green-50 rounded-full">
+                            <i class="ri-file-list-3-line ri-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-medium text-gray-900 mb-1">Cancellation Policy</h3>
+                            <p class="text-gray-600">Detailed information about our cancellation procedures</p>
+                        </div>
+                    </a>
+                    <a href="#"
+                        class="bg-white rounded-lg shadow-sm p-6 flex items-center hover:shadow-md transition-shadow">
+                        <div
+                            class="w-12 h-12 flex items-center justify-center text-primary mr-4 bg-green-50 rounded-full">
+                            <i class="ri-shield-check-line ri-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-medium text-gray-900 mb-1">Privacy Policy</h3>
+                            <p class="text-gray-600">How we collect, use, and protect your personal information</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Return to Original Page -->
+                <div class="text-center mb-16">
+                    <a href="https://readdy.ai/home/35de9430-fe92-4179-a384-0e7c06d2339f/1c0a27f4-19b5-459d-a69c-5f09d1ea841c"
+                        data-readdy="true"
+                        class="whitespace-nowrap !rounded-button px-8 py-3 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 font-medium">Return
+                        to Original Page</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 pt-16 pb-8">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- Brand Column -->
+                <div>
+                    <a href="./index.html">
+                        <img src="./Image/Main Logo.png" alt="Logo" class="h-20 mb-6">
+                    </a>
+                    <p class="text-gray-600 mb-6">Crafting memorable stays that tell stories of places, people, and
+                        experiences.</p>
+                    <div class="flex space-x-4">
+                        <a href="#"
+                            class="w-10 h-10 flex items-center justify-center text-primary hover:text-secondary transition-colors">
+                            <i class="ri-instagram-line ri-lg"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 flex items-center justify-center text-primary hover:text-secondary transition-colors">
+                            <i class="ri-facebook-line ri-lg"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 flex items-center justify-center text-primary hover:text-secondary transition-colors">
+                            <i class="ri-twitter-x-line ri-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Chapters Column -->
+             <div>
+                <h3 class="text-xl font-medium text-gray-900 mb-4">Our Chapters</h3>
+                <ul class="space-y-3">
+                    <li><a href="./Chapter-1.html" class="text-gray-600 hover:text-primary transition-colors">KrishnaChura,
+                            Santiniketan</a></li>
+                    <li><a href="./Chapter-2.html" class="text-gray-600 hover:text-primary transition-colors">Lake Hill Villa,
+                            Baranti</a></li>
+                    <li><a href="./Chapter-3.html" class="text-gray-500 italic hover:text-primary transition-colors">Up On The Hill
+                            (Coming Soon)</a></li>
+                    <li><a href="./Chapter-4.html" class="text-gray-500 italic hover:text-primary transition-colors">By The Sea
+                            Shore (Coming Soon)</a></li>
+                </ul>
+            </div>
+            <!-- Information Column -->
+            <div>
+                <h3 class="text-xl font-medium text-gray-900 mb-4">Information</h3>
+                <ul class="space-y-3">
+                    <li><a href="./Prologue.html" class="text-gray-600 hover:text-primary transition-colors">Prologue</a></li>
+                    <li><a href="./Terms.html"
+                            data-readdy="true" class="text-gray-600 hover:text-primary transition-colors">Terms &
+                            Conditions</a></li>
+                    <li><a href="./Cancellation-policy.html" class="text-gray-600 hover:text-primary transition-colors">Cancellation
+                            Policy</a></li>
+                    <li><a href="./travel-advisory.html" class="text-gray-600 hover:text-primary transition-colors">Travel Advisory</a>
+                    </li>
+                </ul>
+            </div>
+                <!-- Contact Column -->
+                <div>
+                    <h3 class="text-xl font-medium text-gray-900 mb-4">Contact Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center text-primary mr-3 mt-1">
+                                <i class="ri-map-pin-line"></i>
+                            </div>
+                            <span class="text-gray-600">42 Park Street, Kolkata, West Bengal, India - 700016</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center text-primary mr-3 mt-1">
+                                <i class="ri-phone-line"></i>
+                            </div>
+                            <span class="text-gray-600">+91 98765 43210</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center text-primary mr-3 mt-1">
+                                <i class="ri-mail-line"></i>
+                            </div>
+                            <span class="text-gray-600">hello@staystories.in</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-200 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 Stay Stories. All rights reserved.</p>
+                    <div class="flex items-center space-x-6">
+                        <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                            <i class="ri-visa-line ri-lg"></i>
+                        </div>
+                        <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                            <i class="ri-mastercard-line ri-lg"></i>
+                        </div>
+                        <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                            <i class="ri-paypal-line ri-lg"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('active');
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function (event) {
+                if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile dropdown toggles
+            const mobileContactButton = document.getElementById('mobile-contact-button');
+            const mobileContactDropdown = document.getElementById('mobile-contact-dropdown');
+
+            mobileContactButton.addEventListener('click', function () {
+                mobileContactDropdown.classList.toggle('active');
+                mobileContactButton.querySelector('i').classList.toggle('ri-arrow-down-s-line');
+                mobileContactButton.querySelector('i').classList.toggle('ri-arrow-up-s-line');
+            });
+
+            const mobileChaptersButton = document.getElementById('mobile-chapters-button');
+            const mobileChaptersDropdown = document.getElementById('mobile-chapters-dropdown');
+
+            mobileChaptersButton.addEventListener('click', function () {
+                mobileChaptersDropdown.classList.toggle('active');
+                mobileChaptersButton.querySelector('i').classList.toggle('ri-arrow-down-s-line');
+                mobileChaptersButton.querySelector('i').classList.toggle('ri-arrow-up-s-line');
+            });
+
+            const mobileFyiButton = document.getElementById('mobile-fyi-button');
+            const mobileFyiDropdown = document.getElementById('mobile-fyi-dropdown');
+
+            mobileFyiButton.addEventListener('click', function () {
+                mobileFyiDropdown.classList.toggle('active');
+                mobileFyiButton.querySelector('i').classList.toggle('ri-arrow-down-s-line');
+                mobileFyiButton.querySelector('i').classList.toggle('ri-arrow-up-s-line');
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Terms section toggles
+            const termsSectionHeaders = document.querySelectorAll('.terms-section-header');
+
+            termsSectionHeaders.forEach(header => {
+                header.addEventListener('click', function () {
+                    const content = this.nextElementSibling;
+                    const icon = this.querySelector('.terms-section-icon');
+
+                    content.classList.toggle('active');
+                    icon.classList.toggle('active');
+
+                    if (content.classList.contains('active')) {
+                        icon.innerHTML = '<i class="ri-arrow-up-s-line ri-lg"></i>';
+                    } else {
+                        icon.innerHTML = '<i class="ri-arrow-down-s-line ri-lg"></i>';
+                    }
+                });
+            });
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') {
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                        return;
+                    }
+
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        // Open the section if it's collapsed
+                        const sectionContent = targetElement.querySelector('.terms-section-content');
+                        const sectionIcon = targetElement.querySelector('.terms-section-icon');
+
+                        if (sectionContent && !sectionContent.classList.contains('active')) {
+                            sectionContent.classList.add('active');
+                            if (sectionIcon) {
+                                sectionIcon.classList.add('active');
+                                sectionIcon.innerHTML = '<i class="ri-arrow-up-s-line ri-lg"></i>';
+                            }
+                        }
+
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Back to top button visibility
+            const backToTopButton = document.querySelector('.back-to-top');
+
+            window.addEventListener('scroll', function () {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

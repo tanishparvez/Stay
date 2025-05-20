@@ -1,0 +1,1871 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Stay - Stay Stories</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { primary: '#006400', secondary: '#F4A460' }, borderRadius: { 'none': '0px', 'sm': '4px', DEFAULT: '8px', 'md': '12px', 'lg': '16px', 'xl': '20px', '2xl': '24px', '3xl': '32px', 'full': '9999px', 'button': '8px' } } } }</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            color: #333;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .dropdown {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+        }
+
+        .dropdown-trigger:hover .dropdown,
+        .dropdown-trigger:focus-within .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: #006400;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu-item {
+            border-bottom: 1px solid rgba(244, 164, 96, 0.2);
+        }
+
+        .mobile-dropdown {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .mobile-dropdown.active {
+            max-height: 500px;
+        }
+
+        .date-picker {
+            border: 1px solid #e5e7eb;
+            transition: border-color 0.3s ease;
+        }
+
+        .date-picker:focus {
+            border-color: #006400;
+            outline: none;
+        }
+
+        .property-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .room-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .room-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .custom-radio input[type="radio"] {
+            display: none;
+        }
+
+        .custom-radio .radio-circle {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #d1d5db;
+            position: relative;
+            transition: border-color 0.3s ease;
+        }
+
+        .custom-radio input[type="radio"]:checked+.radio-circle {
+            border-color: #006400;
+        }
+
+        .custom-radio input[type="radio"]:checked+.radio-circle:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #006400;
+        }
+
+        .custom-checkbox input[type="checkbox"] {
+            display: none;
+        }
+
+        .custom-checkbox .checkbox-box {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            border: 2px solid #d1d5db;
+            position: relative;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .custom-checkbox input[type="checkbox"]:checked+.checkbox-box {
+            border-color: #006400;
+            background-color: #006400;
+        }
+
+        .custom-checkbox input[type="checkbox"]:checked+.checkbox-box:after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 6px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .guest-counter {
+            display: flex;
+            align-items: center;
+        }
+
+        .guest-counter button {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid #d1d5db;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .guest-counter button:hover {
+            background-color: #f3f4f6;
+        }
+
+        .guest-counter button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .guest-counter span {
+            width: 30px;
+            text-align: center;
+        }
+
+        .payment-method {
+            transition: border-color 0.3s ease;
+        }
+
+        .payment-method.selected {
+            border-color: #006400;
+        }
+
+        .tab-button {
+            position: relative;
+        }
+
+        .tab-button::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #006400;
+            transition: width 0.3s ease;
+        }
+
+        .tab-button.active::after {
+            width: 100%;
+        }
+
+        .booking-progress-bar {
+            position: relative;
+            height: 4px;
+            background-color: #e5e7eb;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .booking-progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: var(--progress, 0%);
+            background-color: #006400;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-white">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 bg-white bg-opacity-95 shadow-sm z-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Mobile Menu Button -->
+                <div class="block md:hidden">
+                    <button id="mobile-menu-button" class="w-10 h-10 flex items-center justify-center text-primary">
+                        <i class="ri-menu-line ri-lg"></i>
+                    </button>
+                </div>
+                <!-- Left Navigation (Desktop) -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <!-- Contact Button -->
+                    <div class="dropdown-trigger relative">
+                        <button
+                            class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Contact</button>
+                        <div
+                            class="dropdown absolute top-full left-0 mt-2 bg-white shadow-md rounded p-4 min-w-[200px] z-10">
+                            <p class="text-gray-600 mb-1 text-sm">Call us at:</p>
+                            <p class="text-primary font-medium">+91 98765 43210</p>
+                        </div>
+                    </div>
+                    <!-- Prologue -->
+                    <a href="./Prologue.html"
+                        data-readdy="true"
+                        class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Prologue</a>
+                    <!-- Chapters Dropdown -->
+                    <div class="dropdown-trigger relative">
+                        <button
+                            class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Chapters</button>
+                        <div
+                            class="dropdown absolute top-full left-0 mt-2 bg-white shadow-md rounded p-4 min-w-[300px] z-10">
+                            <a href="https://readdy.ai/home/35de9430-fe92-4179-a384-0e7c06d2339f/4c92bb9e-c682-4e86-80a9-04d6c7795ec6"
+                                data-readdy="true"
+                                class="block py-2 text-gray-800 hover:text-primary transition-colors">Chapter 1: Stay
+                                Stories Santiniketan — KrishnaChura</a>
+                            <a href="#" class="block py-2 text-gray-800 hover:text-primary transition-colors">Chapter 2:
+                                Stay Stories Baranti — Lake Hill Villa</a>
+                            <a href="#"
+                                class="block py-2 text-gray-500 italic hover:text-primary transition-colors">Chapter 3:
+                                Stay Stories Up On The Hill <span class="text-xs ml-2 text-secondary">Being
+                                    Scripted</span></a>
+                            <a href="#"
+                                class="block py-2 text-gray-500 italic hover:text-primary transition-colors">Chapter 4:
+                                Stay Stories By The Sea Shore <span class="text-xs ml-2 text-secondary">Being
+                                    Scripted</span></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Logo -->
+                <div>
+                    <a href="./index.html">
+                        <img src="./Image/Main Logo.png" alt="Logo" class="h-20 object-contain">
+                    </a>
+                </div>
+                <!-- Right Navigation (Desktop) -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <!-- FYI Dropdown -->
+                    <div class="dropdown-trigger relative">
+                        <button
+                            class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">FYI</button>
+                        <div
+                            class="dropdown absolute top-full right-0 mt-2 bg-white shadow-md rounded p-4 min-w-[200px] z-10">
+                            <a href="#" class="block py-2 text-gray-800 hover:text-primary transition-colors">Terms &
+                                Conditions</a>
+                            <a href="#"
+                                class="block py-2 text-gray-800 hover:text-primary transition-colors">Cancellation
+                                Policy</a>
+                        </div>
+                    </div>
+                    <!-- Travel Advisory -->
+                    <a href="#"
+                        class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Travel
+                        Advisory</a>
+                    <!-- Back to Home Button -->
+                    <a href="./index.html"
+                        data-readdy="true"
+                        class="whitespace-nowrap !rounded-button px-6 py-2 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 font-medium">Back
+                        to Home</a>
+                </div>
+                <!-- Mobile Right Side -->
+                <div class="flex md:hidden items-center">
+                    <a href="https://readdy.ai/home/35de9430-fe92-4179-a384-0e7c06d2339f/1c0a27f4-19b5-459d-a69c-5f09d1ea841c"
+                        data-readdy="true"
+                        class="whitespace-nowrap !rounded-button px-4 py-1.5 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 text-sm font-medium">Back
+                        to Home</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu"
+        class="fixed top-0 left-0 h-full w-4/5 max-w-xs bg-white shadow-lg z-50 mobile-menu overflow-y-auto pt-20 pb-8">
+        <div class="px-6">
+            <!-- Contact -->
+            <div class="mobile-menu-item py-4">
+                <button id="mobile-contact-button" class="flex items-center justify-between w-full text-left">
+                    <span class="text-lg font-medium">Contact</span>
+                    <i class="ri-arrow-down-s-line ri-lg"></i>
+                </button>
+                <div id="mobile-contact-dropdown" class="mobile-dropdown pt-2 pl-4">
+                    <p class="text-gray-600 mb-1">Call us at:</p>
+                    <p class="text-primary font-medium">+91 98765 43210</p>
+                </div>
+            </div>
+            <!-- Prologue -->
+            <div class="mobile-menu-item py-4">
+                <a href="./Prologue.html"
+                    data-readdy="true" class="block text-lg font-medium text-gray-800 hover:text-primary">Prologue</a>
+            </div>
+            <!-- Chapters -->
+            <div class="mobile-menu-item py-4">
+                <button id="mobile-chapters-button" class="flex items-center justify-between w-full text-left">
+                    <span class="text-lg font-medium">Chapters</span>
+                    <i class="ri-arrow-down-s-line ri-lg"></i>
+                </button>
+                <div id="mobile-chapters-dropdown" class="mobile-dropdown pt-2 pl-4">
+                    <a href="https://readdy.ai/home/35de9430-fe92-4179-a384-0e7c06d2339f/4c92bb9e-c682-4e86-80a9-04d6c7795ec6"
+                        data-readdy="true" class="block py-2 text-gray-800">Chapter 1: Stay Stories Santiniketan —
+                        KrishnaChura</a>
+                    <a href="#" class="block py-2 text-gray-800">Chapter 2: Stay Stories Baranti — Lake Hill Villa</a>
+                    <a href="#" class="block py-2 text-gray-500 italic">Chapter 3: Stay Stories Up On The Hill <span
+                            class="text-xs ml-2 text-secondary">Being Scripted</span></a>
+                    <a href="#" class="block py-2 text-gray-500 italic">Chapter 4: Stay Stories By The Sea Shore <span
+                            class="text-xs ml-2 text-secondary">Being Scripted</span></a>
+                </div>
+            </div>
+            <!-- FYI -->
+            <div class="mobile-menu-item py-4">
+                <button id="mobile-fyi-button" class="flex items-center justify-between w-full text-left">
+                    <span class="text-lg font-medium">FYI</span>
+                    <i class="ri-arrow-down-s-line ri-lg"></i>
+                </button>
+                <div id="mobile-fyi-dropdown" class="mobile-dropdown pt-2 pl-4">
+                    <a href="#" class="block py-2 text-gray-800">Terms & Conditions</a>
+                    <a href="#" class="block py-2 text-gray-800">Cancellation Policy</a>
+                </div>
+            </div>
+            <!-- Travel Advisory -->
+            <div class="mobile-menu-item py-4">
+                <a href="#" class="block text-lg font-medium">Travel Advisory</a>
+            </div>
+        </div>
+    </div>
+    <!-- Booking Process Navigation -->
+    <div class="pt-24 pb-6 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex justify-between items-center mb-6">
+                    <h1 class="text-3xl md:text-4xl font-semibold text-gray-900">Book Your Stay</h1>
+                    <a href="./index.html"
+                        data-readdy="true"
+                        class="text-primary hover:text-secondary transition-colors flex items-center">
+                        <i class="ri-arrow-left-line mr-1"></i> Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Booking Content -->
+    <div class="py-8">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="max-w-4xl mx-auto">
+                <!-- Simple Booking Form
+                <!DOCTYPE html>
+                <html lang="en">
+
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Book Your Stay - Stay Stories</title>
+                    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+                    <script>tailwind.config = { theme: { extend: { colors: { primary: '#006400', secondary: '#F4A460' }, borderRadius: { 'none': '0px', 'sm': '4px', DEFAULT: '8px', 'md': '12px', 'lg': '16px', 'xl': '20px', '2xl': '24px', '3xl': '32px', 'full': '9999px', 'button': '8px' } } } }</script>
+                    <link rel="preconnect" href="https://fonts.googleapis.com">
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+                    <link
+                        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
+                        rel="stylesheet">
+                    <link rel="stylesheet"
+                        href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+                    <style>
+                        :where([class^="ri-"])::before {
+                            content: "\f3c2";
+                        }
+
+                        body {
+                            font-family: 'Cormorant Garamond', serif;
+                            color: #333;
+                        }
+
+                        h1,
+                        h2,
+                        h3,
+                        h4,
+                        h5,
+                        h6 {
+                            font-family: 'Playfair Display', serif;
+                        }
+                    </style>
+                </head>
+
+                <body class="min-h-screen bg-white">
+                    <div class="py-12">
+                        <div class="container mx-auto px-4 md:px-8">
+                            <div class="max-w-2xl mx-auto">
+                                <div class="bg-white rounded-lg shadow-sm p-8">
+                                    <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-6 text-center">Book
+                                        Your Stay</h2>
+                                    <form id="simple-booking-form" class="space-y-6">
+                                        <div>
+                                            <label for="property" class="block text-gray-700 font-medium mb-2">Select
+                                                Property</label>
+                                            <div class="relative">
+                                                <select id="property" name="property" required
+                                                    class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700 appearance-none pr-8">
+                                                    <option value="">Choose a property</option>
+                                                    <option value="KrishnaChura, Santiniketan">Chapter 1: KrishnaChura,
+                                                        Santiniketan</option>
+                                                    <option value="Lake Hill Villa, Baranti">Chapter 2: Lake Hill Villa,
+                                                        Baranti</option>
+                                                    <option value="Up On The Hill" disabled>Chapter 3: Up On The Hill
+                                                        (Coming Soon)</option>
+                                                    <option value="By The Sea Shore" disabled>Chapter 4: By The Sea
+                                                        Shore (Coming Soon)</option>
+                                                </select>
+                                                <div
+                                                    class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                                                    <i class="ri-arrow-down-s-line text-gray-500"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div>
+                                                <label for="check-in"
+                                                    class="block text-gray-700 font-medium mb-2">Check-in Date</label>
+                                                <input type="date" id="check-in" name="check-in" required
+                                                    class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700"
+                                                    min="2025-04-30">
+                                            </div>
+                                            <div>
+                                                <label for="check-out"
+                                                    class="block text-gray-700 font-medium mb-2">Check-out Date</label>
+                                                <input type="date" id="check-out" name="check-out" required
+                                                    class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700"
+                                                    min="2025-05-01">
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div>
+                                                <label for="guests" class="block text-gray-700 font-medium mb-2">Number
+                                                    of Guests</label>
+                                                <div class="relative">
+                                                    <select id="guests" name="guests" required
+                                                        class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700 appearance-none pr-8">
+                                                        <option value="">Select guests</option>
+                                                        <option value="1">1 Guest</option>
+                                                        <option value="2">2 Guests</option>
+                                                        <option value="3">3 Guests</option>
+                                                        <option value="4">4 Guests</option>
+                                                        <option value="5">5 Guests</option>
+                                                        <option value="6+">6+ Guests</option>
+                                                    </select>
+                                                    <div
+                                                        class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                                                        <i class="ri-arrow-down-s-line text-gray-500"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label for="phone" class="block text-gray-700 font-medium mb-2">Phone
+                                                    Number</label>
+                                                <input type="tel" id="phone" name="phone" required
+                                                    class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700"
+                                                    placeholder="Your phone number">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="email" class="block text-gray-700 font-medium mb-2">Email
+                                                Address</label>
+                                            <input type="email" id="email" name="email" required
+                                                class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700"
+                                                placeholder="Your email address">
+                                        </div>
+                                        <div>
+                                            <label for="message" class="block text-gray-700 font-medium mb-2">Special
+                                                Requests (Optional)</label>
+                                            <textarea id="message" name="message" rows="3"
+                                                class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700"
+                                                placeholder="Any special requests or questions?"></textarea>
+                                        </div>
+                                        <button type="submit"
+                                            class="whitespace-nowrap !rounded-button w-full py-3 bg-primary text-white hover:bg-opacity-90 transition-colors duration-300 font-medium">Send
+                                            Booking Request</button>
+                                        <p class="text-center text-gray-500 text-sm mt-4">We'll contact you shortly to
+                                            confirm your booking details.</p>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const bookingForm = document.getElementById('simple-booking-form');
+                            if (bookingForm) {
+                                bookingForm.addEventListener('submit', function (e) {
+                                    e.preventDefault();
+                                    const successMessage = document.createElement('div');
+                                    successMessage.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-8 text-center z-50 max-w-md w-full mx-4';
+                                    successMessage.innerHTML = `
+<div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-green-50 text-primary rounded-full">
+<i class="ri-check-line ri-2x"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-2">Booking Request Sent!</h3>
+<p class="text-gray-600 mb-6">Thank you for your interest in Stay Stories. We'll contact you shortly to confirm your booking details.</p>
+<button class="whitespace-nowrap !rounded-button px-6 py-2 bg-primary text-white hover:bg-opacity-90 transition-colors duration-300">Close</button>
+`;
+                                    const overlay = document.createElement('div');
+                                    overlay.className = 'fixed inset-0 bg-black bg-opacity-50 z-40';
+                                    document.body.appendChild(overlay);
+                                    document.body.appendChild(successMessage);
+                                    const closeButton = successMessage.querySelector('button');
+                                    closeButton.addEventListener('click', function () {
+                                        document.body.removeChild(overlay);
+                                        document.body.removeChild(successMessage);
+                                        bookingForm.reset();
+                                    });
+                                    bookingForm.reset();
+                                });
+                            }
+                        });
+                    </script>
+                </body>
+
+                </html>
+                <div>
+                    <label for="property" class="block text-gray-700 font-medium mb-2">Select Property</label>
+                    <div class="relative">
+                        <select id="property" name="property" required
+                            class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700 appearance-none pr-8">
+                            <option value="">Choose a property</option>
+                            <option value="KrishnaChura, Santiniketan">Chapter 1: KrishnaChura, Santiniketan</option>
+                            <option value="Lake Hill Villa, Baranti">Chapter 2: Lake Hill Villa, Baranti</option>
+                            <option value="Up On The Hill" disabled>Chapter 3: Up On The Hill (Coming Soon)</option>
+                            <option value="By The Sea Shore" disabled>Chapter 4: By The Sea Shore (Coming Soon)</option>
+                        </select>
+                        <div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                            <i class="ri-arrow-down-s-line text-gray-500"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="check-in" class="block text-gray-700 font-medium mb-2">Check-in Date</label>
+                        <input type="date" id="check-in" name="check-in" required
+                            class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700"
+                            min="2025-04-30">
+                    </div>
+                    <div>
+                        <label for="check-out" class="block text-gray-700 font-medium mb-2">Check-out Date</label>
+                        <input type="date" id="check-out" name="check-out" required
+                            class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700"
+                            min="2025-05-01">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="guests" class="block text-gray-700 font-medium mb-2">Number of Guests</label>
+                        <div class="relative">
+                            <select id="guests" name="guests" required
+                                class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700 appearance-none pr-8">
+                                <option value="">Select guests</option>
+                                <option value="1">1 Guest</option>
+                                <option value="2">2 Guests</option>
+                                <option value="3">3 Guests</option>
+                                <option value="4">4 Guests</option>
+                                <option value="5">5 Guests</option>
+                                <option value="6+">6+ Guests</option>
+                            </select>
+                            <div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                                <i class="ri-arrow-down-s-line text-gray-500"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="phone" class="block text-gray-700 font-medium mb-2">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required
+                            class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700"
+                            placeholder="Your phone number">
+                    </div>
+                </div>
+                <div>
+                    <label for="email" class="block text-gray-700 font-medium mb-2">Email Address</label>
+                    <input type="email" id="email" name="email" required
+                        class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700"
+                        placeholder="Your email address">
+                </div>
+                <div>
+                    <label for="message" class="block text-gray-700 font-medium mb-2">Special Requests
+                        (Optional)</label>
+                    <textarea id="message" name="message" rows="3"
+                        class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700"
+                        placeholder="Any special requests or questions?"></textarea>
+                </div>
+                <button type="submit"
+                    class="whitespace-nowrap !rounded-button w-full py-3 bg-primary text-white hover:bg-opacity-90 transition-colors duration-300 font-medium">Send
+                    Booking Request</button>
+                <p class="text-center text-gray-500 text-sm mt-4">We'll contact you shortly to confirm your booking
+                    details.</p>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div> -->
+    <!-- KrishnaChura Property Card
+    <div class="property-card bg-white rounded-lg overflow-hidden shadow-sm">
+        <div class="relative h-64">
+            <img src="https://readdy.ai/api/search-image?query=A%2520beautiful%2520traditional%2520Bengali-style%2520villa%2520with%2520terracotta%2520roof%2520and%2520white%2520walls%2520surrounded%2520by%2520lush%2520greenery%2520and%2520manicured%2520gardens.%2520The%2520architecture%2520shows%2520intricate%2520details%2520with%2520wooden%2520elements.%2520The%2520scene%2520has%2520warm%2520lighting%2520with%2520soft%2520shadows%252C%2520creating%2520a%2520serene%2520and%2520inviting%2520atmosphere.%2520Professional%2520high-end%2520photography%2520with%2520perfect%2520lighting.&width=600&height=400&seq=3001&orientation=landscape"
+                alt="KrishnaChura, Santiniketan" class="w-full h-full object-cover object-top">
+        </div>
+        <div class="p-6">
+            <h3 class="text-2xl font-semibold text-gray-900 mb-2">KrishnaChura, Santiniketan</h3>
+            <p class="text-gray-600 mb-4">A cultural haven nestled in Rabindranath Tagore's Santiniketan, offering an
+                authentic Bengali experience with modern comforts.</p>
+            <div class="flex flex-wrap gap-3 mb-6">
+                <div class="flex items-center text-gray-700 text-sm">
+                    <div class="w-5 h-5 flex items-center justify-center text-primary mr-1">
+                        <i class="ri-hotel-bed-line"></i>
+                    </div>
+                    <span>4 Rooms</span>
+                </div>
+                <div class="flex items-center text-gray-700 text-sm">
+                    <div class="w-5 h-5 flex items-center justify-center text-primary mr-1">
+                        <i class="ri-user-line"></i>
+                    </div>
+                    <span>Max 12 Guests</span>
+                </div>
+                <div class="flex items-center text-gray-700 text-sm">
+                    <div class="w-5 h-5 flex items-center justify-center text-primary mr-1">
+                        <i class="ri-restaurant-line"></i>
+                    </div>
+                    <span>Traditional Cuisine</span>
+                </div>
+            </div>
+            <button
+                class="select-property whitespace-nowrap !rounded-button w-full py-3 bg-primary text-white hover:bg-opacity-90 transition-colors duration-300 font-medium"
+                data-property="krishnachura">Select KrishnaChura</button>
+        </div>
+    </div> -->
+    <!-- Lake Hill Villa Property Card
+    <div class="property-card bg-white rounded-lg overflow-hidden shadow-sm">
+        <div class="relative h-64">
+            <img src="https://readdy.ai/api/search-image?query=A%2520beautiful%2520lakeside%2520villa%2520with%2520panoramic%2520views%2520of%2520hills%2520and%2520water.%2520The%2520property%2520features%2520modern%2520architecture%2520with%2520traditional%2520elements%252C%2520large%2520windows%252C%2520and%2520a%2520spacious%2520deck%2520overlooking%2520the%2520lake.%2520Surrounded%2520by%2520lush%2520greenery%2520and%2520flowering%2520plants.%2520The%2520scene%2520has%2520golden%2520hour%2520lighting%2520creating%2520a%2520peaceful%2520and%2520serene%2520atmosphere.%2520Professional%2520high-end%2520photography%2520with%2520perfect%2520lighting.&width=600&height=400&seq=3002&orientation=landscape"
+                alt="Lake Hill Villa, Baranti" class="w-full h-full object-cover object-top">
+        </div>
+        <div class="p-6">
+            <h3 class="text-2xl font-semibold text-gray-900 mb-2">Lake Hill Villa, Baranti</h3>
+            <p class="text-gray-600 mb-4">A serene retreat nestled between hills and a tranquil lake, offering
+                breathtaking views and peaceful seclusion.</p>
+            <div class="flex flex-wrap gap-3 mb-6">
+                <div class="flex items-center text-gray-700 text-sm">
+                    <div class="w-5 h-5 flex items-center justify-center text-primary mr-1">
+                        <i class="ri-hotel-bed-line"></i>
+                    </div>
+                    <span>5 Rooms</span>
+                </div>
+                <div class="flex items-center text-gray-700 text-sm">
+                    <div class="w-5 h-5 flex items-center justify-center text-primary mr-1">
+                        <i class="ri-user-line"></i>
+                    </div>
+                    <span>Max 15 Guests</span>
+                </div>
+                <div class="flex items-center text-gray-700 text-sm">
+                    <div class="w-5 h-5 flex items-center justify-center text-primary mr-1">
+                        <i class="ri-ship-line"></i>
+                    </div>
+                    <span>Lakeside Activities</span>
+                </div>
+            </div>
+            <button
+                class="select-property whitespace-nowrap !rounded-button w-full py-3 bg-primary text-white hover:bg-opacity-90 transition-colors duration-300 font-medium"
+                data-property="lakehill">Select Lake Hill Villa</button>
+        </div>
+    </div>
+    </div>
+    </div> -->
+    <!-- Step 2: Booking Details (Initially Hidden)
+    <div id="step-2" class="booking-step hidden">
+        <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">Choose Your Dates</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">Select your check-in and check-out dates, and let us know
+                how many guests will be joining you.</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
+            <div class="property-summary flex items-center mb-8">
+                <img id="selected-property-image" src="" alt="Selected Property"
+                    class="w-20 h-20 rounded-lg object-cover object-top mr-4">
+                <div>
+                    <h3 id="selected-property-name" class="text-xl font-semibold text-gray-900"></h3>
+                    <p id="selected-property-location" class="text-gray-600"></p>
+                </div>
+                <button id="change-property"
+                    class="ml-auto text-primary hover:text-secondary transition-colors text-sm">Change Property</button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div>
+                    <label for="check-in" class="block text-gray-700 font-medium mb-2">Check-in Date</label>
+                    <input type="date" id="check-in" class="date-picker w-full px-4 py-3 rounded bg-white text-gray-700"
+                        min="2025-04-30">
+                </div>
+                <div>
+                    <label for="check-out" class="block text-gray-700 font-medium mb-2">Check-out Date</label>
+                    <input type="date" id="check-out"
+                        class="date-picker w-full px-4 py-3 rounded bg-white text-gray-700" min="2025-05-01">
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2">Adults</label>
+                    <div class="guest-counter">
+                        <button id="adults-minus" class="minus-btn" disabled><i class="ri-subtract-line"></i></button>
+                        <span id="adults-count" class="mx-2">2</span>
+                        <button id="adults-plus" class="plus-btn"><i class="ri-add-line"></i></button>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2">Children (0-12 years)</label>
+                    <div class="guest-counter">
+                        <button id="children-minus" class="minus-btn" disabled><i class="ri-subtract-line"></i></button>
+                        <span id="children-count" class="mx-2">0</span>
+                        <button id="children-plus" class="plus-btn"><i class="ri-add-line"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-8">
+                <label for="special-requests" class="block text-gray-700 font-medium mb-2">Special Requests
+                    (Optional)</label>
+                <textarea id="special-requests" rows="4"
+                    class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700"
+                    placeholder="Let us know if you have any special requirements or preferences..."></textarea>
+            </div>
+            <button id="view-rooms"
+                class="whitespace-nowrap !rounded-button w-full py-3 bg-primary text-white hover:bg-opacity-90 transition-colors duration-300 font-medium">View
+                Available Rooms</button>
+        </div>
+    </div>
+    Step 3: Room Selection (Initially Hidden)
+    <div id="step-3" class="booking-step hidden">
+        <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">Select Your Room</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">Choose from our carefully curated rooms, each designed to
+                provide comfort and an authentic experience.</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
+            <div class="property-summary flex items-center mb-8">
+                <img id="selected-property-image-2" src="" alt="Selected Property"
+                    class="w-20 h-20 rounded-lg object-cover object-top mr-4">
+                <div>
+                    <h3 id="selected-property-name-2" class="text-xl font-semibold text-gray-900"></h3>
+                    <p id="selected-property-location-2" class="text-gray-600"></p>
+                    <p id="selected-dates" class="text-gray-600 text-sm"></p>
+                </div>
+                <button id="change-dates"
+                    class="ml-auto text-primary hover:text-secondary transition-colors text-sm">Change Dates</button>
+            </div>
+            Room Cards
+            <div class="space-y-6" id="room-container">
+                <!-- Room cards will be dynamically populated based on property selection -->
+            <!-- </div>
+            <button id="continue-to-details"
+                class="whitespace-nowrap !rounded-button w-full py-3 mt-8 bg-primary text-white hover:bg-opacity-90 transition-colors duration-300 font-medium">Continue
+                to Guest Details</button>
+        </div>
+    </div> -->
+    <!-- Step 4: Guest Details (Initially Hidden)
+    <div id="step-4" class="booking-step hidden">
+        <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">Guest Details</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">Please provide your information so we can personalize
+                your stay.</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
+            <div class="property-summary flex items-center mb-8">
+                <img id="selected-property-image-3" src="" alt="Selected Property"
+                    class="w-20 h-20 rounded-lg object-cover object-top mr-4">
+                <div>
+                    <h3 id="selected-property-name-3" class="text-xl font-semibold text-gray-900"></h3>
+                    <p id="selected-room-type" class="text-gray-600"></p>
+                    <p id="selected-dates-2" class="text-gray-600 text-sm"></p>
+                </div>
+                <button id="change-room"
+                    class="ml-auto text-primary hover:text-secondary transition-colors text-sm">Change Room</button>
+            </div>
+            <div class="border-b border-gray-200 pb-6 mb-6">
+                <h3 class="text-xl font-medium text-gray-900 mb-4">Personal Information</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="first-name" class="block text-gray-700 font-medium mb-2">First Name</label>
+                        <input type="text" id="first-name"
+                            class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700">
+                    </div>
+                    <div>
+                        <label for="last-name" class="block text-gray-700 font-medium mb-2">Last Name</label>
+                        <input type="text" id="last-name"
+                            class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-gray-700 font-medium mb-2">Email Address</label>
+                        <input type="email" id="email"
+                            class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700">
+                    </div>
+                    <div>
+                        <label for="phone" class="block text-gray-700 font-medium mb-2">Phone Number</label>
+                        <input type="tel" id="phone"
+                            class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700">
+                    </div>
+                </div>
+            </div>
+            <div class="border-b border-gray-200 pb-6 mb-6">
+                <h3 class="text-xl font-medium text-gray-900 mb-4">Address Information</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="md:col-span-2">
+                        <label for="address" class="block text-gray-700 font-medium mb-2">Address</label>
+                        <input type="text" id="address"
+                            class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700">
+                    </div>
+                    <div>
+                        <label for="city" class="block text-gray-700 font-medium mb-2">City</label>
+                        <input type="text" id="city"
+                            class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700">
+                    </div>
+                    <div>
+                        <label for="state" class="block text-gray-700 font-medium mb-2">State/Province</label>
+                        <input type="text" id="state"
+                            class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700">
+                    </div>
+                    <div>
+                        <label for="postal-code" class="block text-gray-700 font-medium mb-2">Postal Code</label>
+                        <input type="text" id="postal-code"
+                            class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700">
+                    </div>
+                    <div>
+                        <label for="country" class="block text-gray-700 font-medium mb-2">Country</label>
+                        <div class="relative">
+                            <select id="country"
+                                class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700 appearance-none pr-8">
+                                <option value="India">India</option>
+                                <option value="United States">United States</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="Canada">Canada</option>
+                                <option value="Australia">Australia</option>
+                                <option value="Germany">Germany</option>
+                                <option value="France">France</option>
+                                <option value="Japan">Japan</option>
+                                <option value="Singapore">Singapore</option>
+                            </select>
+                            <div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                                <i class="ri-arrow-down-s-line text-gray-500"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-b border-gray-200 pb-6 mb-6">
+                <h3 class="text-xl font-medium text-gray-900 mb-4">ID Verification</h3>
+                <p class="text-gray-600 mb-4">For security purposes, we require a valid ID for verification. This will
+                    be kept confidential.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="id-type" class="block text-gray-700 font-medium mb-2">ID Type</label>
+                        <div class="relative">
+                            <select id="id-type"
+                                class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700 appearance-none pr-8">
+                                <option value="passport">Passport</option>
+                                <option value="drivers-license">Driver's License</option>
+                                <option value="national-id">National ID Card</option>
+                                <option value="aadhar">Aadhar Card</option>
+                            </select>
+                            <div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                                <i class="ri-arrow-down-s-line text-gray-500"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="id-number" class="block text-gray-700 font-medium mb-2">ID Number</label>
+                        <input type="text" id="id-number"
+                            class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-gray-700 font-medium mb-2">Upload ID (Front)</label>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+                            <div class="w-8 h-8 flex items-center justify-center text-gray-400 mx-auto mb-2">
+                                <i class="ri-upload-2-line ri-2x"></i>
+                            </div>
+                            <p class="text-gray-500 mb-2">Drag and drop your file here, or</p>
+                            <button
+                                class="whitespace-nowrap !rounded-button px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-300 text-sm font-medium">Browse
+                                Files</button>
+                            <input type="file" class="hidden">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-xl font-medium text-gray-900 mb-4">Additional Information</h3>
+                <div class="mb-6">
+                    <label for="arrival-time" class="block text-gray-700 font-medium mb-2">Estimated Arrival
+                        Time</label>
+                    <div class="relative">
+                        <select id="arrival-time"
+                            class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700 appearance-none pr-8">
+                            <option value="12-2pm">12:00 PM - 2:00 PM</option>
+                            <option value="2-4pm">2:00 PM - 4:00 PM</option>
+                            <option value="4-6pm">4:00 PM - 6:00 PM</option>
+                            <option value="6-8pm">6:00 PM - 8:00 PM</option>
+                            <option value="after-8pm">After 8:00 PM</option>
+                        </select>
+                        <div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                            <i class="ri-arrow-down-s-line text-gray-500"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label for="dietary-requirements" class="block text-gray-700 font-medium mb-2">Dietary
+                        Requirements</label>
+                    <textarea id="dietary-requirements" rows="3"
+                        class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700"
+                        placeholder="Please let us know if you have any dietary restrictions or preferences..."></textarea>
+                </div>
+                <div class="mb-6">
+                    <label for="special-occasions" class="block text-gray-700 font-medium mb-2">Special
+                        Occasions</label>
+                    <textarea id="special-occasions" rows="3"
+                        class="w-full px-4 py-3 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700"
+                        placeholder="Are you celebrating a special occasion during your stay?"></textarea>
+                </div>
+            </div>
+            <button id="continue-to-payment"
+                class="whitespace-nowrap !rounded-button w-full py-3 mt-8 bg-primary text-white hover:bg-opacity-90 transition-colors duration-300 font-medium">Continue
+                to Payment</button>
+        </div>
+    </div> -->
+    <!-- Step 5: Payment (Initially Hidden)
+    <div id="step-5" class="booking-step hidden">
+        <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">Payment</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">Secure your booking by completing the payment process.
+            </p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
+                    <h3 class="text-xl font-medium text-gray-900 mb-6">Payment Method</h3>
+                    <div class="space-y-4 mb-8"> -->
+                        <!-- Credit/Debit Card Option
+                        <div class="payment-method selected border rounded-lg p-4 cursor-pointer">
+                            <div class="flex items-center">
+                                <div class="custom-radio">
+                                    <input type="radio" id="card-payment" name="payment-method" checked>
+                                    <span class="radio-circle"></span>
+                                </div>
+                                <label for="card-payment"
+                                    class="ml-2 text-gray-800 font-medium cursor-pointer">Credit/Debit Card</label>
+                                <div class="ml-auto flex space-x-2">
+                                    <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                                        <i class="ri-visa-line ri-lg"></i>
+                                    </div>
+                                    <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                                        <i class="ri-mastercard-line ri-lg"></i>
+                                    </div>
+                                    <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                                        <i class="ri-bank-card-line ri-lg"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 card-details">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                    <div class="md:col-span-2">
+                                        <label for="card-number" class="block text-gray-700 text-sm mb-1">Card
+                                            Number</label>
+                                        <input type="text" id="card-number"
+                                            class="w-full px-4 py-2 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700"
+                                            placeholder="1234 5678 9012 3456">
+                                    </div>
+                                    <div>
+                                        <label for="expiry-date" class="block text-gray-700 text-sm mb-1">Expiry
+                                            Date</label>
+                                        <input type="text" id="expiry-date"
+                                            class="w-full px-4 py-2 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700"
+                                            placeholder="MM/YY">
+                                    </div>
+                                    <div>
+                                        <label for="cvv" class="block text-gray-700 text-sm mb-1">CVV</label>
+                                        <input type="text" id="cvv"
+                                            class="w-full px-4 py-2 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700"
+                                            placeholder="123">
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label for="card-name" class="block text-gray-700 text-sm mb-1">Name on
+                                            Card</label>
+                                        <input type="text" id="card-name"
+                                            class="w-full px-4 py-2 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700"
+                                            placeholder="John Doe">
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- UPI Option
+                        <div class="payment-method border rounded-lg p-4 cursor-pointer">
+                            <div class="flex items-center">
+                                <div class="custom-radio">
+                                    <input type="radio" id="upi-payment" name="payment-method">
+                                    <span class="radio-circle"></span>
+                                </div>
+                                <label for="upi-payment"
+                                    class="ml-2 text-gray-800 font-medium cursor-pointer">UPI</label>
+                                <div class="ml-auto flex space-x-2">
+                                    <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                                        <i class="ri-google-pay-fill ri-lg"></i>
+                                    </div>
+                                    <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                                        <i class="ri-paytm-fill ri-lg"></i>
+                                    </div>
+                                    <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                                        <i class="ri-phone-pay-fill ri-lg"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 upi-details hidden">
+                                <div class="mb-4">
+                                    <label for="upi-id" class="block text-gray-700 text-sm mb-1">UPI ID</label>
+                                    <input type="text" id="upi-id"
+                                        class="w-full px-4 py-2 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700"
+                                        placeholder="yourname@upi">
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- Net Banking Option
+                        <div class="payment-method border rounded-lg p-4 cursor-pointer">
+                            <div class="flex items-center">
+                                <div class="custom-radio">
+                                    <input type="radio" id="netbanking-payment" name="payment-method">
+                                    <span class="radio-circle"></span>
+                                </div>
+                                <label for="netbanking-payment"
+                                    class="ml-2 text-gray-800 font-medium cursor-pointer">Net Banking</label>
+                                <div class="ml-auto flex space-x-2">
+                                    <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                                        <i class="ri-bank-line ri-lg"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 netbanking-details hidden">
+                                <div class="mb-4">
+                                    <label for="bank-select" class="block text-gray-700 text-sm mb-1">Select
+                                        Bank</label>
+                                    <div class="relative">
+                                        <select id="bank-select"
+                                            class="w-full px-4 py-2 rounded border border-gray-200 focus:border-primary focus:outline-none text-gray-700 appearance-none pr-8">
+                                            <option value="">Select your bank</option>
+                                            <option value="sbi">State Bank of India</option>
+                                            <option value="hdfc">HDFC Bank</option>
+                                            <option value="icici">ICICI Bank</option>
+                                            <option value="axis">Axis Bank</option>
+                                            <option value="kotak">Kotak Mahindra Bank</option>
+                                        </select>
+                                        <div
+                                            class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                                            <i class="ri-arrow-down-s-line text-gray-500"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- <div class="mb-6">
+                        <div class="custom-checkbox">
+                            <input type="checkbox" id="terms-checkbox">
+                            <span class="checkbox-box"></span>
+                            <label for="terms-checkbox" class="ml-2 text-gray-700 cursor-pointer">I agree to the <a
+                                    href="#" class="text-primary hover:underline">Terms & Conditions</a> and <a href="#"
+                                    class="text-primary hover:underline">Cancellation Policy</a></label>
+                        </div>
+                    </div>
+                    <button id="confirm-booking"
+                        class="whitespace-nowrap !rounded-button w-full py-3 bg-primary text-white hover:bg-opacity-90 transition-colors duration-300 font-medium">Confirm
+                        Booking</button>
+                    <div class="mt-6 text-center">
+                        <p class="text-gray-500 text-sm">Your payment information is secure. We use industry-standard
+                            encryption to protect your data.</p>
+                        <div class="flex justify-center mt-2 space-x-4">
+                            <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                                <i class="ri-lock-line ri-lg"></i>
+                            </div>
+                            <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                                <i class="ri-shield-check-line ri-lg"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow-sm p-6 sticky top-28">
+                    <h3 class="text-xl font-medium text-gray-900 mb-4">Booking Summary</h3>
+                    <div class="flex items-start mb-4">
+                        <img id="selected-property-image-4" src="" alt="Selected Property"
+                            class="w-16 h-16 rounded object-cover object-top mr-3">
+                        <div>
+                            <h4 id="selected-property-name-4" class="font-medium text-gray-900"></h4>
+                            <p id="selected-room-type-2" class="text-gray-600 text-sm"></p>
+                        </div>
+                    </div>
+                    <div class="border-t border-gray-100 pt-4 mb-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-600">Check-in</span>
+                            <span id="summary-checkin" class="text-gray-900 font-medium"></span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-600">Check-out</span>
+                            <span id="summary-checkout" class="text-gray-900 font-medium"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Guests</span>
+                            <span id="summary-guests" class="text-gray-900 font-medium"></span>
+                        </div>
+                    </div>
+                    <div class="border-t border-gray-100 pt-4 mb-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-600">Room Rate (per night)</span>
+                            <span id="summary-rate" class="text-gray-900 font-medium"></span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-600">Number of Nights</span>
+                            <span id="summary-nights" class="text-gray-900 font-medium"></span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-600">Taxes & Fees (18%)</span>
+                            <span id="summary-taxes" class="text-gray-900 font-medium"></span>
+                        </div>
+                    </div>
+                    <div class="border-t border-gray-100 pt-4 mb-4">
+                        <div class="flex justify-between text-lg font-semibold">
+                            <span class="text-gray-800">Total</span>
+                            <span id="summary-total" class="text-primary"></span>
+                        </div>
+                    </div>
+                    <div class="text-center mt-6">
+                        <p class="text-gray-500 text-sm">Need assistance? <a href="#"
+                                class="text-primary hover:underline">Contact us</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- Confirmation Screen (Initially Hidden)
+    <div id="confirmation-screen" class="booking-step hidden">
+        <div class="bg-white rounded-lg shadow-sm p-8 text-center">
+            <div class="w-20 h-20 flex items-center justify-center bg-green-50 text-primary rounded-full mx-auto mb-6">
+                <i class="ri-check-line ri-3x"></i>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">Booking Confirmed!</h2>
+            <p class="text-lg text-gray-600 mb-8">Thank you for choosing Stay Stories. Your booking has been
+                successfully confirmed.</p>
+            <div class="max-w-md mx-auto bg-gray-50 rounded-lg p-6 mb-8">
+                <h3 class="text-xl font-medium text-gray-900 mb-4">Booking Details</h3>
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-600">Booking Reference</span>
+                    <span class="text-gray-900 font-medium">SS25042901</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-600">Property</span>
+                    <span id="confirmation-property" class="text-gray-900 font-medium"></span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-600">Room Type</span>
+                    <span id="confirmation-room" class="text-gray-900 font-medium"></span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-600">Check-in</span>
+                    <span id="confirmation-checkin" class="text-gray-900 font-medium"></span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-600">Check-out</span>
+                    <span id="confirmation-checkout" class="text-gray-900 font-medium"></span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-600">Total Amount</span>
+                    <span id="confirmation-total" class="text-primary font-medium"></span>
+                </div>
+            </div>
+            <p class="text-gray-600 mb-6">A confirmation email has been sent to your registered email address with all
+                the details of your booking.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button id="download-confirmation"
+                    class="whitespace-nowrap !rounded-button px-6 py-3 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 font-medium">Download
+                    Confirmation</button>
+                <a href="https://readdy.ai/home/35de9430-fe92-4179-a384-0e7c06d2339f/1c0a27f4-19b5-459d-a69c-5f09d1ea841c"
+                    data-readdy="true"
+                    class="whitespace-nowrap !rounded-button px-6 py-3 bg-primary text-white hover:bg-opacity-90 transition-colors duration-300 font-medium">Return
+                    to Home</a>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div> -->
+    <!-- Footer -->
+    <footer class="bg-gray-100 pt-16 pb-8 mt-16">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- Brand Column -->
+                <div>
+                    <a href="./index.html">
+                        <img src="./Image/Main Logo.png" alt="Logo" class="h-20 mb-6">
+                      </a>
+                    <p class="text-gray-600 mb-6">Crafting memorable stays that tell stories of places, people, and
+                        experiences.</p>
+                    <div class="flex space-x-4">
+                        <a href="#"
+                            class="w-10 h-10 flex items-center justify-center text-primary hover:text-secondary transition-colors">
+                            <i class="ri-instagram-line ri-lg"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 flex items-center justify-center text-primary hover:text-secondary transition-colors">
+                            <i class="ri-facebook-line ri-lg"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 flex items-center justify-center text-primary hover:text-secondary transition-colors">
+                            <i class="ri-twitter-x-line ri-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Chapters Column -->
+                <div>
+                    <h3 class="text-xl font-medium text-gray-900 mb-4">Our Chapters</h3>
+                    <ul class="space-y-3">
+                        <li><a href="./Chapter-1.html" class="text-gray-600 hover:text-primary transition-colors">KrishnaChura,
+                                Santiniketan</a></li>
+                        <li><a href="./Chapter-2.html" class="text-gray-600 hover:text-primary transition-colors">Lake Hill Villa,
+                                Baranti</a></li>
+                        <li><a href="./Chapter-3.html" class="text-gray-500 italic hover:text-primary transition-colors">Up On The Hill
+                                (Coming Soon)</a></li>
+                        <li><a href="./Chapter-4.html" class="text-gray-500 italic hover:text-primary transition-colors">By The Sea
+                                Shore (Coming Soon)</a></li>
+                    </ul>
+                </div>
+                <!-- Information Column -->
+                <div>
+                    <h3 class="text-xl font-medium text-gray-900 mb-4">Information</h3>
+                    <ul class="space-y-3">
+                        <li><a href="./Prologue.html" class="text-gray-600 hover:text-primary transition-colors">Prologue</a></li>
+                        <li><a href="./Terms.html"
+                                data-readdy="true" class="text-gray-600 hover:text-primary transition-colors">Terms &
+                                Conditions</a></li>
+                        <li><a href="./Cancellation-policy.html" class="text-gray-600 hover:text-primary transition-colors">Cancellation
+                                Policy</a></li>
+                        <li><a href="./travel-advisory.html" class="text-gray-600 hover:text-primary transition-colors">Travel Advisory</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Contact Column -->
+                <div>
+                    <h3 class="text-xl font-medium text-gray-900 mb-4">Contact Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center text-primary mr-3 mt-1">
+                                <i class="ri-map-pin-line"></i>
+                            </div>
+                            <span class="text-gray-600">42 Park Street, Kolkata, West Bengal, India - 700016</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center text-primary mr-3 mt-1">
+                                <i class="ri-phone-line"></i>
+                            </div>
+                            <span class="text-gray-600">+91 98765 43210</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center text-primary mr-3 mt-1">
+                                <i class="ri-mail-line"></i>
+                            </div>
+                            <span class="text-gray-600">hello@staystories.in</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-200 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 Stay Stories. All rights reserved.</p>
+                    <div class="flex items-center space-x-6">
+                        <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                            <i class="ri-visa-line ri-lg"></i>
+                        </div>
+                        <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                            <i class="ri-mastercard-line ri-lg"></i>
+                        </div>
+                        <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                            <i class="ri-paypal-line ri-lg"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('active');
+            });
+            // Simple booking form handling
+            const bookingForm = document.getElementById('simple-booking-form');
+            if (bookingForm) {
+                bookingForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    // Get form values
+                    const property = document.getElementById('property').value;
+                    const checkIn = document.getElementById('check-in').value;
+                    const checkOut = document.getElementById('check-out').value;
+                    const guests = document.getElementById('guests').value;
+                    const phone = document.getElementById('phone').value;
+                    const email = document.getElementById('email').value;
+                    const message = document.getElementById('message').value;
+                    // Create success message element
+                    const successMessage = document.createElement('div');
+                    successMessage.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-8 text-center z-50 max-w-md w-full mx-4';
+                    successMessage.innerHTML = `
+<div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-green-50 text-primary rounded-full">
+<i class="ri-check-line ri-2x"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-2">Booking Request Sent!</h3>
+<p class="text-gray-600 mb-6">Thank you for your interest in Stay Stories. We'll contact you shortly to confirm your booking details.</p>
+<button class="whitespace-nowrap !rounded-button px-6 py-2 bg-primary text-white hover:bg-opacity-90 transition-colors duration-300">Close</button>
+`;
+                    // Create overlay
+                    const overlay = document.createElement('div');
+                    overlay.className = 'fixed inset-0 bg-black bg-opacity-50 z-40';
+                    // Add to DOM
+                    document.body.appendChild(overlay);
+                    document.body.appendChild(successMessage);
+                    // Close button handler
+                    const closeButton = successMessage.querySelector('button');
+                    closeButton.addEventListener('click', function () {
+                        document.body.removeChild(overlay);
+                        document.body.removeChild(successMessage);
+                        bookingForm.reset();
+                    });
+                    // Reset form
+                    bookingForm.reset();
+                });
+            }
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function (event) {
+                if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile dropdown toggles
+            const mobileContactButton = document.getElementById('mobile-contact-button');
+            const mobileContactDropdown = document.getElementById('mobile-contact-dropdown');
+            mobileContactButton.addEventListener('click', function () {
+                mobileContactDropdown.classList.toggle('active');
+                mobileContactButton.querySelector('i').classList.toggle('ri-arrow-down-s-line');
+                mobileContactButton.querySelector('i').classList.toggle('ri-arrow-up-s-line');
+            });
+            const mobileChaptersButton = document.getElementById('mobile-chapters-button');
+            const mobileChaptersDropdown = document.getElementById('mobile-chapters-dropdown');
+            mobileChaptersButton.addEventListener('click', function () {
+                mobileChaptersDropdown.classList.toggle('active');
+                mobileChaptersButton.querySelector('i').classList.toggle('ri-arrow-down-s-line');
+                mobileChaptersButton.querySelector('i').classList.toggle('ri-arrow-up-s-line');
+            });
+            const mobileFyiButton = document.getElementById('mobile-fyi-button');
+            const mobileFyiDropdown = document.getElementById('mobile-fyi-dropdown');
+            mobileFyiButton.addEventListener('click', function () {
+                mobileFyiDropdown.classList.toggle('active');
+                mobileFyiButton.querySelector('i').classList.toggle('ri-arrow-down-s-line');
+                mobileFyiButton.querySelector('i').classList.toggle('ri-arrow-up-s-line');
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            // Booking Process Variables
+            let selectedProperty = null;
+            let selectedRoom = null;
+            let checkInDate = null;
+            let checkOutDate = null;
+            let adultsCount = 2;
+            let childrenCount = 0;
+            let roomRate = 0;
+            // Property Data
+            const properties = {
+                krishnachura: {
+                    name: "KrishnaChura",
+                    location: "Santiniketan",
+                    image: "https://readdy.ai/api/search-image?query=A%2520beautiful%2520traditional%2520Bengali-style%2520villa%2520with%2520terracotta%2520roof%2520and%2520white%2520walls%2520surrounded%2520by%2520lush%2520greenery%2520and%2520manicured%2520gardens.%2520The%2520architecture%2520shows%2520intricate%2520details%2520with%2520wooden%2520elements.%2520The%2520scene%2520has%2520warm%2520lighting%2520with%2520soft%2520shadows%252C%2520creating%2520a%2520serene%2520and%2520inviting%2520atmosphere.%2520Professional%2520high-end%2520photography%2520with%2520perfect%2520lighting.&width=600&height=400&seq=3001&orientation=landscape",
+                    rooms: [
+                        {
+                            id: "kc-heritage",
+                            name: "Heritage Suite",
+                            description: "Spacious suite with traditional Bengali décor, featuring a king-size bed, private balcony, and antique furnishings.",
+                            amenities: ["King Bed", "Private Balcony", "Air Conditioning", "Free Wi-Fi", "En-suite Bathroom"],
+                            maxGuests: 2,
+                            rate: 8500,
+                            image: "https://readdy.ai/api/search-image?query=A%2520spacious%2520and%2520elegant%2520heritage%2520suite%2520with%2520traditional%2520Bengali%2520decor.%2520Features%2520a%2520king-size%2520four-poster%2520bed%2520with%2520white%2520linens%252C%2520wooden%2520floors%252C%2520antique%2520furniture%252C%2520and%2520large%2520windows%2520with%2520natural%2520light.%2520The%2520room%2520has%2520terracotta%2520accents%252C%2520handwoven%2520textiles%252C%2520and%2520tasteful%2520art.%2520Warm%2520ambient%2520lighting%2520creates%2520a%2520luxurious%2520yet%2520authentic%2520atmosphere.%2520Professional%2520interior%2520photography%2520with%2520perfect%2520lighting.&width=600&height=400&seq=3005&orientation=landscape"
+                        },
+                        {
+                            id: "kc-garden",
+                            name: "Garden Room",
+                            description: "Charming room overlooking the lush gardens, with twin beds that can be converted to a king, and handcrafted local artwork.",
+                            amenities: ["Twin/King Bed", "Garden View", "Air Conditioning", "Free Wi-Fi", "Work Desk"],
+                            maxGuests: 2,
+                            rate: 6500,
+                            image: "https://readdy.ai/api/search-image?query=A%2520charming%2520garden%2520room%2520with%2520large%2520windows%2520overlooking%2520lush%2520green%2520gardens.%2520Features%2520twin%2520beds%2520with%2520crisp%2520white%2520linens%252C%2520light%2520colored%2520walls%252C%2520wooden%2520furniture%252C%2520and%2520handcrafted%2520local%2520artwork.%2520The%2520room%2520has%2520a%2520fresh%2520and%2520airy%2520feel%2520with%2520indoor%2520plants%2520and%2520natural%2520materials.%2520Bright%2520natural%2520lighting%2520creates%2520a%2520peaceful%2520and%2520refreshing%2520atmosphere.%2520Professional%2520interior%2520photography%2520with%2520perfect%2520lighting.&width=600&height=400&seq=3006&orientation=landscape"
+                        },
+                        {
+                            id: "kc-family",
+                            name: "Family Suite",
+                            description: "Perfect for families, this spacious suite features a master bedroom and a separate room with twin beds, along with a shared living area.",
+                            amenities: ["King + Twin Beds", "Living Area", "Air Conditioning", "Free Wi-Fi", "Two Bathrooms"],
+                            maxGuests: 4,
+                            rate: 12500,
+                            image: "https://readdy.ai/api/search-image?query=A%2520spacious%2520family%2520suite%2520with%2520a%2520master%2520bedroom%2520area%2520and%2520separate%2520twin%2520bed%2520area%2520connected%2520by%2520a%2520shared%2520living%2520space.%2520Features%2520a%2520king%2520bed%2520in%2520one%2520section%2520and%2520two%2520twin%2520beds%2520in%2520another%252C%2520with%2520comfortable%2520seating%2520in%2520between.%2520The%2520room%2520has%2520warm%2520colors%252C%2520traditional%2520elements%2520with%2520modern%2520comforts%252C%2520and%2520enough%2520space%2520for%2520a%2520family.%2520Warm%2520lighting%2520creates%2520a%2520cozy%2520and%2520welcoming%2520atmosphere.%2520Professional%2520interior%2520photography%2520with%2520perfect%2520lighting.&width=600&height=400&seq=3007&orientation=landscape"
+                        }
+                    ]
+                },
+                lakehill: {
+                    name: "Lake Hill Villa",
+                    location: "Baranti",
+                    image: "https://readdy.ai/api/search-image?query=A%2520beautiful%2520lakeside%2520villa%2520with%2520panoramic%2520views%2520of%2520hills%2520and%2520water.%2520The%2520property%2520features%2520modern%2520architecture%2520with%2520traditional%2520elements%252C%2520large%2520windows%252C%2520and%2520a%2520spacious%2520deck%2520overlooking%2520the%2520lake.%2520Surrounded%2520by%2520lush%2520greenery%2520and%2520flowering%2520plants.%2520The%2520scene%2520has%2520golden%2520hour%2520lighting%2520creating%2520a%2520peaceful%2520and%2520serene%2520atmosphere.%2520Professional%2520high-end%2520photography%2520with%2520perfect%2520lighting.&width=600&height=400&seq=3002&orientation=landscape",
+                    rooms: [
+                        {
+                            id: "lh-lake",
+                            name: "Lake View Suite",
+                            description: "Premium suite offering panoramic views of the lake and hills, featuring a king-size bed, private terrace, and luxury amenities.",
+                            amenities: ["King Bed", "Private Terrace", "Lake View", "Air Conditioning", "Mini Bar"],
+                            maxGuests: 2,
+                            rate: 9500,
+                            image: "https://readdy.ai/api/search-image?query=A%2520premium%2520suite%2520with%2520panoramic%2520views%2520of%2520a%2520lake%2520and%2520hills%2520through%2520large%2520windows.%2520Features%2520a%2520king-size%2520bed%2520with%2520luxury%2520linens%252C%2520elegant%2520furniture%252C%2520and%2520a%2520private%2520terrace%2520visible%2520from%2520inside.%2520The%2520room%2520has%2520a%2520contemporary%2520design%2520with%2520traditional%2520touches%252C%2520neutral%2520colors%2520with%2520blue%2520accents%2520reflecting%2520the%2520lake.%2520Natural%2520light%2520floods%2520the%2520room%2520creating%2520a%2520serene%2520and%2520luxurious%2520atmosphere.%2520Professional%2520interior%2520photography%2520with%2520perfect%2520lighting.&width=600&height=400&seq=3008&orientation=landscape"
+                        },
+                        {
+                            id: "lh-hill",
+                            name: "Hill View Room",
+                            description: "Cozy room with beautiful views of the surrounding hills, featuring a queen-size bed and rustic-modern décor.",
+                            amenities: ["Queen Bed", "Hill View", "Air Conditioning", "Free Wi-Fi", "Tea/Coffee Maker"],
+                            maxGuests: 2,
+                            rate: 7500,
+                            image: "https://readdy.ai/api/search-image?query=A%2520cozy%2520room%2520with%2520beautiful%2520views%2520of%2520surrounding%2520hills%2520through%2520a%2520large%2520window.%2520Features%2520a%2520queen-size%2520bed%2520with%2520comfortable%2520linens%252C%2520rustic-modern%2520decor%2520with%2520wooden%2520elements%252C%2520and%2520earthy%2520tones.%2520The%2520room%2520has%2520a%2520warm%2520and%2520inviting%2520feel%2520with%2520local%2520textiles%2520and%2520simple%2520elegant%2520furnishings.%2520Natural%2520light%2520highlights%2520the%2520textures%2520creating%2520a%2520peaceful%2520retreat%2520atmosphere.%2520Professional%2520interior%2520photography%2520with%2520perfect%2520lighting.&width=600&height=400&seq=3009&orientation=landscape"
+                        },
+                        {
+                            id: "lh-deluxe",
+                            name: "Deluxe Twin Room",
+                            description: "Comfortable room with two twin beds, ideal for friends or family members, featuring modern amenities and a shared balcony.",
+                            amenities: ["Twin Beds", "Shared Balcony", "Air Conditioning", "Free Wi-Fi", "Work Desk"],
+                            maxGuests: 2,
+                            rate: 6500,
+                            image: "https://readdy.ai/api/search-image?query=A%2520comfortable%2520room%2520with%2520two%2520twin%2520beds%2520with%2520crisp%2520white%2520linens%2520and%2520colorful%2520accent%2520pillows.%2520Features%2520modern%2520furnishings%252C%2520light%2520colored%2520walls%252C%2520and%2520a%2520door%2520leading%2520to%2520a%2520shared%2520balcony.%2520The%2520room%2520has%2520a%2520clean%2520and%2520contemporary%2520feel%2520with%2520subtle%2520traditional%2520elements%2520and%2520artwork.%2520Bright%2520natural%2520lighting%2520creates%2520a%2520fresh%2520and%2520inviting%2520atmosphere.%2520Professional%2520interior%2520photography%2520with%2520perfect%2520lighting.&width=600&height=400&seq=3010&orientation=landscape"
+                        },
+                        {
+                            id: "lh-family",
+                            name: "Lakeside Family Room",
+                            description: "Spacious room for families with a king-size bed and additional day bed, featuring lake views and a sitting area.",
+                            amenities: ["King + Day Bed", "Lake View", "Sitting Area", "Air Conditioning", "Free Wi-Fi"],
+                            maxGuests: 3,
+                            rate: 10500,
+                            image: "https://readdy.ai/api/search-image?query=A%2520spacious%2520family%2520room%2520with%2520lake%2520views%2520through%2520large%2520windows.%2520Features%2520a%2520king-size%2520bed%2520and%2520a%2520separate%2520day%2520bed%2520or%2520sofa%2520bed%252C%2520with%2520a%2520comfortable%2520sitting%2520area.%2520The%2520room%2520has%2520a%2520blend%2520of%2520contemporary%2520and%2520traditional%2520elements%252C%2520with%2520blue%2520and%2520neutral%2520tones%2520reflecting%2520the%2520lakeside%2520setting.%2520Natural%2520light%2520creates%2520a%2520bright%2520and%2520airy%2520family-friendly%2520atmosphere.%2520Professional%2520interior%2520photography%2520with%2520perfect%2520lighting.&width=600&height=400&seq=3011&orientation=landscape"
+                        },
+                        {
+                            id: "lh-premium",
+                            name: "Premium Suite",
+                            description: "Our most luxurious accommodation featuring a king-size bed, separate living area, private balcony with lake views, and premium amenities.",
+                            amenities: ["King Bed", "Living Area", "Private Balcony", "Lake View", "Premium Amenities"],
+                            maxGuests: 2,
+                            rate: 14500,
+                            image: "https://readdy.ai/api/search-image?query=A%2520luxurious%2520premium%2520suite%2520with%2520a%2520king-size%2520bed%2520in%2520one%2520area%2520and%2520a%2520separate%2520elegant%2520living%2520space.%2520Features%2520high-end%2520furnishings%252C%2520a%2520private%2520balcony%2520with%2520lake%2520views%252C%2520and%2520premium%2520decor.%2520The%2520room%2520has%2520sophisticated%2520design%2520with%2520a%2520perfect%2520balance%2520of%2520modern%2520luxury%2520and%2520traditional%2520elements%252C%2520in%2520rich%2520neutral%2520tones%2520with%2520subtle%2520accents.%2520Soft%2520ambient%2520lighting%2520creates%2520an%2520exclusive%2520and%2520refined%2520atmosphere.%2520Professional%2520interior%2520photography%2520with%2520perfect%2520lighting.&width=600&height=400&seq=3012&orientation=landscape"
+                        }
+                    ]
+                }
+            };
+            // Tab Navigation
+            const tabs = document.querySelectorAll('.tab-button');
+            const bookingSteps = document.querySelectorAll('.booking-step');
+            const progressBar = document.querySelector('.booking-progress-bar');
+            function showStep(stepIndex) {
+                // Hide all steps
+                bookingSteps.forEach(step => step.classList.add('hidden'));
+                // Show the selected step
+                bookingSteps[stepIndex].classList.remove('hidden');
+                // Update tabs
+                tabs.forEach((tab, index) => {
+                    if (index <= stepIndex) {
+                        tab.classList.add('active');
+                        tab.classList.add('text-primary');
+                        tab.classList.remove('text-gray-500');
+                    } else {
+                        tab.classList.remove('active');
+                        tab.classList.remove('text-primary');
+                        tab.classList.add('text-gray-500');
+                    }
+                });
+                // Update progress bar
+                const progress = (stepIndex + 1) * 20;
+                progressBar.style.setProperty('--progress', `${progress}%`);
+            }
+            // Initialize with step 1
+            showStep(0);
+            // Tab click handlers
+            tabs.forEach((tab, index) => {
+                tab.addEventListener('click', () => {
+                    // Only allow clicking on tabs that have been reached
+                    if (tab.classList.contains('active') ||
+                        (index > 0 && tabs[index - 1].classList.contains('active'))) {
+                        showStep(index);
+                    }
+                });
+            });
+            // Property Selection
+            const propertyButtons = document.querySelectorAll('.select-property');
+            propertyButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const propertyId = this.getAttribute('data-property');
+                    selectedProperty = properties[propertyId];
+                    // Update property information in step 2
+                    document.getElementById('selected-property-image').src = selectedProperty.image;
+                    document.getElementById('selected-property-name').textContent = selectedProperty.name;
+                    document.getElementById('selected-property-location').textContent = selectedProperty.location;
+                    // Move to step 2
+                    showStep(1);
+                });
+            });
+            // Change Property Button
+            document.getElementById('change-property').addEventListener('click', function () {
+                showStep(0);
+            });
+            // Date and Guest Counter Handlers
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            // Format date as YYYY-MM-DD for input value
+            const formatDateForInput = (date) => {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            };
+            // Format date for display
+            const formatDateForDisplay = (dateString) => {
+                const date = new Date(dateString);
+                const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
+                return date.toLocaleDateString('en-US', options);
+            };
+            // Set initial dates
+            document.getElementById('check-in').value = formatDateForInput(today);
+            document.getElementById('check-out').value = formatDateForInput(tomorrow);
+            // Guest counter handlers
+            document.getElementById('adults-plus').addEventListener('click', function () {
+                const countElement = document.getElementById('adults-count');
+                let count = parseInt(countElement.textContent);
+                if (count < 10) {
+                    count++;
+                    countElement.textContent = count;
+                    document.getElementById('adults-minus').disabled = false;
+                }
+                if (count === 10) {
+                    this.disabled = true;
+                }
+                adultsCount = count;
+            });
+            document.getElementById('adults-minus').addEventListener('click', function () {
+                const countElement = document.getElementById('adults-count');
+                let count = parseInt(countElement.textContent);
+                if (count > 1) {
+                    count--;
+                    countElement.textContent = count;
+                    document.getElementById('adults-plus').disabled = false;
+                }
+                if (count === 1) {
+                    this.disabled = true;
+                }
+                adultsCount = count;
+            });
+            document.getElementById('children-plus').addEventListener('click', function () {
+                const countElement = document.getElementById('children-count');
+                let count = parseInt(countElement.textContent);
+                if (count < 6) {
+                    count++;
+                    countElement.textContent = count;
+                    document.getElementById('children-minus').disabled = false;
+                }
+                if (count === 6) {
+                    this.disabled = true;
+                }
+                childrenCount = count;
+            });
+            document.getElementById('children-minus').addEventListener('click', function () {
+                const countElement = document.getElementById('children-count');
+                let count = parseInt(countElement.textContent);
+                if (count > 0) {
+                    count--;
+                    countElement.textContent = count;
+                    document.getElementById('children-plus').disabled = false;
+                }
+                if (count === 0) {
+                    this.disabled = true;
+                }
+                childrenCount = count;
+            });
+            // View Rooms Button
+            document.getElementById('view-rooms').addEventListener('click', function () {
+                checkInDate = document.getElementById('check-in').value;
+                checkOutDate = document.getElementById('check-out').value;
+                // Validate dates
+                if (!checkInDate || !checkOutDate) {
+                    alert('Please select both check-in and check-out dates.');
+                    return;
+                }
+                const checkIn = new Date(checkInDate);
+                const checkOut = new Date(checkOutDate);
+                if (checkIn >= checkOut) {
+                    alert('Check-out date must be after check-in date.');
+                    return;
+                }
+                // Update property information in step 3
+                document.getElementById('selected-property-image-2').src = selectedProperty.image;
+                document.getElementById('selected-property-name-2').textContent = selectedProperty.name;
+                document.getElementById('selected-property-location-2').textContent = selectedProperty.location;
+                document.getElementById('selected-dates').textContent = `${formatDateForDisplay(checkInDate)} - ${formatDateForDisplay(checkOutDate)}`;
+                // Generate room cards
+                const roomContainer = document.getElementById('room-container');
+                roomContainer.innerHTML = '';
+                selectedProperty.rooms.forEach(room => {
+                    const roomCard = document.createElement('div');
+                    roomCard.className = 'room-card bg-white border border-gray-200 rounded-lg overflow-hidden flex flex-col md:flex-row';
+                    roomCard.innerHTML = `
+<div class="md:w-1/3">
+<img src="${room.image}" alt="${room.name}" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6 md:w-2/3 flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xl font-semibold text-gray-900">${room.name}</h3>
+<div class="text-xl font-semibold text-primary">₹${room.rate.toLocaleString()}<span class="text-sm text-gray-500">/night</span></div>
+</div>
+<p class="text-gray-600 mb-4">${room.description}</p>
+<div class="flex flex-wrap gap-3 mb-4">
+${room.amenities.map(amenity => `
+<div class="flex items-center text-gray-700 text-sm">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-1">
+<i class="ri-checkbox-circle-line"></i>
+</div>
+<span>${amenity}</span>
+</div>
+`).join('')}
+</div>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex items-center text-gray-700">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-1">
+<i class="ri-user-line"></i>
+</div>
+<span>Max ${room.maxGuests} guests</span>
+</div>
+<label class="custom-radio flex items-center cursor-pointer">
+<input type="radio" name="room-selection" value="${room.id}" data-room='${JSON.stringify(room)}'>
+<span class="radio-circle"></span>
+<span class="ml-2 text-gray-800">Select</span>
+</label>
+</div>
+</div>
+`;
+                    roomContainer.appendChild(roomCard);
+                });
+                // Add event listeners to room selection radios
+                document.querySelectorAll('input[name="room-selection"]').forEach(radio => {
+                    radio.addEventListener('change', function () {
+                        if (this.checked) {
+                            selectedRoom = JSON.parse(this.getAttribute('data-room'));
+                            roomRate = selectedRoom.rate;
+                            document.getElementById('continue-to-details').disabled = false;
+                        }
+                    });
+                });
+                // Move to step 3
+                showStep(2);
+            });
+            // Change Dates Button
+            document.getElementById('change-dates').addEventListener('click', function () {
+                showStep(1);
+            });
+            // Continue to Guest Details Button
+            document.getElementById('continue-to-details').addEventListener('click', function () {
+                if (!selectedRoom) {
+                    alert('Please select a room to continue.');
+                    return;
+                }
+                // Update information in step 4
+                document.getElementById('selected-property-image-3').src = selectedProperty.image;
+                document.getElementById('selected-property-name-3').textContent = selectedProperty.name;
+                document.getElementById('selected-room-type').textContent = selectedRoom.name;
+                document.getElementById('selected-dates-2').textContent = `${formatDateForDisplay(checkInDate)} - ${formatDateForDisplay(checkOutDate)}`;
+                // Move to step 4
+                showStep(3);
+            });
+            // Change Room Button
+            document.getElementById('change-room').addEventListener('click', function () {
+                showStep(2);
+            });
+            // Continue to Payment Button
+            document.getElementById('continue-to-payment').addEventListener('click', function () {
+                // Validate form
+                const requiredFields = [
+                    'first-name', 'last-name', 'email', 'phone',
+                    'address', 'city', 'state', 'postal-code', 'id-number'
+                ];
+                let isValid = true;
+                requiredFields.forEach(field => {
+                    const input = document.getElementById(field);
+                    if (!input.value.trim()) {
+                        input.classList.add('border-red-500');
+                        isValid = false;
+                    } else {
+                        input.classList.remove('border-red-500');
+                    }
+                });
+                if (!isValid) {
+                    alert('Please fill in all required fields.');
+                    return;
+                }
+                // Calculate nights
+                const checkIn = new Date(checkInDate);
+                const checkOut = new Date(checkOutDate);
+                const nights = Math.round((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+                // Calculate taxes and total
+                const subtotal = roomRate * nights;
+                const taxes = subtotal * 0.18; // 18% tax
+                const total = subtotal + taxes;
+                // Update summary information
+                document.getElementById('selected-property-image-4').src = selectedProperty.image;
+                document.getElementById('selected-property-name-4').textContent = selectedProperty.name;
+                document.getElementById('selected-room-type-2').textContent = selectedRoom.name;
+                document.getElementById('summary-checkin').textContent = formatDateForDisplay(checkInDate);
+                document.getElementById('summary-checkout').textContent = formatDateForDisplay(checkOutDate);
+                document.getElementById('summary-guests').textContent = `${adultsCount} Adults, ${childrenCount} Children`;
+                document.getElementById('summary-rate').textContent = `₹${roomRate.toLocaleString()}`;
+                document.getElementById('summary-nights').textContent = nights;
+                document.getElementById('summary-taxes').textContent = `₹${taxes.toLocaleString()}`;
+                document.getElementById('summary-total').textContent = `₹${total.toLocaleString()}`;
+                // Move to step 5
+                showStep(4);
+            });
+            // Payment Method Selection
+            const paymentMethods = document.querySelectorAll('.payment-method');
+            paymentMethods.forEach(method => {
+                method.addEventListener('click', function () {
+                    // Unselect all methods
+                    paymentMethods.forEach(m => {
+                        m.classList.remove('selected');
+                        const radio = m.querySelector('input[type="radio"]');
+                        radio.checked = false;
+                        // Hide details sections
+                        const details = m.querySelector('.card-details, .upi-details, .netbanking-details');
+                        if (details) {
+                            details.classList.add('hidden');
+                        }
+                    });
+                    // Select clicked method
+                    this.classList.add('selected');
+                    const radio = this.querySelector('input[type="radio"]');
+                    radio.checked = true;
+                    // Show details section
+                    const details = this.querySelector('.card-details, .upi-details, .netbanking-details');
+                    if (details) {
+                        details.classList.remove('hidden');
+                    }
+                });
+            });
+            // Confirm Booking Button
+            document.getElementById('confirm-booking').addEventListener('click', function () {
+                if (!document.getElementById('terms-checkbox').checked) {
+                    alert('Please agree to the Terms & Conditions to continue.');
+                    return;
+                }
+                // Calculate nights and total for confirmation
+                const checkIn = new Date(checkInDate);
+                const checkOut = new Date(checkOutDate);
+                const nights = Math.round((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+                const subtotal = roomRate * nights;
+                const taxes = subtotal * 0.18;
+                const total = subtotal + taxes;
+                // Update confirmation screen
+                document.getElementById('confirmation-property').textContent = selectedProperty.name;
+                document.getElementById('confirmation-room').textContent = selectedRoom.name;
+                document.getElementById('confirmation-checkin').textContent = formatDateForDisplay(checkInDate);
+                document.getElementById('confirmation-checkout').textContent = formatDateForDisplay(checkOutDate);
+                document.getElementById('confirmation-total').textContent = `₹${total.toLocaleString()}`;
+                // Hide booking steps and show confirmation
+                document.querySelectorAll('.booking-step').forEach(step => step.classList.add('hidden'));
+                document.getElementById('confirmation-screen').classList.remove('hidden');
+                // Hide booking process navigation
+                document.querySelector('.booking-progress-bar').style.display = 'none';
+                document.querySelector('.flex.border-b.border-gray-200.mb-6').style.display = 'none';
+            });
+            // Download Confirmation Button
+            document.getElementById('download-confirmation').addEventListener('click', function () {
+                alert('Booking confirmation has been downloaded.');
+            });
+        });
+    </script>
+</body>
+
+</html>

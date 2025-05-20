@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stay Stories</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { primary: '#006400', secondary: '#F4A460' }, borderRadius: { 'none': '0px', 'sm': '4px', DEFAULT: '8px', 'md': '12px', 'lg': '16px', 'xl': '20px', '2xl': '24px', '3xl': '32px', 'full': '9999px', 'button': '8px' } } } }</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            color: #333;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .dropdown {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+        }
+
+        .dropdown-trigger:hover .dropdown,
+        .dropdown-trigger:focus-within .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: #006400;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .contact-dropdown {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .contact-dropdown.active {
+            max-height: 100px;
+        }
+
+        .hero-section {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.9) 30%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0) 70%), url('https://readdy.ai/api/search-image?query=A%20luxurious%20resort%20view%20with%20warm%20earthy%20tones%2C%20showing%20a%20beautiful%20villa%20nestled%20in%20nature%20with%20soft%20beige%20and%20ivory%20colors.%20The%20image%20has%20a%20serene%20atmosphere%20with%20elegant%20architectural%20details%2C%20lush%20greenery%2C%20and%20a%20calm%20water%20feature.%20The%20left%20side%20of%20the%20image%20gradually%20fades%20to%20a%20clean%20white%20background%20for%20text%20placement.%20Professional%20high-end%20photography%20with%20perfect%20lighting.&width=1600&height=800&seq=1234&orientation=landscape');
+            background-size: cover;
+            background-position: center right;
+        }
+
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu-item {
+            border-bottom: 1px solid rgba(244, 164, 96, 0.2);
+        }
+
+        .mobile-dropdown {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .mobile-dropdown.active {
+            max-height: 500px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                background-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.9) 30%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0) 70%), url('https://readdy.ai/api/search-image?query=A%20luxurious%20resort%20view%20with%20warm%20earthy%20tones%2C%20showing%20a%20beautiful%20villa%20nestled%20in%20nature%20with%20soft%20beige%20and%20ivory%20colors.%20The%20image%20has%20a%20serene%20atmosphere%20with%20elegant%20architectural%20details%2C%20lush%20greenery%2C%20and%20a%20calm%20water%20feature.%20The%20top%20of%20the%20image%20gradually%20fades%20to%20a%20clean%20white%20background%20for%20text%20placement.%20Professional%20high-end%20photography%20with%20perfect%20lighting.&width=800&height=1000&seq=1235&orientation=portrait');
+                background-position: bottom center;
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-white">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 bg-white bg-opacity-95 shadow-sm z-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Mobile Menu Button -->
+                <div class="block md:hidden">
+                    <button id="mobile-menu-button" class="w-10 h-10 flex items-center justify-center text-primary">
+                        <i class="ri-menu-line ri-lg"></i>
+                    </button>
+                </div>
+                <!-- Left Navigation (Desktop) -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <!-- Contact Button -->
+                    <div class="dropdown-trigger relative">
+                        <button
+                            class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Contact</button>
+                        <div
+                            class="dropdown absolute top-full left-0 mt-2 bg-white shadow-md rounded p-4 min-w-[200px] z-10">
+                            <p class="text-gray-600 mb-1 text-sm">Call us at:</p>
+                            <p class="text-primary font-medium">+91 98765 43210</p>
+                        </div>
+                    </div>
+                    <!-- Prologue -->
+                    <a href="./Prologue.html"
+                        data-readdy="true"
+                        class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Prologue</a>
+                    <!-- Chapters Dropdown -->
+                    <div class="dropdown-trigger relative">
+                        <button
+                            class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Chapters</button>
+                        <div
+                            class="dropdown absolute top-full left-0 mt-2 bg-white shadow-md rounded p-4 min-w-[300px] z-10">
+                            <a href="./Chapter-1.html"
+                                data-readdy="true"
+                                class="block py-2 text-gray-800 hover:text-primary transition-colors">Chapter 1: Stay
+                                Stories Santiniketan — KrishnaChura</a>
+                            <a href="./Chapter-2.html" class="block py-2 text-gray-800 hover:text-primary transition-colors">Chapter 2:
+                                Stay Stories Baranti — Lake Hill Villa</a>
+                            <a href="./Chapter-3.html"
+                                class="block py-2 text-gray-500 italic hover:text-primary transition-colors">Chapter 3:
+                                Stay Stories Up On The Hill <span class="text-xs ml-2 text-secondary">Being
+                                    Scripted</span></a>
+                            <a href="./Chapter-4.html"
+                                class="block py-2 text-gray-500 italic hover:text-primary transition-colors">Chapter 4:
+                                Stay Stories By The Sea Shore <span class="text-xs ml-2 text-secondary">Being
+                                    Scripted</span></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Logo -->
+                <div>
+                    <a href="./index.html">
+                        <img src="./Image/Main Logo.png" alt="Logo" class="h-20 object-contain">
+                    </a>
+                </div>
+                <!-- Right Navigation (Desktop) -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <!-- FYI Dropdown -->
+                    <div class="dropdown-trigger relative">
+                        <button
+                            class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">FYI</button>
+                        <div
+                            class="dropdown absolute top-full right-0 mt-2 bg-white shadow-md rounded p-4 min-w-[200px] z-10">
+                            <a href="/Terms.html" class="block py-2 text-gray-800 hover:text-primary transition-colors">Terms &
+                                Conditions</a>
+                            <a href="./Cancellation-policy.html"
+                                class="block py-2 text-gray-800 hover:text-primary transition-colors">Cancellation
+                                Policy</a>
+                        </div>
+                    </div>
+                    <!-- Travel Advisory -->
+                    <a href="./travel-advisory.html"
+                        class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Travel
+                        Advisory</a>
+                    <!-- Book Now Button -->
+                    <a href="./book-now.html"
+                        class="whitespace-nowrap !rounded-button px-6 py-2 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 font-medium">Book
+                        Now</a>
+                </div>
+                <!-- Mobile Right Side -->
+                <div class="flex md:hidden items-center">
+                    <a href="./book-now.html"
+                        class="whitespace-nowrap !rounded-button px-4 py-1.5 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 text-sm font-medium">Book
+                        Now</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu"
+        class="fixed top-0 left-0 h-full w-4/5 max-w-xs bg-white shadow-lg z-50 mobile-menu overflow-y-auto pt-20 pb-8">
+        <div class="px-6">
+            <!-- Contact -->
+            <div class="mobile-menu-item py-4">
+                <button id="mobile-contact-button" class="flex items-center justify-between w-full text-left">
+                    <span class="text-lg font-medium">Contact</span>
+                    <i class="ri-arrow-down-s-line ri-lg"></i>
+                </button>
+                <div id="mobile-contact-dropdown" class="mobile-dropdown pt-2 pl-4">
+                    <p class="text-gray-600 mb-1">Call us at:</p>
+                    <p class="text-primary font-medium">+91 98765 43210</p>
+                </div>
+            </div>
+            <!-- Prologue -->
+            <div class="mobile-menu-item py-4">
+                <a href="./Prologue.html"
+                    data-readdy="true" class="block text-lg font-medium">Prologue</a>
+            </div>
+            <!-- Chapters -->
+            <div class="mobile-menu-item py-4">
+                <button id="mobile-chapters-button" class="flex items-center justify-between w-full text-left">
+                    <span class="text-lg font-medium">Chapters</span>
+                    <i class="ri-arrow-down-s-line ri-lg"></i>
+                </button>
+                <div id="mobile-chapters-dropdown" class="mobile-dropdown pt-2 pl-4">
+                    <a href="./Chapter-1.html"
+                        data-readdy="true" class="block py-2 text-gray-800">Chapter 1: Stay Stories Santiniketan —
+                        KrishnaChura</a>
+                    <a href="./Chapter-2.html" class="block py-2 text-gray-800">Chapter 2: Stay Stories Baranti — Lake Hill Villa</a>
+                    <a href="./Chapter-3.html" class="block py-2 text-gray-500 italic">Chapter 3: Stay Stories Up On The Hill <span
+                            class="text-xs ml-2 text-secondary">Being Scripted</span></a>
+                    <a href="./Chapter-4.html" class="block py-2 text-gray-500 italic">Chapter 4: Stay Stories By The Sea Shore <span
+                            class="text-xs ml-2 text-secondary">Being Scripted</span></a>
+                </div>
+            </div>
+            <!-- FYI -->
+            <div class="mobile-menu-item py-4">
+                <button id="mobile-fyi-button" class="flex items-center justify-between w-full text-left">
+                    <span class="text-lg font-medium">FYI</span>
+                    <i class="ri-arrow-down-s-line ri-lg"></i>
+                </button>
+                <div id="mobile-fyi-dropdown" class="mobile-dropdown pt-2 pl-4">
+                    <a href="./Terms.html" class="block py-2 text-gray-800">Terms & Conditions</a>
+                    <a href="./Cancellation-policy.html" class="block py-2 text-gray-800">Cancellation Policy</a>
+                </div>
+            </div>
+            <!-- Travel Advisory -->
+            <div class="mobile-menu-item py-4">
+                <a href="./travel-advisory.html" class="block text-lg font-medium">Travel Advisory</a>
+            </div>
+        </div>
+    </div>
+    <!-- Hero Section -->
+    <section class="hero-section min-h-screen pt-32 pb-20">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="max-w-xl">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-semibold text-primary mb-6 leading-tight">Discover Your
+                    Perfect Retreat</h1>
+                <p class="text-xl md:text-2xl text-gray-700 mb-8 font-light">Immerse yourself in the tranquil beauty of
+                    our carefully curated stays, where every moment becomes a cherished memory.</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#"
+                        class="whitespace-nowrap !rounded-button px-8 py-3 bg-primary text-white hover:bg-opacity-90 transition-colors duration-300 font-medium text-lg">Explore
+                        Stays</a>
+                    <a href="#"
+                        class="whitespace-nowrap !rounded-button px-8 py-3 border-2 border-secondary text-secondary hover:bg-secondary hover:text-white transition-colors duration-300 font-medium text-lg">Our
+                        Story</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Featured Stays Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">Featured Chapters</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Discover our collection of handpicked stays, each
+                    with its own unique story and character.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                <!-- Stay 1 -->
+                <div class="bg-white rounded shadow-sm overflow-hidden">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=A%20beautiful%20traditional%20Bengali-style%20villa%20with%20terracotta%20roof%20and%20white%20walls%20surrounded%20by%20lush%20greenery%20and%20manicured%20gardens.%20The%20architecture%20shows%20intricate%20details%20with%20wooden%20elements.%20The%20scene%20has%20warm%20lighting%20with%20soft%20shadows%2C%20creating%20a%20serene%20and%20inviting%20atmosphere.%20Professional%20high-end%20photography%20with%20perfect%20lighting.&width=600&height=400&seq=1236&orientation=landscape"
+                            alt="KrishnaChura"
+                            class="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105">
+                    </div>
+                    <div class="p-6 md:p-8">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-3">Stay Stories Santiniketan — KrishnaChura
+                        </h3>
+                        <p class="text-gray-600 mb-6">Experience the cultural richness of Rabindranath Tagore's abode in
+                            our thoughtfully designed retreat that blends Bengali tradition with modern comfort.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-primary font-medium">Starting from ₹8,500/night</span>
+                            <a href="./Chapter-1.html"
+                                class="whitespace-nowrap !rounded-button px-5 py-2 border border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300">View
+                                Details</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Stay 2 -->
+                <div class="bg-white rounded shadow-sm overflow-hidden">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=A%20stunning%20lakeside%20villa%20with%20panoramic%20views%20of%20hills%20and%20water.%20The%20architecture%20is%20modern%20yet%20rustic%20with%20large%20windows%20reflecting%20the%20scenery.%20The%20property%20has%20a%20private%20deck%20extending%20toward%20the%20lake%20with%20comfortable%20seating.%20The%20scene%20has%20warm%20golden%20hour%20lighting%20creating%20a%20peaceful%20ambiance.%20Professional%20high-end%20photography%20with%20perfect%20lighting.&width=600&height=400&seq=1237&orientation=landscape"
+                            alt="Lake Hill Villa"
+                            class="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105">
+                    </div>
+                    <div class="p-6 md:p-8">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-3">Stay Stories Baranti — Lake Hill Villa
+                        </h3>
+                        <p class="text-gray-600 mb-6">Nestled between serene hills and a tranquil lake, this villa
+                            offers breathtaking views and complete privacy for those seeking respite from urban chaos.
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-primary font-medium">Starting from ₹12,200/night</span>
+                            <a href="./Chapter-2.html"
+                                class="whitespace-nowrap !rounded-button px-5 py-2 border border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300">View
+                                Details</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Stay 3 -->
+                <div class="bg-white rounded shadow-sm overflow-hidden">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=A%20stunning%20lakeside%20villa%20with%20panoramic%20views%20of%20hills%20and%20water.%20The%20architecture%20is%20modern%20yet%20rustic%20with%20large%20windows%20reflecting%20the%20scenery.%20The%20property%20has%20a%20private%20deck%20extending%20toward%20the%20lake%20with%20comfortable%20seating.%20The%20scene%20has%20warm%20golden%20hour%20lighting%20creating%20a%20peaceful%20ambiance.%20Professional%20high-end%20photography%20with%20perfect%20lighting.&width=600&height=400&seq=1237&orientation=landscape"
+                            alt="Lake Hill Villa"
+                            class="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105">
+                    </div>
+                    <div class="p-6 md:p-8">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-3">Stay Stories Baranti — Lake Hill Villa
+                        </h3>
+                        <p class="text-gray-600 mb-6">Nestled between serene hills and a tranquil lake, this villa
+                            offers breathtaking views and complete privacy for those seeking respite from urban chaos.
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-primary font-medium">Starting from ₹12,200/night</span>
+                            <a href="./Chapter-3.html"
+                                class="whitespace-nowrap !rounded-button px-5 py-2 border border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300">View
+                                Details</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Stay 4 -->
+                <div class="bg-white rounded shadow-sm overflow-hidden">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=A%20stunning%20lakeside%20villa%20with%20panoramic%20views%20of%20hills%20and%20water.%20The%20architecture%20is%20modern%20yet%20rustic%20with%20large%20windows%20reflecting%20the%20scenery.%20The%20property%20has%20a%20private%20deck%20extending%20toward%20the%20lake%20with%20comfortable%20seating.%20The%20scene%20has%20warm%20golden%20hour%20lighting%20creating%20a%20peaceful%20ambiance.%20Professional%20high-end%20photography%20with%20perfect%20lighting.&width=600&height=400&seq=1237&orientation=landscape"
+                            alt="Lake Hill Villa"
+                            class="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105">
+                    </div>
+                    <div class="p-6 md:p-8">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-3">Stay Stories Baranti — Lake Hill Villa
+                        </h3>
+                        <p class="text-gray-600 mb-6">Nestled between serene hills and a tranquil lake, this villa
+                            offers breathtaking views and complete privacy for those seeking respite from urban chaos.
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-primary font-medium">Starting from ₹12,200/night</span>
+                            <a href="./Chapter-4.html"
+                                class="whitespace-nowrap !rounded-button px-5 py-2 border border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300">View
+                                Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Experience Section -->
+    <section class="py-20">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-semibold text-gray-900 mb-6">Curated Experiences for Discerning
+                        Travelers</h2>
+                    <p class="text-lg text-gray-600 mb-8">Every Stay Story is carefully crafted to provide an authentic
+                        experience that connects you with the local culture, cuisine, and natural beauty. Our properties
+                        are more than just accommodations—they are gateways to memorable journeys.</p>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 flex items-center justify-center text-primary mr-4 mt-1">
+                                <i class="ri-award-line ri-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-medium text-gray-900 mb-2">Handpicked Locations</h3>
+                                <p class="text-gray-600">Each property is selected for its unique character and
+                                    exceptional setting.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 flex items-center justify-center text-primary mr-4 mt-1">
+                                <i class="ri-restaurant-line ri-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-medium text-gray-900 mb-2">Local Cuisine</h3>
+                                <p class="text-gray-600">Savor authentic regional dishes prepared with fresh,
+                                    locally-sourced ingredients.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 flex items-center justify-center text-primary mr-4 mt-1">
+                                <i class="ri-compass-line ri-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-medium text-gray-900 mb-2">Curated Activities</h3>
+                                <p class="text-gray-600">Discover the region through thoughtfully designed experiences
+                                    and excursions.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#"
+                        class="whitespace-nowrap !rounded-button inline-block px-8 py-3 bg-primary text-white hover:bg-opacity-90 transition-colors duration-300 font-medium">Discover
+                        Our Philosophy</a>
+                </div>
+                <div class="relative">
+                    <img src="https://readdy.ai/api/search-image?query=An%20elegant%20dining%20setup%20in%20a%20beautiful%20outdoor%20setting%20with%20a%20table%20arranged%20with%20fine%20china%20and%20glassware.%20The%20scene%20shows%20local%20cuisine%20being%20served%20with%20fresh%20ingredients.%20The%20background%20shows%20natural%20scenery%20with%20soft%20golden%20hour%20lighting.%20The%20atmosphere%20is%20intimate%20and%20sophisticated%20with%20attention%20to%20detail%20in%20the%20table%20setting.%20Professional%20high-end%20photography%20with%20perfect%20lighting.&width=600&height=800&seq=1238&orientation=portrait"
+                        alt="Curated Experiences" class="w-full h-auto rounded-lg shadow-lg">
+                    <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded shadow-md max-w-xs">
+                        <p class="text-gray-800 italic">"Each stay tells a story that becomes part of your own journey."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">Guest Stories</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Hear from travelers who have experienced our unique
+                    stays.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-8 rounded shadow-sm">
+                    <div class="flex items-center text-secondary mb-4">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                    </div>
+                    <p class="text-gray-600 italic mb-6">"Our stay at KrishnaChura was nothing short of magical. The
+                        attention to detail, from the architecture to the cuisine, created an authentic Bengali
+                        experience we'll cherish forever."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-gray-200 mr-4"></div>
+                        <div>
+                            <h4 class="font-medium text-gray-900">Amrita Chatterjee</h4>
+                            <p class="text-gray-500 text-sm">Visited April 2025</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-8 rounded shadow-sm">
+                    <div class="flex items-center text-secondary mb-4">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                    </div>
+                    <p class="text-gray-600 italic mb-6">"Lake Hill Villa exceeded all expectations. Waking up to the
+                        misty hills and enjoying breakfast on the deck overlooking the lake was therapeutic. The staff's
+                        hospitality made us feel like family."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-gray-200 mr-4"></div>
+                        <div>
+                            <h4 class="font-medium text-gray-900">Rajiv Mehta</h4>
+                            <p class="text-gray-500 text-sm">Visited March 2025</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-8 rounded shadow-sm">
+                    <div class="flex items-center text-secondary mb-4">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                    </div>
+                    <p class="text-gray-600 italic mb-6">"The cultural immersion at KrishnaChura was profound. From Baul
+                        music performances to pottery workshops, every experience felt authentic and meaningful. A
+                        perfect retreat for those seeking inspiration."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-gray-200 mr-4"></div>
+                        <div>
+                            <h4 class="font-medium text-gray-900">Priya Sharma</h4>
+                            <p class="text-gray-500 text-sm">Visited February 2025</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Newsletter Section -->
+    <!-- <section class="py-20">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">Join Our Journey</h2>
+                <p class="text-xl text-gray-600 mb-8">Subscribe to receive updates on new chapters, seasonal offers, and
+                    travel inspiration.</p>
+                <form class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+                    <input type="email" placeholder="Your email address"
+                        class="flex-grow px-4 py-3 border-2 border-gray-300 rounded-button focus:border-primary focus:outline-none">
+                    <button type="submit"
+                        class="whitespace-nowrap !rounded-button px-6 py-3 bg-primary text-white hover:bg-opacity-90 transition-colors duration-300 font-medium">Subscribe</button>
+                </form>
+                <p class="text-sm text-gray-500 mt-4">By subscribing, you agree to our privacy policy and consent to
+                    receive updates from Stay Stories.</p>
+            </div>
+        </div>
+    </section> -->
+    <!-- Footer -->
+    <footer class="bg-gray-100 pt-16 pb-8">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- Brand Column -->
+                <div>
+                    <a href="./index.html">
+                        <img src="./Image/Main Logo.png" alt="Logo" class="h-20 mb-6">
+                      </a>
+                    <p class="text-gray-600 mb-6">Crafting memorable stays that tell stories of places, people, and
+                        experiences.</p>
+                    <div class="flex space-x-4">
+                        <a href="#"
+                            class="w-10 h-10 flex items-center justify-center text-primary hover:text-secondary transition-colors">
+                            <i class="ri-instagram-line ri-lg"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 flex items-center justify-center text-primary hover:text-secondary transition-colors">
+                            <i class="ri-facebook-line ri-lg"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 flex items-center justify-center text-primary hover:text-secondary transition-colors">
+                            <i class="ri-twitter-x-line ri-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Chapters Column -->
+             <div>
+                <h3 class="text-xl font-medium text-gray-900 mb-4">Our Chapters</h3>
+                <ul class="space-y-3">
+                    <li><a href="./Chapter-1.html" class="text-gray-600 hover:text-primary transition-colors">KrishnaChura,
+                            Santiniketan</a></li>
+                    <li><a href="./Chapter-2.html" class="text-gray-600 hover:text-primary transition-colors">Lake Hill Villa,
+                            Baranti</a></li>
+                    <li><a href="./Chapter-3.html" class="text-gray-500 italic hover:text-primary transition-colors">Up On The Hill
+                            (Coming Soon)</a></li>
+                    <li><a href="./Chapter-4.html" class="text-gray-500 italic hover:text-primary transition-colors">By The Sea
+                            Shore (Coming Soon)</a></li>
+                </ul>
+            </div>
+            <!-- Information Column -->
+            <div>
+                <h3 class="text-xl font-medium text-gray-900 mb-4">Information</h3>
+                <ul class="space-y-3">
+                    <li><a href="./Prologue.html" class="text-gray-600 hover:text-primary transition-colors">Prologue</a></li>
+                    <li><a href="./Terms.html"
+                            data-readdy="true" class="text-gray-600 hover:text-primary transition-colors">Terms &
+                            Conditions</a></li>
+                    <li><a href="./Cancellation-policy.html" class="text-gray-600 hover:text-primary transition-colors">Cancellation
+                            Policy</a></li>
+                    <li><a href="./travel-advisory.html" class="text-gray-600 hover:text-primary transition-colors">Travel Advisory</a>
+                    </li>
+                </ul>
+            </div>
+                <!-- Contact Column -->
+                <div>
+                    <h3 class="text-xl font-medium text-gray-900 mb-4">Contact Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center text-primary mr-3 mt-1">
+                                <i class="ri-map-pin-line"></i>
+                            </div>
+                            <span class="text-gray-600">42 Park Street, Kolkata, West Bengal, India - 700016</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center text-primary mr-3 mt-1">
+                                <i class="ri-phone-line"></i>
+                            </div>
+                            <span class="text-gray-600">+91 98765 43210</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center text-primary mr-3 mt-1">
+                                <i class="ri-mail-line"></i>
+                            </div>
+                            <span class="text-gray-600">hello@staystories.in</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-200 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 Stay Stories. All rights reserved.</p>
+                    <div class="flex items-center space-x-6">
+                        <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                            <i class="ri-visa-line ri-lg"></i>
+                        </div>
+                        <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                            <i class="ri-mastercard-line ri-lg"></i>
+                        </div>
+                        <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                            <i class="ri-paypal-line ri-lg"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('active');
+            });
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function (event) {
+                if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile dropdown toggles
+            const mobileContactButton = document.getElementById('mobile-contact-button');
+            const mobileContactDropdown = document.getElementById('mobile-contact-dropdown');
+            mobileContactButton.addEventListener('click', function () {
+                mobileContactDropdown.classList.toggle('active');
+                mobileContactButton.querySelector('i').classList.toggle('ri-arrow-down-s-line');
+                mobileContactButton.querySelector('i').classList.toggle('ri-arrow-up-s-line');
+            });
+            const mobileChaptersButton = document.getElementById('mobile-chapters-button');
+            const mobileChaptersDropdown = document.getElementById('mobile-chapters-dropdown');
+            mobileChaptersButton.addEventListener('click', function () {
+                mobileChaptersDropdown.classList.toggle('active');
+                mobileChaptersButton.querySelector('i').classList.toggle('ri-arrow-down-s-line');
+                mobileChaptersButton.querySelector('i').classList.toggle('ri-arrow-up-s-line');
+            });
+            const mobileFyiButton = document.getElementById('mobile-fyi-button');
+            const mobileFyiDropdown = document.getElementById('mobile-fyi-dropdown');
+            mobileFyiButton.addEventListener('click', function () {
+                mobileFyiDropdown.classList.toggle('active');
+                mobileFyiButton.querySelector('i').classList.toggle('ri-arrow-down-s-line');
+                mobileFyiButton.querySelector('i').classList.toggle('ri-arrow-up-s-line');
+            });
+        });
+    </script>
+</body>
+
+</html>

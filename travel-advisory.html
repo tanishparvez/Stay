@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions - Stay Stories</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { primary: '#006400', secondary: '#F4A460' }, borderRadius: { 'none': '0px', 'sm': '4px', DEFAULT: '8px', 'md': '12px', 'lg': '16px', 'xl': '20px', '2xl': '24px', '3xl': '32px', 'full': '9999px', 'button': '8px' } } } }</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
+
+        .hero-section {
+      background-image: url('https://readdy.ai/api/search-image?query=beautiful%20scenic%20landscape%20showing%20a%20peaceful%20travel%20destination%20with%20mountains%2C%20lakes%2C%20and%20lush%20greenery.%20The%20image%20has%20a%20soft%20gradient%20on%20the%20left%20side%20that%20transitions%20from%20light%20to%20transparent%2C%20allowing%20text%20to%20be%20clearly%20visible.%20Professional%20travel%20photography%20style%20with%20natural%20lighting&width=1920&height=600&seq=travel01&orientation=landscape');
+      background-size: cover;
+      background-position: center;
+      }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            color: #333;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .dropdown {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+        }
+
+        .dropdown-trigger:hover .dropdown,
+        .dropdown-trigger:focus-within .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: #006400;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu-item {
+            border-bottom: 1px solid rgba(244, 164, 96, 0.2);
+        }
+
+        .mobile-dropdown {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .mobile-dropdown.active {
+            max-height: 500px;
+        }
+
+        .terms-section {
+            transition: all 0.3s ease;
+        }
+
+        .terms-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .terms-section-header {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .terms-section-header:hover {
+            color: #006400;
+        }
+
+        .terms-section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .terms-section-content.active {
+            max-height: 2000px;
+        }
+
+        .terms-section-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .terms-section-icon.active {
+            transform: rotate(180deg);
+        }
+
+        .back-to-top {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-white">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 bg-white bg-opacity-95 shadow-sm z-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Mobile Menu Button -->
+                <div class="block md:hidden">
+                    <button id="mobile-menu-button" class="w-10 h-10 flex items-center justify-center text-primary">
+                        <i class="ri-menu-line ri-lg"></i>
+                    </button>
+                </div>
+                <!-- Left Navigation (Desktop) -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <!-- Contact Button -->
+                    <div class="dropdown-trigger relative">
+                        <button
+                            class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Contact</button>
+                        <div
+                            class="dropdown absolute top-full left-0 mt-2 bg-white shadow-md rounded p-4 min-w-[200px] z-10">
+                            <p class="text-gray-600 mb-1 text-sm">Call us at:</p>
+                            <p class="text-primary font-medium">+91 98765 43210</p>
+                        </div>
+                    </div>
+                    <!-- Prologue -->
+                    <a href="./Prologue.html"
+                        data-readdy="true"
+                        class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Prologue</a>
+                    <!-- Chapters Dropdown -->
+                    <div class="dropdown-trigger relative">
+                        <button
+                            class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Chapters</button>
+                        <div
+                            class="dropdown absolute top-full left-0 mt-2 bg-white shadow-md rounded p-4 min-w-[300px] z-10">
+                            <a href="https://readdy.ai/home/35de9430-fe92-4179-a384-0e7c06d2339f/4c92bb9e-c682-4e86-80a9-04d6c7795ec6"
+                                data-readdy="true"
+                                class="block py-2 text-gray-800 hover:text-primary transition-colors">Chapter 1: Stay
+                                Stories Santiniketan — KrishnaChura</a>
+                            <a href="#" class="block py-2 text-gray-800 hover:text-primary transition-colors">Chapter 2:
+                                Stay Stories Baranti — Lake Hill Villa</a>
+                            <a href="#"
+                                class="block py-2 text-gray-500 italic hover:text-primary transition-colors">Chapter 3:
+                                Stay Stories Up On The Hill <span class="text-xs ml-2 text-secondary">Being
+                                    Scripted</span></a>
+                            <a href="#"
+                                class="block py-2 text-gray-500 italic hover:text-primary transition-colors">Chapter 4:
+                                Stay Stories By The Sea Shore <span class="text-xs ml-2 text-secondary">Being
+                                    Scripted</span></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Logo -->
+                <div>
+                    <a href="./index.html">
+                        <img src="./Image/Main Logo.png" alt="Logo" class="h-20 object-contain">
+                    </a>
+                </div>
+                <!-- Right Navigation (Desktop) -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <!-- FYI Dropdown -->
+                    <div class="dropdown-trigger relative">
+                        <button class="nav-link text-lg font-medium text-primary transition-colors">FYI</button>
+                        <div
+                            class="dropdown absolute top-full right-0 mt-2 bg-white shadow-md rounded p-4 min-w-[200px] z-10">
+                            <a href="#" class="block py-2 text-primary hover:text-primary transition-colors">Terms &
+                                Conditions</a>
+                            <a href="#"
+                                class="block py-2 text-gray-800 hover:text-primary transition-colors">Cancellation
+                                Policy</a>
+                        </div>
+                    </div>
+                    <!-- Travel Advisory -->
+                    <a href="#"
+                        class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Travel
+                        Advisory</a>
+                    <!-- Book Now Button -->
+                    <a href="./book-now.html"
+                        class="whitespace-nowrap !rounded-button px-6 py-2 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 font-medium">Book
+                        Now</a>
+                </div>
+                <!-- Mobile Right Side -->
+                <div class="flex md:hidden items-center">
+                    <a href="#"
+                        class="whitespace-nowrap !rounded-button px-4 py-1.5 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 text-sm font-medium">Book
+                        Now</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu"
+        class="fixed top-0 left-0 h-full w-4/5 max-w-xs bg-white shadow-lg z-50 mobile-menu overflow-y-auto pt-20 pb-8">
+        <div class="px-6">
+            <!-- Contact -->
+            <div class="mobile-menu-item py-4">
+                <button id="mobile-contact-button" class="flex items-center justify-between w-full text-left">
+                    <span class="text-lg font-medium">Contact</span>
+                    <i class="ri-arrow-down-s-line ri-lg"></i>
+                </button>
+                <div id="mobile-contact-dropdown" class="mobile-dropdown pt-2 pl-4">
+                    <p class="text-gray-600 mb-1">Call us at:</p>
+                    <p class="text-primary font-medium">+91 98765 43210</p>
+                </div>
+            </div>
+            <!-- Prologue -->
+            <div class="mobile-menu-item py-4">
+                <a href="./Prologue.html"
+                    data-readdy="true" class="block text-lg font-medium text-gray-800">Prologue</a>
+            </div>
+            <!-- Chapters -->
+            <div class="mobile-menu-item py-4">
+                <button id="mobile-chapters-button" class="flex items-center justify-between w-full text-left">
+                    <span class="text-lg font-medium">Chapters</span>
+                    <i class="ri-arrow-down-s-line ri-lg"></i>
+                </button>
+                <div id="mobile-chapters-dropdown" class="mobile-dropdown pt-2 pl-4">
+                    <a href="https://readdy.ai/home/35de9430-fe92-4179-a384-0e7c06d2339f/4c92bb9e-c682-4e86-80a9-04d6c7795ec6"
+                        data-readdy="true" class="block py-2 text-gray-800">Chapter 1: Stay Stories Santiniketan —
+                        KrishnaChura</a>
+                    <a href="#" class="block py-2 text-gray-800">Chapter 2: Stay Stories Baranti — Lake Hill Villa</a>
+                    <a href="#" class="block py-2 text-gray-500 italic">Chapter 3: Stay Stories Up On The Hill <span
+                            class="text-xs ml-2 text-secondary">Being Scripted</span></a>
+                    <a href="#" class="block py-2 text-gray-500 italic">Chapter 4: Stay Stories By The Sea Shore <span
+                            class="text-xs ml-2 text-secondary">Being Scripted</span></a>
+                </div>
+            </div>
+            <!-- FYI -->
+            <div class="mobile-menu-item py-4">
+                <button id="mobile-fyi-button" class="flex items-center justify-between w-full text-left">
+                    <span class="text-lg font-medium">FYI</span>
+                    <i class="ri-arrow-down-s-line ri-lg"></i>
+                </button>
+                <div id="mobile-fyi-dropdown" class="mobile-dropdown pt-2 pl-4 active">
+                    <a href="#" class="block py-2 text-primary">Terms & Conditions</a>
+                    <a href="#" class="block py-2 text-gray-800">Cancellation Policy</a>
+                </div>
+            </div>
+            <!-- Travel Advisory -->
+            <div class="mobile-menu-item py-4">
+                <a href="#" class="block text-lg font-medium">Travel Advisory</a>
+            </div>
+        </div>
+    </div>
+    <!-- Hero Section -->
+    <section class="hero-section relative">
+      <div
+        class="absolute inset-0 bg-gradient-to-r from-white/90 to-transparent"
+      ></div>
+      <div
+        class="container mx-auto px-4 sm:px-6 lg:px-8 relative py-16 md:py-24"
+      >
+        <div class="max-w-2xl">
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            Travel Advisory
+          </h1>
+          <p class="text-lg text-gray-700 mb-8">
+            Stay informed with the latest travel information, safety guidelines,
+            and local recommendations to ensure a smooth and enjoyable journey.
+          </p>
+          <div class="flex items-center space-x-4">
+            <p class="text-sm text-gray-500">Last updated: April 29, 2025</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Main Content -->
+    <section class="py-12 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">
+            Essential Travel Information
+          </h2>
+          <p class="text-gray-600 max-w-3xl">
+            Our comprehensive travel advisories provide you with all the
+            necessary information to plan your trip safely and efficiently.
+            Explore the sections below for detailed guidance.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Local Travel Conditions -->
+          <div
+            class="section-card bg-white rounded-lg shadow-md overflow-hidden border border-gray-100 transition-all duration-300"
+          >
+            <div class="p-6">
+              <div
+                class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4"
+              >
+                <i class="ri-road-map-line ri-lg text-primary"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                Local Travel Conditions
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Information about transportation options, road conditions, and
+                navigation tips for your destination.
+              </p>
+              <div class="mt-6 space-y-4">
+                <div class="flex items-start">
+                  <div
+                    class="w-8 h-8 flex items-center justify-center text-primary"
+                  >
+                    <i class="ri-taxi-line"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h4 class="font-medium text-gray-900">
+                      Transportation Options
+                    </h4>
+                    <p class="text-sm text-gray-600">
+                      Rental cars, taxis, and public transportation are readily
+                      available. Ride-sharing services operate in major cities
+                      but may be limited in rural areas.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div
+                    class="w-8 h-8 flex items-center justify-center text-primary"
+                  >
+                    <i class="ri-road-line"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h4 class="font-medium text-gray-900">Road Conditions</h4>
+                    <p class="text-sm text-gray-600">
+                      Major highways are well-maintained, but rural roads may
+                      have limited signage. Mountain roads can be narrow with
+                      sharp turns. Check local weather before traveling in
+                      winter.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div
+                    class="w-8 h-8 flex items-center justify-center text-primary"
+                  >
+                    <i class="ri-compass-3-line"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h4 class="font-medium text-gray-900">Navigation Tips</h4>
+                    <p class="text-sm text-gray-600">
+                      Download offline maps before your trip. Mobile coverage
+                      may be spotty in remote areas. Consider carrying a
+                      physical map as backup.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div
+                    class="w-8 h-8 flex items-center justify-center text-primary"
+                  >
+                    <i class="ri-calendar-line"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h4 class="font-medium text-gray-900">
+                      Seasonal Accessibility
+                    </h4>
+                    <p class="text-sm text-gray-600">
+                      Some mountain passes close during winter (November-March).
+                      Summer (June-August) sees increased traffic to tourist
+                      destinations. Plan accordingly.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Health & Safety -->
+          <div
+            class="section-card bg-white rounded-lg shadow-md overflow-hidden border border-gray-100 transition-all duration-300"
+          >
+            <div class="p-6">
+              <div
+                class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4"
+              >
+                <i class="ri-health-book-line ri-lg text-red-500"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                Health & Safety
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Essential information about emergency contacts, medical
+                facilities, and safety guidelines.
+              </p>
+              <div class="mt-6 space-y-4">
+                <div class="flex items-start">
+                  <div
+                    class="w-8 h-8 flex items-center justify-center text-red-500"
+                  >
+                    <i class="ri-phone-line"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h4 class="font-medium text-gray-900">
+                      Emergency Contacts
+                    </h4>
+                    <p class="text-sm text-gray-600">
+                      Emergency Services: 911<br />Tourist Police:
+                      +1-555-123-4567<br />Embassy Hotline: +1-555-987-6543
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div
+                    class="w-8 h-8 flex items-center justify-center text-red-500"
+                  >
+                    <i class="ri-hospital-line"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h4 class="font-medium text-gray-900">
+                      Medical Facilities
+                    </h4>
+                    <p class="text-sm text-gray-600">
+                      Riverside General Hospital (24/7): 15 miles from
+                      property<br />Mountain View Clinic: 5 miles from property
+                      (Open 8am-8pm)<br />Pharmacy: Located in town center (2
+                      miles)
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div
+                    class="w-8 h-8 flex items-center justify-center text-red-500"
+                  >
+                    <i class="ri-shield-check-line"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h4 class="font-medium text-gray-900">Safety Guidelines</h4>
+                    <p class="text-sm text-gray-600">
+                      Avoid hiking alone in remote areas. Carry identification
+                      at all times. Keep valuables secure. Wildlife encounters
+                      are possible - maintain safe distance.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div
+                    class="w-8 h-8 flex items-center justify-center text-red-500"
+                  >
+                    <i class="ri-virus-line"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h4 class="font-medium text-gray-900">Health Protocols</h4>
+                    <p class="text-sm text-gray-600">
+                      Masks recommended in crowded indoor spaces. Hand sanitizer
+                      stations available in public areas. Check vaccination
+                      requirements before travel.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Weather Advisory -->
+          <div
+            class="section-card bg-white rounded-lg shadow-md overflow-hidden border border-gray-100 transition-all duration-300"
+          >
+            <div class="p-6">
+              <div
+                class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mb-4"
+              >
+                <i class="ri-sun-line ri-lg text-yellow-500"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                Weather Advisory
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Seasonal weather patterns, best times to visit, and packing
+                recommendations.
+              </p>
+              <div class="mt-6 space-y-4">
+                <div class="flex items-start">
+                  <div
+                    class="w-8 h-8 flex items-center justify-center text-yellow-500"
+                  >
+                    <i class="ri-calendar-2-line"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h4 class="font-medium text-gray-900">Seasonal Weather</h4>
+                    <p class="text-sm text-gray-600">
+                      Spring (Mar-May): Mild with occasional rain, 50-70°F<br />Summer
+                      (Jun-Aug): Warm and sunny, 70-90°F<br />Fall (Sep-Nov):
+                      Cool and colorful, 45-65°F<br />Winter (Dec-Feb): Cold
+                      with snow, 20-40°F
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div
+                    class="w-8 h-8 flex items-center justify-center text-yellow-500"
+                  >
+                    <i class="ri-time-line"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h4 class="font-medium text-gray-900">
+                      Best Times to Visit
+                    </h4>
+                    <p class="text-sm text-gray-600">
+                      Late spring (May) and early fall (September) offer ideal
+                      weather and fewer crowds. Summer is peak season with
+                      highest prices and most activities available.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div
+                    class="w-8 h-8 flex items-center justify-center text-yellow-500"
+                  >
+                    <i class="ri-suitcase-line"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h4 class="font-medium text-gray-900">What to Pack</h4>
+                    <p class="text-sm text-gray-600">
+                      Layered clothing regardless of season. Rain jacket
+                      essential year-round. Sturdy walking shoes for outdoor
+                      activities. Sun protection in summer, warm accessories in
+                      winter.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div
+                    class="w-8 h-8 flex items-center justify-center text-yellow-500"
+                  >
+                    <i class="ri-alert-line"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h4 class="font-medium text-gray-900">Weather Alerts</h4>
+                    <p class="text-sm text-gray-600">
+                      Thunderstorms possible in summer afternoons. Winter storms
+                      may cause travel delays. Download local weather app for
+                      real-time updates.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Local Customs & Etiquette -->
+          <div
+            class="section-card bg-white rounded-lg shadow-md overflow-hidden border border-gray-100 transition-all duration-300"
+          >
+            <div class="p-6">
+              <div
+                class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4"
+              >
+                <i class="ri-global-line ri-lg text-green-500"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                Local Customs & Etiquette
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Cultural practices, dress codes, and social norms to respect
+                during your visit.
+              </p>
+              <div class="mt-6 space-y-4">
+                <div class="flex items-start">
+                  <div
+                    class="w-8 h-8 flex items-center justify-center text-green-500"
+                  >
+                    <i class="ri-user-heart-line"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h4 class="font-medium text-gray-900">
+                      Cultural Practices
+                    </h4>
+                    <p class="text-sm text-gray-600">
+                      Greeting with a handshake is common. Punctuality is
+                      appreciated. Tipping (15-20%) is expected in restaurants
+                      and for services. Remove shoes when entering someone's
+                      home.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div
+                    class="w-8 h-8 flex items-center justify-center text-green-500"
+                  >
+                    <i class="ri-t-shirt-line"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h4 class="font-medium text-gray-900">Dress Codes</h4>
+                    <p class="text-sm text-gray-600">
+                      Casual attire is acceptable in most places. Modest
+                      clothing recommended when visiting religious sites
+                      (covered shoulders and knees). Smart casual for upscale
+                      restaurants.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div
+                    class="w-8 h-8 flex items-center justify-center text-green-500"
+                  >
+                    <i class="ri-group-line"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h4 class="font-medium text-gray-900">Social Norms</h4>
+                    <p class="text-sm text-gray-600">
+                      Maintain moderate speaking volume in public. Queue
+                      etiquette is important. Public displays of affection
+                      should be minimal. Ask permission before photographing
+                      locals.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div
+                    class="w-8 h-8 flex items-center justify-center text-green-500"
+                  >
+                    <i class="ri-building-line"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h4 class="font-medium text-gray-900">
+                      Religious Considerations
+                    </h4>
+                    <p class="text-sm text-gray-600">
+                      Respect quiet in places of worship. Remove hats when
+                      entering religious buildings. Some religious sites may be
+                      closed to visitors during services or holy days.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Property-Specific Advisories -->
+    <section class="py-12 bg-gray-50">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">
+            Property-Specific Advisories
+          </h2>
+          <p class="text-gray-600 max-w-3xl">
+            Important information and guidelines specific to our properties to
+            enhance your stay experience.
+          </p>
+        </div>
+        <div class="space-y-8">
+          <!-- Stay Stories Up On The Hill -->
+          <div
+            class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100"
+          >
+            <div class="md:flex">
+              <div class="md:w-1/3">
+                <img
+                  src="https://readdy.ai/api/search-image?query=luxurious%20mountain%20retreat%20with%20panoramic%20views%2C%20featuring%20a%20modern%20chalet-style%20architecture%20nestled%20among%20pine%20trees.%20Large%20windows%20reflect%20mountain%20scenery%2C%20stone%20and%20wood%20exterior%2C%20expansive%20viewing%20deck.%20Professional%20architectural%20photography%20with%20dramatic%20lighting%20showing%20the%20majestic%20mountain%20setting%20at%20golden%20hour&width=600&height=400&seq=property3&orientation=landscape"
+                  alt="Stay Stories Up On The Hill"
+                  class="h-full w-full object-cover object-top"
+                />
+              </div>
+              <div class="p-6 md:w-2/3">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">
+                  Stay Stories Up On The Hill
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h4
+                      class="font-medium text-gray-900 flex items-center mb-2"
+                    >
+                      <i class="ri-map-pin-line text-primary mr-2"></i>
+                      Location Guidelines
+                    </h4>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Elevated location at 3,500 ft above sea level
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        4x4 vehicle recommended for access
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        20-minute scenic drive to nearest town
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-medium text-gray-900 flex items-center mb-2"
+                    >
+                      <i class="ri-calendar-event-line text-primary mr-2"></i>
+                      Seasonal Considerations
+                    </h4>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Spectacular fall foliage (September-October)
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Snow activities available (December-March)
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Wildflower season (April-June)
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-medium text-gray-900 flex items-center mb-2"
+                    >
+                      <i class="ri-compass-discover-line text-primary mr-2"></i>
+                      Local Attractions
+                    </h4>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Private hiking trails on property
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Mountain biking trails (2 miles)
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Scenic viewpoint observatory
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-medium text-gray-900 flex items-center mb-2"
+                    >
+                      <i class="ri-information-line text-primary mr-2"></i>
+                      Special Instructions
+                    </h4>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Altitude acclimation recommended
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Stargazing equipment available
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Fireplace safety guidelines provided
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Stay Stories By The Sea Shore -->
+          <div
+            class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100"
+          >
+            <div class="md:flex">
+              <div class="md:w-1/3">
+                <img
+                  src="https://readdy.ai/api/search-image?query=stunning%20coastal%20villa%20with%20infinity%20pool%20overlooking%20crystal%20clear%20ocean%2C%20modern%20Mediterranean%20architecture%20with%20white%20walls%20and%20blue%20accents%2C%20surrounded%20by%20tropical%20gardens%20and%20palm%20trees.%20Professional%20real%20estate%20photography%20capturing%20the%20luxurious%20seaside%20living%20atmosphere%20during%20sunset&width=600&height=400&seq=property4&orientation=landscape"
+                  alt="Stay Stories By The Sea Shore"
+                  class="h-full w-full object-cover object-top"
+                />
+              </div>
+              <div class="p-6 md:w-2/3">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">
+                  Stay Stories By The Sea Shore
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h4
+                      class="font-medium text-gray-900 flex items-center mb-2"
+                    >
+                      <i class="ri-map-pin-line text-primary mr-2"></i>
+                      Location Guidelines
+                    </h4>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Direct access to private beach cove
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        10-minute walk to marina
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Waterfront dining within 5 minutes
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-medium text-gray-900 flex items-center mb-2"
+                    >
+                      <i class="ri-calendar-event-line text-primary mr-2"></i>
+                      Seasonal Considerations
+                    </h4>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Whale watching (December-April)
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Sea turtle nesting (May-October)
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Perfect swimming conditions (June-September)
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-medium text-gray-900 flex items-center mb-2"
+                    >
+                      <i class="ri-compass-discover-line text-primary mr-2"></i>
+                      Local Attractions
+                    </h4>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Private snorkeling reef
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Sunset sailing excursions
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Beachfront yoga sessions
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-medium text-gray-900 flex items-center mb-2"
+                    >
+                      <i class="ri-information-line text-primary mr-2"></i>
+                      Special Instructions
+                    </h4>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Complimentary beach equipment
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Tide schedule provided daily
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Evening beach bonfire service
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Santiniketan Property -->
+          <div
+            class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100"
+          >
+            <div class="md:flex">
+              <div class="md:w-1/3">
+                <img
+                  src="https://readdy.ai/api/search-image?query=beautiful%20rustic%20mountain%20lodge%20retreat%20with%20wooden%20architecture%20surrounded%20by%20pine%20trees%20and%20mountains%20in%20background.%20The%20property%20has%20a%20warm%2C%20inviting%20appearance%20with%20large%20windows%20and%20a%20stone%20chimney.%20Professional%20real%20estate%20photography%20with%20natural%20lighting%20and%20clear%20details&width=600&height=400&seq=property1&orientation=landscape"
+                  alt="Santiniketan Property"
+                  class="h-full w-full object-cover object-top"
+                />
+              </div>
+              <div class="p-6 md:w-2/3">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">
+                  Santiniketan Property
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h4
+                      class="font-medium text-gray-900 flex items-center mb-2"
+                    >
+                      <i class="ri-map-pin-line text-primary mr-2"></i>
+                      Location Guidelines
+                    </h4>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Property is 15 minutes from nearest town by car
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Limited cell service in some areas of the property
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        GPS directions may be inaccurate - follow provided
+                        instructions
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-medium text-gray-900 flex items-center mb-2"
+                    >
+                      <i class="ri-calendar-event-line text-primary mr-2"></i>
+                      Seasonal Considerations
+                    </h4>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Winter: Snow tires/chains required November-March
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Spring: Creek crossing may be high during snowmelt
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Summer: Book outdoor activities in advance (peak season)
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-medium text-gray-900 flex items-center mb-2"
+                    >
+                      <i class="ri-compass-discover-line text-primary mr-2"></i>
+                      Local Attractions
+                    </h4>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Hiking trails begin 1/4 mile from property entrance
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Historic village with artisan shops (7 miles)
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Lakeside activities available May-September
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-medium text-gray-900 flex items-center mb-2"
+                    >
+                      <i class="ri-information-line text-primary mr-2"></i>
+                      Special Instructions
+                    </h4>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Property uses well water - bottled water provided
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Wildlife common in area - secure food items
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Quiet hours 10pm-7am (sound carries in valley)
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Baranti Property -->
+          <div
+            class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100"
+          >
+            <div class="md:flex">
+              <div class="md:w-1/3">
+                <img
+                  src="https://readdy.ai/api/search-image?query=elegant%20beachfront%20property%20with%20modern%20architecture%2C%20large%20windows%20overlooking%20the%20ocean.%20The%20property%20features%20a%20spacious%20terrace%20with%20palm%20trees%20and%20direct%20beach%20access.%20Professional%20real%20estate%20photography%20with%20bright%20natural%20lighting%20showing%20the%20luxurious%20details%20and%20oceanfront%20setting&width=600&height=400&seq=property2&orientation=landscape"
+                  alt="Baranti Property"
+                  class="h-full w-full object-cover object-top"
+                />
+              </div>
+              <div class="p-6 md:w-2/3">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">
+                  Baranti Property
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h4
+                      class="font-medium text-gray-900 flex items-center mb-2"
+                    >
+                      <i class="ri-map-pin-line text-primary mr-2"></i>
+                      Location Guidelines
+                    </h4>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Beachfront property with private access path
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        5-minute walk to nearest restaurants and shops
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Airport transfer available (45 minutes drive)
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-medium text-gray-900 flex items-center mb-2"
+                    >
+                      <i class="ri-calendar-event-line text-primary mr-2"></i>
+                      Seasonal Considerations
+                    </h4>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Hurricane season (June-November) - travel insurance
+                        recommended
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Peak season (December-April) - book activities well in
+                        advance
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Shoulder season (May, November) offers fewer crowds
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-medium text-gray-900 flex items-center mb-2"
+                    >
+                      <i class="ri-compass-discover-line text-primary mr-2"></i>
+                      Local Attractions
+                    </h4>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Coral reef snorkeling (equipment provided)
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Historic lighthouse tour (3 miles)
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Local seafood market open daily 7am-2pm
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-medium text-gray-900 flex items-center mb-2"
+                    >
+                      <i class="ri-information-line text-primary mr-2"></i>
+                      Special Instructions
+                    </h4>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Beach chairs and umbrellas available in storage closet
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Sea turtle nesting season - special beach rules apply
+                        May-October
+                      </li>
+                      <li class="flex items-start">
+                        <span class="text-primary mr-2">•</span>
+                        Property uses desalinated water - safe to drink
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Additional Features
+    <section class="py-12 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">
+            Travel Preferences
+          </h2>
+          <p class="text-gray-600 mb-8">
+            Customize your travel advisory information based on your specific
+            needs and preferences.
+          </p>
+          <div class="bg-gray-50 rounded-lg p-6 mb-8">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">
+              Notification Preferences
+            </h3>
+            <div class="space-y-4">
+              <div class="flex items-center">
+                <input type="checkbox" id="weather-alerts" class="mr-3" />
+                <label for="weather-alerts" class="text-gray-700"
+                  >Receive weather alerts for my destination</label
+                >
+              </div>
+              <div class="flex items-center">
+                <input type="checkbox" id="travel-updates" class="mr-3" />
+                <label for="travel-updates" class="text-gray-700"
+                  >Get travel advisory updates via email</label
+                >
+              </div>
+              <div class="flex items-center">
+                <input type="checkbox" id="local-events" class="mr-3" checked />
+                <label for="local-events" class="text-gray-700"
+                  >Notify me about local events and festivals</label
+                >
+              </div>
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="safety-alerts"
+                  class="mr-3"
+                  checked
+                />
+                <label for="safety-alerts" class="text-gray-700"
+                  >Receive safety and security alerts</label
+                >
+              </div>
+            </div>
+          </div>
+          <div
+            class="flex flex-col sm:flex-row items-center justify-between gap-4"
+          >
+            <button
+              class="flex items-center text-gray-600 hover:text-gray-900 whitespace-nowrap"
+            >
+              <i class="ri-printer-line mr-2"></i>
+              Print Advisory
+            </button>
+            <button
+              class="flex items-center text-gray-600 hover:text-gray-900 whitespace-nowrap"
+            >
+              <i class="ri-share-line mr-2"></i>
+              Share Advisory
+            </button>
+            <button
+              class="flex items-center text-gray-600 hover:text-gray-900 whitespace-nowrap"
+            >
+              <i class="ri-download-2-line mr-2"></i>
+              Save for Offline
+            </button>
+            <div class="text-sm text-gray-500">
+              Last updated: April 29, 2025
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+<!-- Footer -->
+<footer class="bg-gray-100 pt-16 pb-8">
+    <div class="container mx-auto px-4 md:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            <!-- Brand Column -->
+            <div>
+              <a href="./index.html">
+                <img src="./Image/Main Logo.png" alt="Logo" class="h-20 mb-6">
+              </a>
+                <p class="text-gray-600 mb-6">Crafting memorable stays that tell stories of places, people, and
+                    experiences.</p>
+                <div class="flex space-x-4">
+                    <a href="#"
+                        class="w-10 h-10 flex items-center justify-center text-primary hover:text-secondary transition-colors">
+                        <i class="ri-instagram-line ri-lg"></i>
+                    </a>
+                    <a href="#"
+                        class="w-10 h-10 flex items-center justify-center text-primary hover:text-secondary transition-colors">
+                        <i class="ri-facebook-line ri-lg"></i>
+                    </a>
+                    <a href="#"
+                        class="w-10 h-10 flex items-center justify-center text-primary hover:text-secondary transition-colors">
+                        <i class="ri-twitter-x-line ri-lg"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- Chapters Column -->
+            <div>
+              <h3 class="text-xl font-medium text-gray-900 mb-4">Our Chapters</h3>
+              <ul class="space-y-3">
+                  <li><a href="./Chapter-1.html" class="text-gray-600 hover:text-primary transition-colors">KrishnaChura,
+                          Santiniketan</a></li>
+                  <li><a href="./Chapter-2.html" class="text-gray-600 hover:text-primary transition-colors">Lake Hill Villa,
+                          Baranti</a></li>
+                  <li><a href="./Chapter-3.html" class="text-gray-500 italic hover:text-primary transition-colors">Up On The Hill
+                          (Coming Soon)</a></li>
+                  <li><a href="./Chapter-4.html" class="text-gray-500 italic hover:text-primary transition-colors">By The Sea
+                          Shore (Coming Soon)</a></li>
+              </ul>
+          </div>
+          <!-- Information Column -->
+          <div>
+              <h3 class="text-xl font-medium text-gray-900 mb-4">Information</h3>
+              <ul class="space-y-3">
+                  <li><a href="./Prologue.html" class="text-gray-600 hover:text-primary transition-colors">Prologue</a></li>
+                  <li><a href="./Terms.html"
+                          data-readdy="true" class="text-gray-600 hover:text-primary transition-colors">Terms &
+                          Conditions</a></li>
+                  <li><a href="./Cancellation-policy.html" class="text-gray-600 hover:text-primary transition-colors">Cancellation
+                          Policy</a></li>
+                  <li><a href="./travel-advisory.html" class="text-gray-600 hover:text-primary transition-colors">Travel Advisory</a>
+                  </li>
+              </ul>
+          </div>
+            <!-- Contact Column -->
+            <div>
+                <h3 class="text-xl font-medium text-gray-900 mb-4">Contact Us</h3>
+                <ul class="space-y-3">
+                    <li class="flex items-start">
+                        <div class="w-5 h-5 flex items-center justify-center text-primary mr-3 mt-1">
+                            <i class="ri-map-pin-line"></i>
+                        </div>
+                        <span class="text-gray-600">42 Park Street, Kolkata, West Bengal, India - 700016</span>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="w-5 h-5 flex items-center justify-center text-primary mr-3 mt-1">
+                            <i class="ri-phone-line"></i>
+                        </div>
+                        <span class="text-gray-600">+91 98765 43210</span>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="w-5 h-5 flex items-center justify-center text-primary mr-3 mt-1">
+                            <i class="ri-mail-line"></i>
+                        </div>
+                        <span class="text-gray-600">hello@staystories.in</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-gray-200 pt-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 Stay Stories. All rights reserved.</p>
+                <div class="flex items-center space-x-6">
+                    <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                        <i class="ri-visa-line ri-lg"></i>
+                    </div>
+                    <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                        <i class="ri-mastercard-line ri-lg"></i>
+                    </div>
+                    <div class="w-8 h-8 flex items-center justify-center text-gray-500">
+                        <i class="ri-paypal-line ri-lg"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', function () {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function (event) {
+            if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mobile dropdown toggles
+        const mobileContactButton = document.getElementById('mobile-contact-button');
+        const mobileContactDropdown = document.getElementById('mobile-contact-dropdown');
+
+        mobileContactButton.addEventListener('click', function () {
+            mobileContactDropdown.classList.toggle('active');
+            mobileContactButton.querySelector('i').classList.toggle('ri-arrow-down-s-line');
+            mobileContactButton.querySelector('i').classList.toggle('ri-arrow-up-s-line');
+        });
+
+        const mobileChaptersButton = document.getElementById('mobile-chapters-button');
+        const mobileChaptersDropdown = document.getElementById('mobile-chapters-dropdown');
+
+        mobileChaptersButton.addEventListener('click', function () {
+            mobileChaptersDropdown.classList.toggle('active');
+            mobileChaptersButton.querySelector('i').classList.toggle('ri-arrow-down-s-line');
+            mobileChaptersButton.querySelector('i').classList.toggle('ri-arrow-up-s-line');
+        });
+
+        const mobileFyiButton = document.getElementById('mobile-fyi-button');
+        const mobileFyiDropdown = document.getElementById('mobile-fyi-dropdown');
+
+        mobileFyiButton.addEventListener('click', function () {
+            mobileFyiDropdown.classList.toggle('active');
+            mobileFyiButton.querySelector('i').classList.toggle('ri-arrow-down-s-line');
+            mobileFyiButton.querySelector('i').classList.toggle('ri-arrow-up-s-line');
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Terms section toggles
+        const termsSectionHeaders = document.querySelectorAll('.terms-section-header');
+
+        termsSectionHeaders.forEach(header => {
+            header.addEventListener('click', function () {
+                const content = this.nextElementSibling;
+                const icon = this.querySelector('.terms-section-icon');
+
+                content.classList.toggle('active');
+                icon.classList.toggle('active');
+
+                if (content.classList.contains('active')) {
+                    icon.innerHTML = '<i class="ri-arrow-up-s-line ri-lg"></i>';
+                } else {
+                    icon.innerHTML = '<i class="ri-arrow-down-s-line ri-lg"></i>';
+                }
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                    return;
+                }
+
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    // Open the section if it's collapsed
+                    const sectionContent = targetElement.querySelector('.terms-section-content');
+                    const sectionIcon = targetElement.querySelector('.terms-section-icon');
+
+                    if (sectionContent && !sectionContent.classList.contains('active')) {
+                        sectionContent.classList.add('active');
+                        if (sectionIcon) {
+                            sectionIcon.classList.add('active');
+                            sectionIcon.innerHTML = '<i class="ri-arrow-up-s-line ri-lg"></i>';
+                        }
+                    }
+
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Back to top button visibility
+        const backToTopButton = document.querySelector('.back-to-top');
+
+        window.addEventListener('scroll', function () {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+    });
+</script>
+</body>
+
+</html>
