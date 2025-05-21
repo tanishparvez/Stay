@@ -232,6 +232,132 @@
                 grid-column: span 1;
             }
         }
+.property-details {
+    padding: 2rem 1rem;
+    background-color: #f8f9fa; /* Light gray background for the section */
+}
+
+.property-details .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+    text-align: center;
+}
+
+.property-details .card {
+    background: linear-gradient(135deg, #ffffff, #f1f5f1); /* Subtle gradient */
+    border: 1px solid rgba(0, 100, 0, 0.1); /* Light green border */
+    border-radius: 12px; /* Matches your custom md border-radius */
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Soft shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.property-details .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: #006400; /* Dark green top border */
+    transition: height 0.3s ease;
+}
+
+.property-details .card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Deeper shadow on hover */
+}
+
+.property-details .card:hover::before {
+    height: 8px; /* Thicker top border on hover */
+}
+
+.property-details .card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem; /* Slightly larger for emphasis */
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.property-details .card .highlight {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem; /* Larger for prominence */
+    font-weight: 700;
+    color: #006400;
+    margin-bottom: 0.25rem;
+    position: relative;
+    z-index: 1;
+}
+
+.property-details .card p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.875rem;
+    color: #666;
+    position: relative;
+    z-index: 1;
+}
+
+/* Responsive adjustments */
+@media (min-width: 640px) {
+    .property-details .container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .property-details .container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .property-details {
+        padding: 2rem 4rem;
+    }
+}
+.not-available {
+    position: relative;
+    opacity: 0.7; /* Slightly faded to indicate unavailability */
+    transition: opacity 0.3s ease;
+}
+
+.not-available:hover {
+    opacity: 1; /* Full opacity on hover for readability */
+}
+
+.not-available span {
+    text-decoration: line-through; /* Strikethrough effect on the text */
+    text-decoration-color: #000000; /* Red strikethrough for visibility */
+    text-decoration-thickness: 2px; /* Thicker line for emphasis */
+}
+
+.not-available::after {
+    content: 'Not Available';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.not-available:hover::after {
+    opacity: 1;
+}
     </style>
 </head>
 <body class="min-h-screen bg-white">
@@ -253,7 +379,7 @@
                         <button class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Contact</button>
                         <div class="dropdown absolute top-full left-0 mt-2 bg-white shadow-md rounded p-4 min-w-[200px] z-10">
                             <p class="text-gray-600 mb-1 text-sm">Call us at:</p>
-                            <p class="text-primary font-medium">+91 98765 43210</p>
+                            <p class="text-primary font-medium">+91 91630 18888</p>
                         </div>
                     </div>
 
@@ -323,7 +449,7 @@
                 </button>
                 <div id="mobile-contact-dropdown" class="mobile-dropdown pt-2 pl-4">
                     <p class="text-gray-600 mb-1">Call us at:</p>
-                    <p class="text-primary font-medium">+91 98765 43210</p>
+                    <p class="text-primary font-medium">+91 91630 18888</p>
                 </div>
             </div>
 
@@ -520,19 +646,19 @@
                                         <div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
                                             <i class="ri-time-line"></i>
                                         </div>
-                                        <span>Check-in: 2:00 PM - 8:00 PM</span>
+                                        <span>Check-in: 1:30 PM</span>
                                     </li>
                                     <li class="flex items-center">
                                         <div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
                                             <i class="ri-time-line"></i>
                                         </div>
-                                        <span>Check-out: 11:00 AM</span>
+                                        <span>Check-out: 11:30 AM</span>
                                     </li>
                                     <li class="flex items-center">
                                         <div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
                                             <i class="ri-information-line"></i>
                                         </div>
-                                        <span>Early check-in available upon request</span>
+                                        <span>Early check-in on request (Extra charges apply)</span>
                                     </li>
                                 </ul>
                             </div>
@@ -542,22 +668,22 @@
                                 <ul class="space-y-2 text-gray-600">
                                     <li class="flex items-center">
                                         <div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
-                                            <i class="ri-checkbox-circle-line"></i>
+                                            <i class="ri-close-circle-line"></i>
                                         </div>
-                                        <span>No smoking inside the rooms</span>
+                                        <span>No smoking inside the property</span>
                                     </li>
                                     <li class="flex items-center">
                                         <div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
-                                            <i class="ri-checkbox-circle-line"></i>
+                                            <i class="ri-close-circle-line"></i>
                                         </div>
-                                        <span>Pets allowed with prior notice</span>
+                                        <span>Pets are not allowed</span>
                                     </li>
-                                    <li class="flex items-center">
+                                    <!-- <li class="flex items-center">
                                         <div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
                                             <i class="ri-checkbox-circle-line"></i>
                                         </div>
                                         <span>Quiet hours: 10:00 PM - 7:00 AM</span>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </div>
@@ -607,14 +733,63 @@
         </div>
     </section>
 
+    <section class="property-details">
+    <div class="container">
+        <!-- Sleeps -->
+        <div class="card">
+            <h3>Sleeps</h3>
+            <p class="highlight">10 Max</p>
+            <p>Adults</p>
+        </div>
+
+        <!-- Cottage -->
+        <div class="card">
+            <h3>Cottage</h3>
+            <p class="highlight">1</p>
+            <p>Bedroom</p>
+        </div>
+
+        <!-- Main Villa -->
+        <div class="card">
+            <h3>Main Villa</h3>
+            <p class="highlight">03</p>
+            <p>Bedrooms</p>
+        </div>
+
+        <!-- Bed -->
+        <div class="card">
+            <h3>Bed</h3>
+            <p class="highlight">King-sized</p>
+        </div>
+
+        <!-- Stylish Teak -->
+        <div class="card">
+            <h3>Stylish Teak</h3>
+            <p>Shared</p>
+        </div>
+
+        <!-- Check-in -->
+        <div class="card">
+            <h3>Check-in</h3>
+            <p class="highlight">1:30</p>
+        </div>
+
+        <!-- Check-out -->
+        <div class="card">
+            <h3>Check-out</h3>
+            <p class="highlight">11:30</p>
+        </div>
+    </div>
+</section>
+
     <!-- Room Types & Pricing -->
-    <section class="py-16 bg-gray-50">
+    <!-- <section class="py-16 bg-gray-50">
         <div class="container mx-auto px-4 md:px-8">
             <h2 class="text-3xl font-semibold text-gray-900 mb-10 text-center">Accommodations</h2>
             
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8"> -->
                 <!-- Room Type 1 -->
-                <div class="bg-white rounded-lg overflow-hidden shadow-sm">
+                <!-- <div class="bg-white rounded-lg overflow-hidden shadow-sm">
                     <div class="h-64 overflow-hidden">
                         <img src="https://readdy.ai/api/search-image?query=A%2520luxurious%2520bedroom%2520in%2520a%2520Bengali-style%2520villa%2520with%2520a%2520four-poster%2520bed%2520adorned%2520with%2520handloom%2520textiles.%2520The%2520room%2520features%2520traditional%2520wooden%2520furniture%252C%2520terracotta%2520floors%252C%2520and%2520large%2520windows%2520overlooking%2520a%2520garden.%2520The%2520decor%2520includes%2520local%2520artwork%2520and%2520handicrafts%252C%2520creating%2520an%2520elegant%2520yet%2520authentic%2520atmosphere.%2520Professional%2520high-end%2520interior%2520photography%2520with%2520perfect%2520lighting.&width=600&height=400&seq=2005&orientation=landscape" alt="Garden Suite" class="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105">
                     </div>
@@ -646,10 +821,10 @@
                             <button class="whitespace-nowrap !rounded-button px-5 py-2 border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors duration-300 font-medium">View Details</button>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 
                 <!-- Room Type 2 -->
-                <div class="bg-white rounded-lg overflow-hidden shadow-sm">
+                <!-- <div class="bg-white rounded-lg overflow-hidden shadow-sm">
                     <div class="h-64 overflow-hidden">
                         <img src="https://readdy.ai/api/search-image?query=A%2520charming%2520bedroom%2520in%2520a%2520Bengali-style%2520villa%2520with%2520twin%2520beds%2520covered%2520in%2520colorful%2520handloom%2520bedspreads.%2520The%2520room%2520features%2520traditional%2520wooden%2520furniture%252C%2520terracotta%2520floors%252C%2520and%2520windows%2520with%2520views%2520of%2520trees.%2520The%2520walls%2520are%2520adorned%2520with%2520local%2520artwork%2520and%2520the%2520space%2520has%2520a%2520warm%252C%2520inviting%2520atmosphere.%2520Professional%2520high-end%2520interior%2520photography%2520with%2520perfect%2520lighting.&width=600&height=400&seq=2006&orientation=landscape" alt="Courtyard Room" class="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105">
                     </div>
@@ -681,10 +856,10 @@
                             <button class="whitespace-nowrap !rounded-button px-5 py-2 border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors duration-300 font-medium">View Details</button>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 
                 <!-- Room Type 3 -->
-                <div class="bg-white rounded-lg overflow-hidden shadow-sm">
+                <!-- <div class="bg-white rounded-lg overflow-hidden shadow-sm">
                     <div class="h-64 overflow-hidden">
                         <img src="https://readdy.ai/api/search-image?query=A%2520beautiful%2520terrace%2520room%2520in%2520a%2520Bengali-style%2520villa%2520with%2520a%2520queen%2520bed%2520and%2520elegant%2520furnishings.%2520The%2520room%2520features%2520a%2520private%2520balcony%2520with%2520views%2520of%2520treetops%2520and%2520the%2520sky.%2520The%2520interior%2520has%2520wooden%2520elements%252C%2520handloom%2520textiles%252C%2520and%2520tasteful%2520local%2520art.%2520The%2520space%2520is%2520bright%2520with%2520natural%2520light%2520and%2520has%2520a%2520serene%2520atmosphere.%2520Professional%2520high-end%2520interior%2520photography%2520with%2520perfect%2520lighting.&width=600&height=400&seq=2007&orientation=landscape" alt="Terrace Room" class="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105">
                     </div>
@@ -716,10 +891,10 @@
                             <button class="whitespace-nowrap !rounded-button px-5 py-2 border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors duration-300 font-medium">View Details</button>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 
                 <!-- Room Type 4 -->
-                <div class="bg-white rounded-lg overflow-hidden shadow-sm">
+                <!-- <div class="bg-white rounded-lg overflow-hidden shadow-sm">
                     <div class="h-64 overflow-hidden">
                         <img src="https://readdy.ai/api/search-image?query=A%2520family%2520cottage%2520in%2520a%2520Bengali-style%2520villa%2520compound%2520with%2520a%2520spacious%2520interior%2520featuring%2520multiple%2520beds%2520and%2520a%2520living%2520area.%2520The%2520cottage%2520has%2520traditional%2520architecture%2520with%2520modern%2520comforts%252C%2520wooden%2520furniture%252C%2520and%2520colorful%2520textiles.%2520Large%2520windows%2520offer%2520views%2520of%2520the%2520surrounding%2520gardens.%2520The%2520space%2520has%2520a%2520warm%252C%2520homely%2520atmosphere%2520perfect%2520for%2520families.%2520Professional%2520high-end%2520interior%2520photography%2520with%2520perfect%2520lighting.&width=600&height=400&seq=2008&orientation=landscape" alt="Family Cottage" class="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105">
                     </div>
@@ -754,164 +929,194 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Amenities Section -->
     <section class="py-16">
-        <div class="container mx-auto px-4 md:px-8">
-            <h2 class="text-3xl font-semibold text-gray-900 mb-10 text-center">Amenities & Services</h2>
+    <div class="container mx-auto px-4 md:px-8">
+        <h2 class="text-3xl font-semibold text-gray-900 mb-10 text-center">Amenities & Services</h2>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <!-- Property Amenities -->
+            <div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-6">Property Amenities</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-center">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-wifi-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Wi-Fi</span>
+                    </li>
+                    <li class="flex items-center">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-parking-box-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Parking Facility</span>
+                    </li>
+                    <li class="flex items-center not-available">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-restaurant-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">On-site Dining</span>
+                    </li>
+                    <li class="flex items-center not-available">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-garden-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Gardens & Orchards</span>
+                    </li>
+                    <li class="flex items-center not-available">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-24-hours-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">24/7 Security</span>
+                    </li>
+                    <li class="flex items-center">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-swimming-pool-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Swimming Pool</span>
+                    </li>
+                    <li class="flex items-center">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-building-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Entrance Lobby with Banquet</span>
+                    </li>
+                </ul>
+            </div>
             
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <!-- Property Amenities -->
-                <div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-6">Property Amenities</h3>
-                    <ul class="space-y-4">
-                        <li class="flex items-center">
-                            <div class="amenity-icon mr-4">
-                                <i class="ri-wifi-line ri-lg text-primary"></i>
-                            </div>
-                            <span class="text-gray-700">Free Wi-Fi</span>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="amenity-icon mr-4">
-                                <i class="ri-parking-box-line ri-lg text-primary"></i>
-                            </div>
-                            <span class="text-gray-700">Free Parking</span>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="amenity-icon mr-4">
-                                <i class="ri-restaurant-line ri-lg text-primary"></i>
-                            </div>
-                            <span class="text-gray-700">On-site Dining</span>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="amenity-icon mr-4">
-                                <i class="ri-garden-line ri-lg text-primary"></i>
-                            </div>
-                            <span class="text-gray-700">Gardens & Orchards</span>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="amenity-icon mr-4">
-                                <i class="ri-24-hours-line ri-lg text-primary"></i>
-                            </div>
-                            <span class="text-gray-700">24/7 Security</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- Room Amenities -->
-                <div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-6">Room Amenities</h3>
-                    <ul class="space-y-4">
-                        <li class="flex items-center">
-                            <div class="amenity-icon mr-4">
-                                <i class="ri-air-conditioner-line ri-lg text-primary"></i>
-                            </div>
-                            <span class="text-gray-700">Air Conditioning</span>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="amenity-icon mr-4">
-                                <i class="ri-tv-line ri-lg text-primary"></i>
-                            </div>
-                            <span class="text-gray-700">Smart TV</span>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="amenity-icon mr-4">
-                                <i class="ri-refrigerator-line ri-lg text-primary"></i>
-                            </div>
-                            <span class="text-gray-700">Mini Refrigerator</span>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="amenity-icon mr-4">
-                                <i class="ri-cup-line ri-lg text-primary"></i>
-                            </div>
-                            <span class="text-gray-700">Tea/Coffee Maker</span>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="amenity-icon mr-4">
-                                <i class="ri-safe-line ri-lg text-primary"></i>
-                            </div>
-                            <span class="text-gray-700">In-room Safe</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- Special Features -->
-                <div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-6">Special Features</h3>
-                    <ul class="space-y-4">
-                        <li class="flex items-center">
-                            <div class="amenity-icon mr-4">
-                                <i class="ri-book-open-line ri-lg text-primary"></i>
-                            </div>
-                            <span class="text-gray-700">Library</span>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="amenity-icon mr-4">
-                                <i class="ri-music-line ri-lg text-primary"></i>
-                            </div>
-                            <span class="text-gray-700">Evening Cultural Shows</span>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="amenity-icon mr-4">
-                                <i class="ri-bike-line ri-lg text-primary"></i>
-                            </div>
-                            <span class="text-gray-700">Bicycle Rentals</span>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="amenity-icon mr-4">
-                                <i class="ri-palette-line ri-lg text-primary"></i>
-                            </div>
-                            <span class="text-gray-700">Art Workshops</span>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="amenity-icon mr-4">
-                                <i class="ri-plant-line ri-lg text-primary"></i>
-                            </div>
-                            <span class="text-gray-700">Organic Farm Tour</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- Additional Services -->
-                <div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-6">Additional Services</h3>
-                    <ul class="space-y-4">
-                        <li class="flex items-center">
-                            <div class="amenity-icon mr-4">
-                                <i class="ri-car-line ri-lg text-primary"></i>
-                            </div>
-                            <span class="text-gray-700">Airport/Station Transfer</span>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="amenity-icon mr-4">
-                                <i class="ri-guide-line ri-lg text-primary"></i>
-                            </div>
-                            <span class="text-gray-700">Local Guide</span>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="amenity-icon mr-4">
-                                <i class="ri-massage-line ri-lg text-primary"></i>
-                            </div>
-                            <span class="text-gray-700">Ayurvedic Massage</span>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="amenity-icon mr-4">
-                                <i class="ri-calendar-event-line ri-lg text-primary"></i>
-                            </div>
-                            <span class="text-gray-700">Event Planning</span>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="amenity-icon mr-4">
-                                <i class="ri-group-line ri-lg text-primary"></i>
-                            </div>
-                            <span class="text-gray-700">Cooking Classes</span>
-                        </li>
-                    </ul>
-                </div>
+            <!-- Room Amenities -->
+            <div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-6">Room Amenities</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-center">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-air-conditioner-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Air Conditioning</span>
+                    </li>
+                    <li class="flex items-center">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-tv-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Smart Television</span>
+                    </li>
+                    <li class="flex items-center not-available">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-refrigerator-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Mini Refrigerator</span>
+                    </li>
+                    <li class="flex items-center not-available">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-cup-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Tea/Coffee Maker</span>
+                    </li>
+                    <li class="flex items-center">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-safe-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">In-room Safe</span>
+                    </li>
+                    <li class="flex items-center">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-showers-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Bathroom with Walk-in Shower</span>
+                    </li>
+                    <li class="flex items-center">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-table-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Writing Table</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Special Features -->
+            <div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-6">Special Features</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-center not-available">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-book-open-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Library</span>
+                    </li>
+                    <li class="flex items-center not-available">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-music-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Evening Cultural Shows</span>
+                    </li>
+                    <li class="flex items-center not-available">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-bike-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Bicycle Rentals</span>
+                    </li>
+                    <li class="flex items-center not-available">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-palette-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Art Workshops</span>
+                    </li>
+                    <li class="flex items-center not-available">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-plant-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Organic Farm Tour</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Additional Services -->
+            <div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-6">Additional Services</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-center">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-car-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Airport/Station Transfer</span>
+                    </li>
+                    <li class="flex items-center not-available">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-guide-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Local Guide</span>
+                    </li>
+                    <li class="flex items-center not-available">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-massage-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Ayurvedic Massage</span>
+                    </li>
+                    <li class="flex items-center not-available">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-calendar-event-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Event Planning</span>
+                    </li>
+                    <li class="flex items-center">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-group-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Cooking Classes</span>
+                    </li>
+                    <li class="flex items-center">
+                        <div class="amenity-icon mr-4">
+                            <i class="ri-t-shirt-line ri-lg text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Laundry Services</span>
+                    </li>
+                </ul>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Location & Surroundings -->
     <section class="py-16 bg-gray-50">
@@ -921,7 +1126,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <!-- Map -->
                 <div class="rounded-lg overflow-hidden h-[400px] relative">
-                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://public.readdy.ai/gen_page/map_placeholder_1280x720.png')"></div>
+                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./Image/mapchapter1.png')"></div>
                     <div class="absolute inset-0 flex items-center justify-center">
                         <div class="w-12 h-12 flex items-center justify-center text-primary bg-white rounded-full shadow-md">
                             <i class="ri-map-pin-fill ri-xl"></i>
@@ -1015,7 +1220,7 @@
     </section>
 
     <!-- Photo Gallery -->
-    <section class="py-16">
+    <!-- <section class="py-16">
         <div class="container mx-auto px-4 md:px-8">
             <h2 class="text-3xl font-semibold text-gray-900 mb-10 text-center">Photo Gallery</h2>
             
@@ -1050,10 +1255,10 @@
                 <button class="whitespace-nowrap !rounded-button px-6 py-3 border border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 font-medium">View All Photos</button>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Guest Reviews -->
-    <section class="py-16 bg-gray-50">
+    <!-- <section class="py-16 bg-gray-50">
         <div class="container mx-auto px-4 md:px-8">
             <h2 class="text-3xl font-semibold text-gray-900 mb-4 text-center">Guest Reviews</h2>
             <div class="flex items-center justify-center mb-10">
@@ -1068,9 +1273,9 @@
                 <span class="text-gray-600 ml-2">(128 reviews)</span>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12"> -->
                 <!-- Rating Categories -->
-                <div>
+                <!-- <div>
                     <h3 class="text-xl font-semibold text-gray-900 mb-6">Rating Categories</h3>
                     
                     <div class="space-y-4">
@@ -1134,10 +1339,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 
                 <!-- Review Highlights -->
-                <div>
+                <!-- <div>
                     <h3 class="text-xl font-semibold text-gray-900 mb-6">What Guests Love</h3>
                     
                     <div class="space-y-4">
@@ -1170,12 +1375,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             
             <!-- Detailed Reviews -->
-            <div class="space-y-8">
+            <!-- <div class="space-y-8"> -->
                 <!-- Review 1 -->
-                <div class="bg-white p-6 rounded-lg shadow-sm">
+                <!-- <div class="bg-white p-6 rounded-lg shadow-sm">
                     <div class="flex items-start justify-between mb-4">
                         <div class="flex items-start">
                             <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
@@ -1209,10 +1414,10 @@
                             <img src="https://readdy.ai/api/search-image?query=Children%2520participating%2520in%2520a%2520pottery%2520workshop%2520in%2520a%2520traditional%2520setting%252C%2520learning%2520to%2520make%2520clay%2520items%2520with%2520an%2520instructor.%2520The%2520children%2520are%2520focused%2520on%2520their%2520work%2520with%2520expressions%2520of%2520concentration%2520and%2520joy.%2520The%2520scene%2520is%2520bright%2520and%2520cheerful.%2520Professional%2520candid%2520photography%2520with%2520perfect%2520lighting.&width=200&height=200&seq=2019&orientation=squarish" alt="Review Photo" class="w-full h-full object-cover">
                         </div>
                     </div>
-                </div>
+                </div> -->
                 
                 <!-- Review 2 -->
-                <div class="bg-white p-6 rounded-lg shadow-sm">
+                <!-- <div class="bg-white p-6 rounded-lg shadow-sm">
                     <div class="flex items-start justify-between mb-4">
                         <div class="flex items-start">
                             <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
@@ -1237,10 +1442,10 @@
                     <p class="text-gray-600 mb-4">The library was a wonderful surprise - well-stocked with works by Tagore and other Bengali authors. Anjali's knowledge of local literature and culture added depth to my understanding of Santiniketan's significance.</p>
                     
                     <p class="text-gray-600">The evening walks through the property's gardens, followed by dinner under the stars, created a rhythm to my days that was both productive and rejuvenating. KrishnaChura isn't just a place to stay; it's a place to connect with Bengali culture and yourself."</p>
-                </div>
+                </div> -->
                 
                 <!-- Review 3 -->
-                <div class="bg-white p-6 rounded-lg shadow-sm">
+                <!-- <div class="bg-white p-6 rounded-lg shadow-sm">
                     <div class="flex items-start justify-between mb-4">
                         <div class="flex items-start">
                             <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
@@ -1278,7 +1483,7 @@
                 <button class="whitespace-nowrap !rounded-button px-6 py-3 border border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 font-medium">Read All 128 Reviews</button>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Booking Section -->
     <!-- <section id="booking-section" class="py-16">
@@ -1778,6 +1983,8 @@
         </div>
     </section> -->
 
+
+
     <!-- Footer -->
     <footer class="bg-gray-100 pt-16 pb-8">
         <div class="container mx-auto px-4 md:px-8">
@@ -1806,9 +2013,9 @@
                     <h3 class="text-xl font-medium text-gray-900 mb-4">Our Chapters</h3>
                     <ul class="space-y-3">
                         <li><a href="https://readdy.ai/home/35de9430-fe92-4179-a384-0e7c06d2339f/e830f702-db53-4bb5-9585-1630bfae8667" data-readdy="true" class="text-primary font-medium hover:text-primary transition-colors">KrishnaChura, Santiniketan</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">Lake Hill Villa, Baranti</a></li>
-                        <li><a href="#" class="text-gray-500 italic hover:text-primary transition-colors">Up On The Hill (Coming Soon)</a></li>
-                        <li><a href="#" class="text-gray-500 italic hover:text-primary transition-colors">By The Sea Shore (Coming Soon)</a></li>
+                        <li><a href="./Chapter-2.html" class="text-gray-600 hover:text-primary transition-colors">Lake Hill Villa, Baranti</a></li>
+                        <li><a href="./Chapter-3.html" class="text-gray-500 italic hover:text-primary transition-colors">Up On The Hill (Coming Soon)</a></li>
+                        <li><a href="./Chapter-4.html" class="text-gray-500 italic hover:text-primary transition-colors">By The Sea Shore (Coming Soon)</a></li>
                     </ul>
                 </div>
                 
@@ -1816,11 +2023,10 @@
                 <div>
                     <h3 class="text-xl font-medium text-gray-900 mb-4">Information</h3>
                     <ul class="space-y-3">
-                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">Prologue</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">Terms & Conditions</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">Cancellation Policy</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">Travel Advisory</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">Privacy Policy</a></li>
+                        <li><a href="./Prologue.html" class="text-gray-600 hover:text-primary transition-colors">Prologue</a></li>
+                        <li><a href="./Terms.html" class="text-gray-600 hover:text-primary transition-colors">Terms & Conditions</a></li>
+                        <li><a href="./Cancellation-policy.html" class="text-gray-600 hover:text-primary transition-colors">Cancellation Policy</a></li>
+                        <li><a href="./travel-advisory.html" class="text-gray-600 hover:text-primary transition-colors">Travel Advisory</a></li>
                     </ul>
                 </div>
                 
@@ -1838,13 +2044,13 @@
                             <div class="w-5 h-5 flex items-center justify-center text-primary mr-3 mt-1">
                                 <i class="ri-phone-line"></i>
                             </div>
-                            <span class="text-gray-600">+91 98765 43210</span>
+                            <span class="text-gray-600">+91 91630 18888</span>
                         </li>
                         <li class="flex items-start">
                             <div class="w-5 h-5 flex items-center justify-center text-primary mr-3 mt-1">
                                 <i class="ri-mail-line"></i>
                             </div>
-                            <span class="text-gray-600">hello@staystories.in</span>
+                            <span class="text-gray-600">info@staystorieshospitality.com</span>
                         </li>
                     </ul>
                 </div>
