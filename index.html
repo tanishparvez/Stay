@@ -111,98 +111,150 @@
                 background-position: bottom center;
             }
         }
+        #mobile-menu-close {
+    background-color: #f0f0f0; /* Light gray background for visibility */
+    border-radius: 50%; /* Circular shape */
+    transition: background-color 0.3s ease;
+}
+
+#mobile-menu-close:hover {
+    background-color: #e0e0e0; /* Slightly darker on hover */
+}
+
+#mobile-menu-close i {
+    font-size: 1.5rem; /* Ensure the icon is large enough */
+    color: #006400; /* Matches text-primary */
+}
+
+/* Ensure the mobile menu container is visible */
+#mobile-menu {
+    background-color: #ffffff;
+}
     </style>
 </head>
 
 <body class="min-h-screen bg-white">
     <!-- Header -->
     <header class="fixed top-0 left-0 right-0 bg-white bg-opacity-95 shadow-sm z-50">
-        <div class="container mx-auto px-4 md:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Mobile Menu Button -->
-                <div class="block md:hidden">
-                    <button id="mobile-menu-button" class="w-10 h-10 flex items-center justify-center text-primary">
-                        <i class="ri-menu-line ri-lg"></i>
-                    </button>
-                </div>
-                <!-- Left Navigation (Desktop) -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <!-- Contact Button -->
-                    <div class="dropdown-trigger relative">
-                        <button
-                            class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Contact</button>
-                        <div
-                            class="dropdown absolute top-full left-0 mt-2 bg-white shadow-md rounded p-4 min-w-[200px] z-10">
-                            <p class="text-gray-600 mb-1 text-sm">Call us at:</p>
-                            <p class="text-primary font-medium">+91 91630 18888</p>
-                        </div>
-                    </div>
-                    <!-- Prologue -->
-                    <a href="./Prologue.html"
-                        data-readdy="true"
-                        class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Prologue</a>
-                    <!-- Chapters Dropdown -->
-                    <div class="dropdown-trigger relative">
-                        <button
-                            class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Chapters</button>
-                        <div
-                            class="dropdown absolute top-full left-0 mt-2 bg-white shadow-md rounded p-4 min-w-[300px] z-10">
-                            <a href="./Chapter-1.html"
-                                data-readdy="true"
-                                class="block py-2 text-gray-800 hover:text-primary transition-colors">Chapter 1: Stay
-                                Stories Santiniketan — KrishnaChura</a>
-                            <a href="./Chapter-2.html" class="block py-2 text-gray-800 hover:text-primary transition-colors">Chapter 2:
-                                Stay Stories Baranti — Lake Hill Villa</a>
-                            <a href="./Chapter-3.html"
-                                class="block py-2 text-gray-500 italic hover:text-primary transition-colors">Chapter 3:
-                                Stay Stories Up On The Hill <span class="text-xs ml-2 text-secondary">Being
-                                    Scripted</span></a>
-                            <a href="./Chapter-4.html"
-                                class="block py-2 text-gray-500 italic hover:text-primary transition-colors">Chapter 4:
-                                Stay Stories By The Sea Shore <span class="text-xs ml-2 text-secondary">Being
-                                    Scripted</span></a>
-                        </div>
+    <div class="container mx-auto px-4 md:px-8">
+        <div class="flex items-center justify-between h-20">
+            <!-- Mobile Menu Button -->
+            <div class="block md:hidden">
+                <button id="mobile-menu-button" class="w-10 h-10 flex items-center justify-center text-primary">
+                    <i class="ri-menu-line ri-lg"></i>
+                </button>
+            </div>
+            <!-- Left Navigation (Desktop) -->
+            <div class="hidden md:flex items-center space-x-8">
+                <!-- Contact Button -->
+                <div class="dropdown-trigger relative">
+                    <button class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Contact</button>
+                    <div class="dropdown absolute top-full left-0 mt-2 bg-white shadow-md rounded p-4 min-w-[200px] z-10">
+                        <p class="text-gray-600 mb-1 text-sm">Call us at:</p>
+                        <p class="text-primary font-medium">+91 91630 18888</p>
                     </div>
                 </div>
-                <!-- Logo -->
-                <div>
-                    <a href="./index.html">
-                        <img src="./Image/Main Logo.png" alt="Logo" class="h-20 object-contain">
-                    </a>
-                </div>
-                <!-- Right Navigation (Desktop) -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <!-- FYI Dropdown -->
-                    <div class="dropdown-trigger relative">
-                        <button
-                            class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">FYI</button>
-                        <div
-                            class="dropdown absolute top-full right-0 mt-2 bg-white shadow-md rounded p-4 min-w-[200px] z-10">
-                            <a href="/Terms.html" class="block py-2 text-gray-800 hover:text-primary transition-colors">Terms &
-                                Conditions</a>
-                            <a href="./Cancellation-policy.html"
-                                class="block py-2 text-gray-800 hover:text-primary transition-colors">Cancellation
-                                Policy</a>
-                        </div>
+                <!-- Prologue -->
+                <a href="./Prologue.html" data-readdy="true" class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Prologue</a>
+                <!-- Chapters Dropdown -->
+                <div class="dropdown-trigger relative">
+                    <button class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Chapters</button>
+                    <div class="dropdown absolute top-full left-0 mt-2 bg-white shadow-md rounded p-4 min-w-[300px] z-10">
+                        <a href="./Chapter-1.html" data-readdy="true" class="block py-2 text-gray-800 hover:text-primary transition-colors">Chapter 1: Stay Stories Santiniketan — KrishnaChura</a>
+                        <a href="./Chapter-2.html" class="block py-2 text-gray-800 hover:text-primary transition-colors">Chapter 2: Stay Stories Baranti — Lake Hill Villa</a>
+                        <a href="./Chapter-3.html" class="block py-2 text-gray-500 italic hover:text-primary transition-colors">Chapter 3: Stay Stories Up On The Hill <span class="text-xs ml-2 text-secondary">Being Scripted</span></a>
+                        <a href="./Chapter-4.html" class="block py-2 text-gray-500 italic hover:text-primary transition-colors">Chapter 4: Stay Stories By The Sea Shore <span class="text-xs ml-2 text-secondary">Being Scripted</span></a>
                     </div>
-                    <!-- Travel Advisory -->
-                    <a href="./travel-advisory.html"
-                        class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Travel
-                        Advisory</a>
-                    <!-- Book Now Button -->
-                    <a href="./book-now.html"
-                        class="whitespace-nowrap !rounded-button px-6 py-2 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 font-medium">Book
-                        Now</a>
-                </div>
-                <!-- Mobile Right Side -->
-                <div class="flex md:hidden items-center">
-                    <a href="./book-now.html"
-                        class="whitespace-nowrap !rounded-button px-4 py-1.5 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 text-sm font-medium">Book
-                        Now</a>
                 </div>
             </div>
+            <!-- Logo -->
+            <div>
+                <a href="./index.html">
+                    <img src="./Image/Main Logo.png" alt="Logo" class="h-20 object-contain">
+                </a>
+            </div>
+            <!-- Right Navigation (Desktop) -->
+            <div class="hidden md:flex items-center space-x-8">
+                <!-- FYI Dropdown -->
+                <div class="dropdown-trigger relative">
+                    <button class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">FYI</button>
+                    <div class="dropdown absolute top-full right-0 mt-2 bg-white shadow-md rounded p-4 min-w-[200px] z-10">
+                        <a href="/Terms.html" class="block py-2 text-gray-800 hover:text-primary transition-colors">Terms & Conditions</a>
+                        <a href="./Cancellation-policy.html" class="block py-2 text-gray-800 hover:text-primary transition-colors">Cancellation Policy</a>
+                    </div>
+                </div>
+                <!-- Travel Advisory -->
+                <a href="./travel-advisory.html" class="nav-link text-lg font-medium text-gray-800 hover:text-primary transition-colors">Travel Advisory</a>
+                <!-- Book Now Button -->
+                <a href="./book-now.html" class="whitespace-nowrap !rounded-button px-6 py-2 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 font-medium">Book Now</a>
+            </div>
+            <!-- Mobile Right Side -->
+            <div class="flex md:hidden items-center">
+                <a href="./book-now.html" class="whitespace-nowrap !rounded-button px-4 py-1.5 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 text-sm font-medium">Book Now</a>
+            </div>
         </div>
-    </header>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-50">
+            <!-- Close Button -->
+            <div class="flex justify-end p-4">
+                <button id="mobile-menu-close" class="w-10 h-10 flex items-center justify-center text-primary">
+                    <i class="ri-close-line ri-lg"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu Content -->
+            <ul class="space-y-2 px-4">
+                <!-- Contact -->
+                <li class="mobile-menu-item py-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg font-medium text-gray-800">Contact</span>
+                        <i class="ri-arrow-down-s-line ri-lg text-primary mobile-dropdown-toggle"></i>
+                    </div>
+                    <div class="mobile-dropdown">
+                        <p class="text-gray-600 text-sm py-2">Call us at: <span class="text-primary font-medium">+91 91630 18888</span></p>
+                    </div>
+                </li>
+
+                <!-- Prologue -->
+                <li class="mobile-menu-item py-3">
+                    <a href="./Prologue.html" class="text-lg font-medium text-gray-800 hover:text-primary">Prologue</a>
+                </li>
+
+                <!-- Chapters -->
+                <li class="mobile-menu-item py-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg font-medium text-gray-800">Chapters</span>
+                        <i class="ri-arrow-down-s-line ri-lg text-primary mobile-dropdown-toggle"></i>
+                    </div>
+                    <div class="mobile-dropdown">
+                        <a href="./Chapter-1.html" class="block py-2 text-gray-800 hover:text-primary">Chapter 1: Stay Stories Santiniketan — KrishnaChura</a>
+                        <a href="./Chapter-2.html" class="block py-2 text-gray-800 hover:text-primary">Chapter 2: Stay Stories Baranti — Lake Hill Villa</a>
+                        <a href="./Chapter-3.html" class="block py-2 text-gray-500 italic hover:text-primary">Chapter 3: Stay Stories Up On The Hill <span class="text-xs ml-2 text-secondary">Being Scripted</span></a>
+                        <a href="./Chapter-4.html" class="block py-2 text-gray-500 italic hover:text-primary">Chapter 4: Stay Stories By The Sea Shore <span class="text-xs ml-2 text-secondary">Being Scripted</span></a>
+                    </div>
+                </li>
+
+                <!-- FYI -->
+                <li class="mobile-menu-item py-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg font-medium text-gray-800">FYI</span>
+                        <i class="ri-arrow-down-s-line ri-lg text-primary mobile-dropdown-toggle"></i>
+                    </div>
+                    <div class="mobile-dropdown">
+                        <a href="/Terms.html" class="block py-2 text-gray-800 hover:text-primary">Terms & Conditions</a>
+                        <a href="./Cancellation-policy.html" class="block py-2 text-gray-800 hover:text-primary">Cancellation Policy</a>
+                    </div>
+                </li>
+
+                <!-- Travel Advisory -->
+                <li class="mobile-menu-item py-3">
+                    <a href="./travel-advisory.html" class="text-lg font-medium text-gray-800 hover:text-primary">Travel Advisory</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
     <!-- Mobile Menu -->
     <div id="mobile-menu"
         class="fixed top-0 left-0 h-full w-4/5 max-w-xs bg-white shadow-lg z-50 mobile-menu overflow-y-auto pt-20 pb-8">
@@ -616,44 +668,82 @@
         </div>
     </footer>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Mobile menu toggle
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenuButton.addEventListener('click', function () {
-                mobileMenu.classList.toggle('active');
-            });
-            // Close mobile menu when clicking outside
-            document.addEventListener('click', function (event) {
-                if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
-                    mobileMenu.classList.remove('active');
-                }
-            });
+       document.addEventListener('DOMContentLoaded', function () {
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    // Debugging: Check if elements are found
+    console.log('mobileMenuButton:', mobileMenuButton);
+    console.log('mobileMenuClose:', mobileMenuClose);
+    console.log('mobileMenu:', mobileMenu);
+
+    if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', function () {
+            mobileMenu.classList.toggle('active');
+            console.log('Menu button clicked, active class toggled');
         });
-        document.addEventListener('DOMContentLoaded', function () {
-            // Mobile dropdown toggles
-            const mobileContactButton = document.getElementById('mobile-contact-button');
-            const mobileContactDropdown = document.getElementById('mobile-contact-dropdown');
-            mobileContactButton.addEventListener('click', function () {
-                mobileContactDropdown.classList.toggle('active');
-                mobileContactButton.querySelector('i').classList.toggle('ri-arrow-down-s-line');
-                mobileContactButton.querySelector('i').classList.toggle('ri-arrow-up-s-line');
-            });
-            const mobileChaptersButton = document.getElementById('mobile-chapters-button');
-            const mobileChaptersDropdown = document.getElementById('mobile-chapters-dropdown');
-            mobileChaptersButton.addEventListener('click', function () {
-                mobileChaptersDropdown.classList.toggle('active');
-                mobileChaptersButton.querySelector('i').classList.toggle('ri-arrow-down-s-line');
-                mobileChaptersButton.querySelector('i').classList.toggle('ri-arrow-up-s-line');
-            });
-            const mobileFyiButton = document.getElementById('mobile-fyi-button');
-            const mobileFyiDropdown = document.getElementById('mobile-fyi-dropdown');
-            mobileFyiButton.addEventListener('click', function () {
-                mobileFyiDropdown.classList.toggle('active');
-                mobileFyiButton.querySelector('i').classList.toggle('ri-arrow-down-s-line');
-                mobileFyiButton.querySelector('i').classList.toggle('ri-arrow-up-s-line');
-            });
+    } else {
+        console.error('Mobile menu button or menu not found');
+    }
+
+    if (mobileMenuClose && mobileMenu) {
+        mobileMenuClose.addEventListener('click', function () {
+            mobileMenu.classList.remove('active');
+            console.log('Close button clicked, active class removed');
         });
+    } else {
+        console.error('Mobile menu close button or menu not found');
+    }
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function (event) {
+        if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+            mobileMenu.classList.remove('active');
+        }
+    });
+
+    // Mobile dropdown toggles
+    const mobileContactButton = document.getElementById('mobile-contact-button');
+    const mobileContactDropdown = document.getElementById('mobile-contact-dropdown');
+    if (mobileContactButton && mobileContactDropdown) {
+        mobileContactButton.addEventListener('click', function () {
+            mobileContactDropdown.classList.toggle('active');
+            mobileContactButton.querySelector('i').classList.toggle('ri-arrow-down-s-line');
+            mobileContactButton.querySelector('i').classList.toggle('ri-arrow-up-s-line');
+            console.log('Contact dropdown toggled');
+        });
+    } else {
+        console.error('Mobile contact button or dropdown not found');
+    }
+
+    const mobileChaptersButton = document.getElementById('mobile-chapters-button');
+    const mobileChaptersDropdown = document.getElementById('mobile-chapters-dropdown');
+    if (mobileChaptersButton && mobileChaptersDropdown) {
+        mobileChaptersButton.addEventListener('click', function () {
+            mobileChaptersDropdown.classList.toggle('active');
+            mobileChaptersButton.querySelector('i').classList.toggle('ri-arrow-down-s-line');
+            mobileChaptersButton.querySelector('i').classList.toggle('ri-arrow-up-s-line');
+            console.log('Chapters dropdown toggled');
+        });
+    } else {
+        console.error('Mobile chapters button or dropdown not found');
+    }
+
+    const mobileFyiButton = document.getElementById('mobile-fyi-button');
+    const mobileFyiDropdown = document.getElementById('mobile-fyi-dropdown');
+    if (mobileFyiButton && mobileFyiDropdown) {
+        mobileFyiButton.addEventListener('click', function () {
+            mobileFyiDropdown.classList.toggle('active');
+            mobileFyiButton.querySelector('i').classList.toggle('ri-arrow-down-s-line');
+            mobileFyiButton.querySelector('i').classList.toggle('ri-arrow-up-s-line');
+            console.log('FYI dropdown toggled');
+        });
+    } else {
+        console.error('Mobile FYI button or dropdown not found');
+    }
+});
     </script>
 </body>
 
